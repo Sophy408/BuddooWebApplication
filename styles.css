@@ -1,40 +1,33 @@
-/* ===================== */
-/* 1. Reset und Basics   */
-/* ===================== */
+/* Root-Variablen für Farben */
+:root {
+  --color-primary: hsl(10, 100%, 75%);
+  --color-primary-hover: hsl(7, 100%, 68%);
+  --color-text-light: hsl(0, 0%, 100%);
+  --color-background-dark: hsl(0, 0%, 13%);
+  --color-background-light: hsl(0, 0%, 98%);
+}
 
+/* Universal-Selektor */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Georgia", Times, serif;
 }
 
-/* ===================== */
-/* 2. Hero Section Style */
-/* ===================== */
-
-/* ===================== */
-/* 1. Hero Section Style */
-/* ===================== */
-
-#hero-section {
-    height: 100vh;
-    background-image: url('https://cdn.dribbble.com/userupload/30758420/file/original-2cc884fefbe858d6872c0952484ef66c.gif');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgb(255, 255, 255);
-}
-
+/* Klassen-Selektor */
 .hero-content {
   max-width: 1000px;
   margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 .hero-content h1 {
-  font-size: 4rem;
+  font-size: 6rem;
   margin-bottom: 1rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -48,12 +41,80 @@
   text-align: center;
 }
 
-#start-btn {
-  background-color: #ff9580;
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s ease, transform 1s ease;
+  pointer-events: auto;
+}
+
+.hidden {
+  display: none !important;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* ID-Selektor */
+#hero-section {
+  height: 100vh;
+  background-image: url('https://cdn.dribbble.com/userupload/30758420/file/original-2cc884fefbe858d6872c0952484ef66c.gif');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+}
+
+#hero-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95); /* Mitte */
+}
+
+#hero-nav.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+#hero-nav button {
+  background-color: var(--color-primary);
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  color: white;
+  padding: 1rem 7rem;
+  font-size: 1.3rem;
+  color: var(--color-text-light);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#hero-nav button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+#start-btn {
+  background-color: var(--color-primary);
+  border: none;
+  padding: 1rem 4rem;
+  font-size: 1.2rem;
+  color: var(--color-text-light);
   border-radius: 50px;
   cursor: pointer;
   transition: background 0.3s ease;
@@ -61,5 +122,30 @@
 }
 
 #start-btn:hover {
-  background-color: #ff725e;
+  background-color: var(--color-primary-hover);
 }
+
+#nav-tasks,
+#nav-notes,
+#nav-focus,
+#nav-events {
+  background-color: var(--color-primary);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+}
+
+#nav-tasks:hover,
+#nav-notes:hover,
+#nav-focus:hover,
+#nav-events:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Media Queries */
+/* ... */
