@@ -116,7 +116,7 @@ window.addEventListener("DOMContentLoaded", () => {
             circle.style.strokeDashoffset = offset;
 
             const displayTime = Math.floor(newDuration * progress);
-            timerText.textContent = secondsToMMSS(displayTime);
+            timerText.textContent = '';
 
             if (progress < 1) {
                 animationFrameId = requestAnimationFrame(refillStep);
