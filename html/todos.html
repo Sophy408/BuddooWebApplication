@@ -4,65 +4,76 @@
     <meta charset="UTF-8">
     <title>Daily To-dos ✍️</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/toDo.css">
+    <link rel="stylesheet" href="../style/toDo.css">
 </head>
 <body>
     <header>
         <nav>
-            <img class="logo" src="../Images/ToDoListIcon.jpg" alt="You can do it!">
-            <div>
-                <ul>
-                    <a href="/html/index.html">Home</a>
-                    <a href="/html/notes.html">Notes</a>
-                    <a href="/html/focus.html">Focus</a>
-                    <a href="/html/events.html">Events</a>
-                </ul>
-            </div>
+            <ul>
+                <li><a href="/html/index.html">Home</a></li>
+                <li><a href="/html/notes.html">Notes</a></li>
+                <li><a href="/html/focus.html">Focus</a></li>
+                <li><a href="/html/events.html">Events</a></li>
+            </ul>
         </nav>
     </header>
-    <div class="todo-section" id="morning-todos">
-        <div class="header">
-            <h2>🌞 Morning</h2>
+    
+    <div class="main-container">
+        <!-- Left Column - To-do Lists -->
+        <div class="todo-column">
+            <!-- Morning To-do -->
+            <div class="todo-section" id="morning-todos">
+                <h2>🌞 Morning</h2>
+                <div class="toDoForm">
+                    <input type="text" class="input-item" placeholder="Morning tasks..." aria-label="Add morning task">
+                    <button class="input-button">Add</button>
+                </div>
+                <ul class="list-container"></ul>
+                <div class="counter-container">
+                    Completed: <span class="completed-counter">0</span> | 
+                    Pending: <span class="uncompleted-counter">0</span>
+                </div>
+            </div>
+            
+            <!-- Afternoon To-do -->
+            <div class="todo-section" id="afternoon-todos">
+                <h2>☀️ Afternoon</h2>
+                <div class="toDoForm">
+                    <input type="text" class="input-item" placeholder="Afternoon tasks..." aria-label="Add afternoon task">
+                    <button class="input-button">Add</button>
+                </div>
+                <ul class="list-container"></ul>
+                <div class="counter-container">
+                    Completed: <span class="completed-counter">0</span> | 
+                    Pending: <span class="uncompleted-counter">0</span>
+                </div>
+            </div>
+            
+            <!-- Evening To-do -->
+            <div class="todo-section" id="evening-todos">
+                <h2>🌙 Evening</h2>
+                <div class="toDoForm">
+                    <input type="text" class="input-item" placeholder="Evening tasks..." aria-label="Add evening task">
+                    <button class="input-button">Add</button>
+                </div>
+                <ul class="list-container"></ul>
+                <div class="counter-container">
+                    Completed: <span class="completed-counter">0</span> | 
+                    Pending: <span class="uncompleted-counter">0</span>
+                </div>
+            </div>
         </div>
-        <div class="toDoForm">
-            <input type="text" class="input-item" placeholder="Morning tasks...">
-            <button class="input-button">Add</button>
-        </div>
-        <ul class="list-container"></ul>
-        <div class="counter-container">
-            Completed: <span class="completed-counter">0</span> | 
-            Pending: <span class="uncompleted-counter">0</span>
+        
+        <!-- Right Column - Notes -->
+        <div class="notes-column">
+            <div class="notes-header">
+                <img src="../Images/ToDoListIcon.jpg" alt="Notes Icon" class="notes-icon">
+                <h2 class="notes-title">Notes</h2>
+            </div>
+            <textarea id="notes-textarea" class="notes-textarea" placeholder="Write your notes here..." aria-label="Notes textarea"></textarea>
+            <button id="save-notes-btn" class="save-notes-btn" aria-label="Save notes">Save Notes</button>
         </div>
     </div>
-    <div class="todo-section" id="afternoon-todos">
-        <div class="header">
-            <h2>☀️ Afternoon</h2>
-        </div>
-        <div class="toDoForm">
-            <input type="text" class="input-item" placeholder="Afternoon tasks...">
-            <button class="input-button">Add</button>
-        </div>
-        <ul class="list-container"></ul>
-        <div class="counter-container">
-            Completed: <span class="completed-counter">0</span> | 
-            Pending: <span class="uncompleted-counter">0</span>
-        </div>
-    </div>
-    <div class="todo-section" id="evening-todos">
-        <div class="header">
-            <h2>🌙 Evening</h2>
-        </div>
-        <div class="toDoForm">
-            <input type="text" class="input-item" placeholder="Evening tasks...">
-            <button class="input-button">Add</button>
-        </div>
-        <ul class="list-container"></ul>
-        <div class="counter-container">
-            Completed: <span class="completed-counter">0</span> | 
-            Pending: <span class="uncompleted-counter">0</span>
-        </div>
-    </div>
-
     <script src="../script/toDo.js"></script>
 </body>
 </html>

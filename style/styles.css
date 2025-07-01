@@ -1,3 +1,6 @@
+/* Add this at the VERY TOP of your CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@700&display=swap');
+
 /* Root-Variablen für Farben */
 :root {
   --color-primary: hsl(10, 100%, 75%);
@@ -12,7 +15,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Georgia", Times, serif;
+  font-family: 'Caveat', cursive; /* Changed from Georgia */
 }
 
 /* Klassen-Selektor */
@@ -29,18 +32,32 @@
 .hero-content h1 {
   font-size: 6rem;
   margin-bottom: 1rem;
-  font-weight: 600;
+  font-weight: 700; /* Made bolder to match handwriting */
   letter-spacing: 1px;
   text-align: center;
+  font-family: 'Dancing Script', cursive; /* Added for headings */
 }
 
 .hero-content p {
   font-size: 1.5rem;
   margin-bottom: 2rem;
-  font-weight: 300;
+  font-weight: 400;
   text-align: center;
 }
 
+/* Buttons - Updated font */
+#hero-nav button,
+#start-btn,
+#nav-tasks,
+#nav-notes,
+#nav-focus,
+#nav-events {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Rest of your existing CSS remains the same... */
 .fade-out {
   opacity: 0;
   transition: opacity 0.8s ease;
@@ -85,7 +102,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.95); /* Mitte */
+  transform: translate(-50%, -50%) scale(0.95);
 }
 
 #hero-nav.show {
@@ -146,6 +163,3 @@
 #nav-events:hover {
   background-color: var(--color-primary-hover);
 }
-
-/* Media Queries */
-/* ... */
