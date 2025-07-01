@@ -14,15 +14,43 @@
   <body>
     <header>
         <h1>
-            <nav>
-            <a href="/html/index.html">Home 💒</a>
-            </nav>
+           <nav>
+            <img class="logo" src="Images/ToDoListIcon.jpg"
+                alt="You can do it!">
+            <div>
+                <ul>
+                    <a href="/html/index.html">Home</a>
+                    <a href="/html/notes.html">Notes</a>
+                    <a href="/html/focus.html">Focus</a>
+                    <a href="/html/events.html">Events</a>
+                </ul>
+            </div>
+        </nav>
         </h1>
     </header>
-    <main>
-
+        <div id="Todaytd">
+            <div id = "header">
+                <h1>Today</h1>
+            </div>
+            <div id="toDoFormtd">
+                <input 
+                    type="text"
+                    class="input-item"
+                    name="input-box"
+                    id="input-box"
+                    placeholder="What are we doing today?"
+                    />
+                    <button id="input-button" onclick="addTask()">Add</button>
+            </div>
+            <ul id="list-container"></ul>
+            <hr />
+            <div class="counter-container">
+            </div id="task-counters">
+            Completed: <span id="completed-counter">0</span> | Uncompleted:
+            <span id="uncompleted-counter">0</span>
+            </div>
+        </div>
+        <script type="text/javascript" src="/script/toDo.js"></script>
     </main>
-
-    <script src="/script/script.js"></script>
   </body>
 </html>
