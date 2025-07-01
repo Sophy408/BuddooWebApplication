@@ -1,0 +1,39 @@
+:root {
+  --color-primary: hsl(10, 100%, 75%);
+  --color-primary-hover: hsl(7, 100%, 68%);
+  --color-text-light: hsl(0, 0%, 100%);
+  --color-background-dark: hsl(0, 0%, 13%);
+  --color-background-light: hsl(0, 0%, 98%);
+}
+
+.timer-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 20px auto;
+}
+
+.progress-ring {
+  transform: rotate(0deg);
+}
+
+.progress-ring__circle {
+  transform-origin: 50% 50%;
+  transform: rotate(-90deg) scaleY(-1);
+  transition: stroke-dashoffset 1s linear;
+}
+
+#timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#timer-text:hover {
+    color: #ffb3a8;
+}

@@ -27,16 +27,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Navigation zu Seiten
   document.getElementById("nav-tasks")?.addEventListener("click", () => {
-    window.location.href = "todos.html";
+    window.location.href = "/html/todos.html";
   });
   document.getElementById("nav-notes")?.addEventListener("click", () => {
-    window.location.href = "notes.html";
+    window.location.href = "/html/notes.html";
   });
   document.getElementById("nav-focus")?.addEventListener("click", () => {
-    window.location.href = "focus.html";
+    window.location.href = "/html/focus.html";
   });
   document.getElementById("nav-events")?.addEventListener("click", () => {
-    window.location.href = "events.html";
+    window.location.href = "/html/events.html";
   });
 
   // 🌙 Dark Mode
