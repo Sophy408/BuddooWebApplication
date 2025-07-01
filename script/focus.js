@@ -80,7 +80,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const percentRemaining = (timeLeft / timerDuration) * 100;
     setProgress(percentRemaining);
-    timerText.textContent = '';
+    timerText.textContent = secondsToMMSS(timeLeft);
 
     if (timeLeft === 0) {
         clearInterval(interval); // stop interval immediately
