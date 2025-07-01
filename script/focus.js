@@ -1,6 +1,7 @@
 "use strict";
 
 window.addEventListener("DOMContentLoaded", () => {
+
     const circle = document.querySelector('.progress-ring__circle');
     const timerText = document.getElementById('timer-text');
     const start = document.getElementById('start-timer');
@@ -12,13 +13,34 @@ window.addEventListener("DOMContentLoaded", () => {
     circle.style.strokeDasharray = circumference;
     circle.style.strokeDashoffset = circumference;
 
-    let timerDuration = 25 * 60; // Default 25 minutes
+    let timerDuration = 25 * 60;
     let timeLeft = timerDuration;
     let interval = null;
     let running = false;
     let targetTime = 0;
     let isRefilling = false;
     let animationFrameId = null;
+    let isFirstCycle = true;
+
+
+    const focusEndMessages = [
+    "Nice work! Deserve a break, don’t you think?",
+    "Focus complete! Time to let your neurons stretch.",
+    "Brain gains secured. Take five?",
+    "Well done! Your brain is sizzling hot. Cool it down?",
+    "Mission complete. Shall we commence chilling?",
+    "Time’s up, champ! Go romanticize your break."
+    ];
+
+    const breakEndMessages = [
+    "Break over! Back to brain-building!",
+    "Alright, genius, let’s get back to it.",
+    "Fun’s over. Time to impress your future self.",
+    "C’mon, sexy brain doesn’t build itself.",
+    "Back to the grind! But, like, the cool kind.",
+    "Unleash the productivity beast!"
+    ];
+
 
     timerText.addEventListener('click', () => {
         if (running || isRefilling) return;
@@ -65,8 +87,7 @@ window.addEventListener("DOMContentLoaded", () => {
     function setProgress(percentRemaining) {
         const offset = circumference * (1 - (percentRemaining / 100));
         circle.style.strokeDashoffset = offset;
-        circle.style.stroke = percentRemaining >= 50 ? 'green' :
-                              percentRemaining >= 20 ? 'yellow' : 'red';
+        circle.style.stroke = 'var(--color-primary)';
     }
 
     function updateDisplay() {
@@ -83,12 +104,11 @@ window.addEventListener("DOMContentLoaded", () => {
     timerText.textContent = secondsToMMSS(timeLeft);
 
     if (timeLeft === 0) {
-        clearInterval(interval); // stop interval immediately
+        clearInterval(interval);
         running = false;
         timerText.textContent = '00:00';
         setProgress(0);
 
-        // Wait exactly 1 second after reaching zero before calling onComplete
         setTimeout(() => {
             if (onComplete) onComplete();
         }, 1000);
@@ -102,10 +122,10 @@ window.addEventListener("DOMContentLoaded", () => {
         cancelAnimationFrame(animationFrameId);
 
         circle.style.strokeDashoffset = circumference;
-        circle.style.stroke = 'blue';
+        circle.style.stroke = 'var(--color-primary)';
 
         let startTime = null;
-        const duration = 1000; // 1 second
+        const duration = 1000;
 
         function refillStep(timestamp) {
             if (!startTime) startTime = timestamp;
@@ -115,8 +135,7 @@ window.addEventListener("DOMContentLoaded", () => {
             const offset = circumference * (1 - progress);
             circle.style.strokeDashoffset = offset;
 
-            const displayTime = Math.floor(newDuration * progress);
-            timerText.textContent = '';
+            timerText.textContent = ' ';
 
             if (progress < 1) {
                 animationFrameId = requestAnimationFrame(refillStep);
@@ -133,10 +152,28 @@ window.addEventListener("DOMContentLoaded", () => {
         animationFrameId = requestAnimationFrame(refillStep);
     }
 
-    function startFocusCycle(initialSeconds) {
-        runTimer(initialSeconds, 'green', () => {
+    function runTimer(seconds, color, onComplete) {
+        cancelAnimationFrame(animationFrameId);
+        clearInterval(interval);
+
+        timerDuration = seconds;
+        timeLeft = seconds;
+        circle.style.stroke = color;
+        setProgress(100);
+        updateDisplay();
+
+        setTimeout(() => {
+            targetTime = Math.floor(Date.now() / 1000) + seconds;
+            running = true;
+            interval = setInterval(() => checkTimer(onComplete), 500);
+        }, 200);
+    }    
+
+    function startFocusCycle(seconds) {
+        runTimer(seconds, 'green', () => {
             setTimeout(() => {
-                if (confirm("Focus session done! Ready for break?")) {
+                const message = focusEndMessages[Math.floor(Math.random() * focusEndMessages.length)];
+                if (confirm(message)) {
                     const breakTimeStr = promptForTime("Enter break duration (MM:SS):", "05:00");
                     if (breakTimeStr) {
                         const breakSeconds = convertTimeToSeconds(breakTimeStr);
@@ -154,7 +191,8 @@ window.addEventListener("DOMContentLoaded", () => {
     function startBreakCycle(breakSeconds) {
         runTimer(breakSeconds, 'blue', () => {
             setTimeout(() => {
-                if (confirm("Break over! Ready to focus?")) {
+                const message = breakEndMessages[Math.floor(Math.random() * breakEndMessages.length)];
+                if (confirm(message)) {
                     const focusTimeStr = promptForTime("Enter focus duration (MM:SS):", "25:00");
                     if (focusTimeStr) {
                         const focusSeconds = convertTimeToSeconds(focusTimeStr);
@@ -167,23 +205,6 @@ window.addEventListener("DOMContentLoaded", () => {
                 }
             }, 500);
         });
-    }
-
-    function runTimer(seconds, color, onComplete) {
-        cancelAnimationFrame(animationFrameId);
-        clearInterval(interval);
-
-        timerDuration = seconds;
-        timeLeft = seconds;
-        circle.style.stroke = color;
-        setProgress(100);
-        updateDisplay();
-
-        setTimeout(() => {
-            targetTime = Math.floor(Date.now() / 1000) + seconds + 1;
-            running = true;
-            interval = setInterval(() => checkTimer(onComplete), 500);
-        }, 200);
     }
 
     function stopTimer() {
@@ -205,7 +226,26 @@ window.addEventListener("DOMContentLoaded", () => {
 
     start.addEventListener('click', () => {
         if (!running && !isRefilling) {
-            startFocusCycle(timerDuration);
+            if (isFirstCycle) {
+                isFirstCycle = false;
+                runTimer(timerDuration, 'green', () => {
+                    setTimeout(() => {
+                        if (confirm("Focus session done! Ready for break?")) {
+                            const breakTimeStr = promptForTime("Enter break duration (MM:SS):", "05:00");
+                            if (breakTimeStr) {
+                                const breakSeconds = convertTimeToSeconds(breakTimeStr);
+                                if (breakSeconds !== null) {
+                                    animateRefill(breakSeconds, 'blue', () => {
+                                        startBreakCycle(breakSeconds);
+                                    });
+                                }
+                            }
+                        }
+                    }, 500);
+                });
+            } else {
+                startFocusCycle(timerDuration);
+            }
         }
     });
 
