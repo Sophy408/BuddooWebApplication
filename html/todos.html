@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>To-dos ✍️</title>
-        <link rel="stylesheet" href="/style/styles.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <header>
-            <h1>Your To-dos ✍️</h1>
-        </header>
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <title>Daily To-dos ✍️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/toDo.css">
+</head>
+<body>
     <header>
-        <h1>
-           <nav>
-            <img class="logo" src="Images/ToDoListIcon.jpg"
-                alt="You can do it!">
+        <nav>
+            <img class="logo" src="../Images/ToDoListIcon.jpg" alt="You can do it!">
             <div>
                 <ul>
                     <a href="/html/index.html">Home</a>
@@ -26,31 +19,50 @@
                 </ul>
             </div>
         </nav>
-        </h1>
     </header>
-        <div id="Todaytd">
-            <div id = "header">
-                <h1>Today</h1>
-            </div>
-            <div id="toDoFormtd">
-                <input 
-                    type="text"
-                    class="input-item"
-                    name="input-box"
-                    id="input-box"
-                    placeholder="What are we doing today?"
-                    />
-                    <button id="input-button" onclick="addTask()">Add</button>
-            </div>
-            <ul id="list-container"></ul>
-            <hr />
-            <div class="counter-container">
-            </div id="task-counters">
-            Completed: <span id="completed-counter">0</span> | Uncompleted:
-            <span id="uncompleted-counter">0</span>
-            </div>
+    <div class="todo-section" id="morning-todos">
+        <div class="header">
+            <h2>🌞 Morning</h2>
         </div>
-        <script type="text/javascript" src="/script/toDo.js"></script>
-    </main>
-  </body>
+        <div class="toDoForm">
+            <input type="text" class="input-item" placeholder="Morning tasks...">
+            <button class="input-button">Add</button>
+        </div>
+        <ul class="list-container"></ul>
+        <div class="counter-container">
+            Completed: <span class="completed-counter">0</span> | 
+            Pending: <span class="uncompleted-counter">0</span>
+        </div>
+    </div>
+    <div class="todo-section" id="afternoon-todos">
+        <div class="header">
+            <h2>☀️ Afternoon</h2>
+        </div>
+        <div class="toDoForm">
+            <input type="text" class="input-item" placeholder="Afternoon tasks...">
+            <button class="input-button">Add</button>
+        </div>
+        <ul class="list-container"></ul>
+        <div class="counter-container">
+            Completed: <span class="completed-counter">0</span> | 
+            Pending: <span class="uncompleted-counter">0</span>
+        </div>
+    </div>
+    <div class="todo-section" id="evening-todos">
+        <div class="header">
+            <h2>🌙 Evening</h2>
+        </div>
+        <div class="toDoForm">
+            <input type="text" class="input-item" placeholder="Evening tasks...">
+            <button class="input-button">Add</button>
+        </div>
+        <ul class="list-container"></ul>
+        <div class="counter-container">
+            Completed: <span class="completed-counter">0</span> | 
+            Pending: <span class="uncompleted-counter">0</span>
+        </div>
+    </div>
+
+    <script src="../script/toDo.js"></script>
+</body>
 </html>
