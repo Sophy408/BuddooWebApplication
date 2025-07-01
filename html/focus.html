@@ -3,20 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <title>Focus Timer 🕗</title>
-    <link rel="stylesheet" href="/style/styles.css" />
+    <link rel="stylesheet" href="/style/focus.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
     <header>
         <h1>Your Focus Timer 🕗</h1>
-            <nav>
+        <nav>
             <a href="/html/index.html">Home 💒</a>
-            </nav>
+        </nav>
     </header>
     <main>
-
+        <section id="focus-timer">
+          <h2>Focus Timer</h2>
+          <div class="timer-container">
+            <svg class="progress-ring" width="150" height="150">
+              <circle class="progress-ring__circle" stroke="green" stroke-width="10" fill="transparent" r="65" cx="75" cy="75"/>
+            </svg>
+            <div id="timer-text">25:00</div>
+          </div>
+          <button id="start-timer">Start</button>
+          <button id="stop-timer">Stop</button>
+          <button id="reset-timer">Reset</button>
+        </section>
     </main>
-
-    <script src="/script/script.js"></script>
+    <script src="/script/focus.js"></script>
   </body>
 </html>
