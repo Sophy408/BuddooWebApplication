@@ -1,7 +1,6 @@
 "use strict";
 
 window.addEventListener("DOMContentLoaded", () => {
-
     const circle = document.querySelector('.progress-ring__circle');
     const timerText = document.getElementById('timer-text');
     const start = document.getElementById('start-timer');
@@ -21,42 +20,27 @@ window.addEventListener("DOMContentLoaded", () => {
     let isRefilling = false;
     let animationFrameId = null;
     let isFirstCycle = true;
-
+    let currentMode = 'focus'; // 'focus' or 'break'
 
     const focusEndMessages = [
-    "Nice work! Deserve a break, don’t you think?",
-    "Focus complete! Time to let your neurons stretch.",
-    "Brain gains secured. Take five?",
-    "Well done! Your brain is sizzling hot. Cool it down?",
-    "Mission complete. Shall we commence chilling?",
-    "Time’s up, champ! Go romanticize your break."
+        "Nice work! Deserve a break, don't you think?",
+        "Focus complete! Time to let your neurons stretch.",
+        "Brain gains secured. Take five?",
+        "Well done! Your brain is sizzling hot. Cool it down?",
+        "Mission complete. Shall we commence chilling?",
+        "Time's up, champ! Go romanticize your break."
     ];
 
     const breakEndMessages = [
-    "Break over! Back to brain-building!",
-    "Alright, genius, let’s get back to it.",
-    "Fun’s over. Time to impress your future self.",
-    "C’mon, sexy brain doesn’t build itself.",
-    "Back to the grind! But, like, the cool kind.",
-    "Unleash the productivity beast!"
+        "Break over! Back to brain-building!",
+        "Alright, genius, let's get back to it.",
+        "Fun's over. Time to impress your future self.",
+        "C'mon, sexy brain doesn't build itself.",
+        "Back to the grind! But, like, the cool kind.",
+        "Unleash the productivity beast!"
     ];
 
-
-    timerText.addEventListener('click', () => {
-        if (running || isRefilling) return;
-
-        const currentTimeStr = secondsToMMSS(timeLeft);
-        const newTimeStr = promptForTime("Set focus duration (MM:SS):", currentTimeStr);
-        if (newTimeStr !== null) {
-            const newDuration = convertTimeToSeconds(newTimeStr);
-            if (newDuration !== null) {
-                timerDuration = newDuration;
-                timeLeft = timerDuration;
-                updateDisplay();
-            }
-        }
-    });
-
+    // Helper functions
     function secondsToMMSS(seconds) {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
@@ -87,7 +71,7 @@ window.addEventListener("DOMContentLoaded", () => {
     function setProgress(percentRemaining) {
         const offset = circumference * (1 - (percentRemaining / 100));
         circle.style.strokeDashoffset = offset;
-        circle.style.stroke = 'var(--color-primary)';
+        circle.style.stroke = currentMode === 'focus' ? 'var(--color-primary)' : 'var(--color-secondary)';
     }
 
     function updateDisplay() {
@@ -95,31 +79,37 @@ window.addEventListener("DOMContentLoaded", () => {
         setProgress((timeLeft / timerDuration) * 100);
     }
 
-    function checkTimer(onComplete) {
-    const now = Math.floor(Date.now() / 1000);
-    timeLeft = Math.max(0, targetTime - now);
-
-    const percentRemaining = (timeLeft / timerDuration) * 100;
-    setProgress(percentRemaining);
-    timerText.textContent = secondsToMMSS(timeLeft);
-
-    if (timeLeft === 0) {
-        clearInterval(interval);
-        running = false;
-        timerText.textContent = '00:00';
-        setProgress(0);
-
-        setTimeout(() => {
-            if (onComplete) onComplete();
-        }, 1000);
-    }
-}
-
-    function animateRefill(newDuration, finalColor, callback) {
-        isRefilling = true;
-        running = false;
+    function clearAllTimers() {
         clearInterval(interval);
         cancelAnimationFrame(animationFrameId);
+        interval = null;
+        animationFrameId = null;
+        running = false;
+        isRefilling = false;
+    }
+
+    function checkTimer(onComplete) {
+        const now = Math.floor(Date.now() / 1000);
+        timeLeft = Math.max(0, targetTime - now);
+
+        const percentRemaining = (timeLeft / timerDuration) * 100;
+        setProgress(percentRemaining);
+        timerText.textContent = secondsToMMSS(timeLeft);
+
+        if (timeLeft === 0) {
+            clearAllTimers();
+            timerText.textContent = '00:00';
+            setProgress(0);
+
+            setTimeout(() => {
+                if (onComplete) onComplete();
+            }, 1000);
+        }
+    }
+
+    function animateRefill(newDuration, finalColor, callback) {
+        clearAllTimers();
+        isRefilling = true;
 
         circle.style.strokeDashoffset = circumference;
         circle.style.stroke = 'var(--color-primary)';
@@ -152,9 +142,9 @@ window.addEventListener("DOMContentLoaded", () => {
         animationFrameId = requestAnimationFrame(refillStep);
     }
 
-    function runTimer(seconds, color, onComplete) {
-        cancelAnimationFrame(animationFrameId);
-        clearInterval(interval);
+    function runTimer(seconds, color, mode, onComplete) {
+        clearAllTimers();
+        currentMode = mode;
 
         timerDuration = seconds;
         timeLeft = seconds;
@@ -167,10 +157,10 @@ window.addEventListener("DOMContentLoaded", () => {
             running = true;
             interval = setInterval(() => checkTimer(onComplete), 500);
         }, 200);
-    }    
+    }
 
     function startFocusCycle(seconds) {
-        runTimer(seconds, 'green', () => {
+        runTimer(seconds, 'var(--color-primary)', 'focus', () => {
             setTimeout(() => {
                 const message = focusEndMessages[Math.floor(Math.random() * focusEndMessages.length)];
                 if (confirm(message)) {
@@ -178,7 +168,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     if (breakTimeStr) {
                         const breakSeconds = convertTimeToSeconds(breakTimeStr);
                         if (breakSeconds !== null) {
-                            animateRefill(breakSeconds, 'blue', () => {
+                            animateRefill(breakSeconds, 'var(--color-secondary)', () => {
                                 startBreakCycle(breakSeconds);
                             });
                         }
@@ -189,7 +179,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     function startBreakCycle(breakSeconds) {
-        runTimer(breakSeconds, 'blue', () => {
+        runTimer(breakSeconds, 'var(--color-secondary)', 'break', () => {
             setTimeout(() => {
                 const message = breakEndMessages[Math.floor(Math.random() * breakEndMessages.length)];
                 if (confirm(message)) {
@@ -197,7 +187,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     if (focusTimeStr) {
                         const focusSeconds = convertTimeToSeconds(focusTimeStr);
                         if (focusSeconds !== null) {
-                            animateRefill(focusSeconds, 'green', () => {
+                            animateRefill(focusSeconds, 'var(--color-primary)', () => {
                                 startFocusCycle(focusSeconds);
                             });
                         }
@@ -208,47 +198,94 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     function stopTimer() {
-        running = false;
-        clearInterval(interval);
-        cancelAnimationFrame(animationFrameId);
-        timeLeft = Math.max(0, targetTime - Math.floor(Date.now() / 1000));
+        if (running) {
+            const now = Math.floor(Date.now() / 1000);
+            timeLeft = Math.max(0, targetTime - now);
+        }
+        clearAllTimers();
         updateDisplay();
     }
 
     function resetTimer() {
-        stopTimer();
+        clearAllTimers();
         timeLeft = timerDuration;
+        isFirstCycle = true;
+        currentMode = 'focus';
         setProgress(100);
         updateDisplay();
     }
 
-    updateDisplay();
-
-    start.addEventListener('click', () => {
-        if (!running && !isRefilling) {
-            if (isFirstCycle) {
-                isFirstCycle = false;
-                runTimer(timerDuration, 'green', () => {
-                    setTimeout(() => {
-                        if (confirm("Focus session done! Ready for break?")) {
-                            const breakTimeStr = promptForTime("Enter break duration (MM:SS):", "05:00");
-                            if (breakTimeStr) {
-                                const breakSeconds = convertTimeToSeconds(breakTimeStr);
-                                if (breakSeconds !== null) {
-                                    animateRefill(breakSeconds, 'blue', () => {
-                                        startBreakCycle(breakSeconds);
-                                    });
-                                }
+    function resumeTimer() {
+        if (!running && !isRefilling && timeLeft > 0) {
+            targetTime = Math.floor(Date.now() / 1000) + timeLeft;
+            running = true;
+            interval = setInterval(() => checkTimer(() => {
+                if (isFirstCycle) {
+                    isFirstCycle = false;
+                    const message = focusEndMessages[Math.floor(Math.random() * focusEndMessages.length)];
+                    if (confirm(message)) {
+                        const breakTimeStr = promptForTime("Enter break duration (MM:SS):", "05:00");
+                        if (breakTimeStr) {
+                            const breakSeconds = convertTimeToSeconds(breakTimeStr);
+                            if (breakSeconds !== null) {
+                                animateRefill(breakSeconds, 'var(--color-secondary)', () => {
+                                    startBreakCycle(breakSeconds);
+                                });
                             }
                         }
-                    }, 500);
-                });
+                    }
+                } else {
+                    if (currentMode === 'focus') {
+                        startFocusCycle(timerDuration);
+                    } else {
+                        startBreakCycle(timerDuration);
+                    }
+                }
+            }), 500);
+        }
+    }
+
+    // Event listeners
+    timerText.addEventListener('click', () => {
+        if (running || isRefilling) return;
+
+        const currentTimeStr = secondsToMMSS(timeLeft);
+        const newTimeStr = promptForTime("Set focus duration (MM:SS):", currentTimeStr);
+        if (newTimeStr !== null) {
+            const newDuration = convertTimeToSeconds(newTimeStr);
+            if (newDuration !== null) {
+                timerDuration = newDuration;
+                timeLeft = timerDuration;
+                updateDisplay();
+            }
+        }
+    });
+
+    start.addEventListener('click', () => {
+        if (isRefilling) return;
+        
+        if (!running) {
+            if (timeLeft === timerDuration) {
+                // Starting fresh
+                if (isFirstCycle) {
+                    startFocusCycle(timerDuration);
+                } else {
+                    if (currentMode === 'focus') {
+                        startFocusCycle(timerDuration);
+                    } else {
+                        startBreakCycle(timerDuration);
+                    }
+                }
             } else {
-                startFocusCycle(timerDuration);
+                // Resuming from paused state
+                resumeTimer();
             }
         }
     });
 
     stop.addEventListener('click', stopTimer);
     reset.addEventListener('click', resetTimer);
+
+    // Initialize
+    updateDisplay();
 });
