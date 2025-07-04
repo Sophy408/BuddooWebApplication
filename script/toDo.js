@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.key === 'Enter') {
                 addTask(section, input, listContainer, completedCounter, uncompletedCounter);
             }
-        });
+        }); 
         
         // List container events
         listContainer.addEventListener('click', (e) => {

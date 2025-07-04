@@ -80,7 +80,7 @@
 /* ID-Selektor */
 #hero-section {
   height: 100vh;
-  background-image: url('https://cdn.dribbble.com/userupload/30758420/file/original-2cc884fefbe858d6872c0952484ef66c.gif');
+  background-image: url('/Images/Lofi.gif');
   background-size: cover;
   background-position: center;
   position: relative;
