@@ -1,22 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-/* Root colors */
+
 :root {
-  --color-primary: hsl(10, 100%, 75%);
-  --color-primary-hover: hsl(7, 100%, 68%);
-  --color-text-dark: hsl(0, 0%, 20%);
-  --color-background: hsl(19, 76%, 92%);
+  --color-text-dark: #2A3A44;
   --color-text-light: hsl(0, 0%, 98%);
-  --color-salmon: hsl(0, 100%, 70%);
+  --text-muted: #B0BEC5;
+  --dawn-blue: #5A6D78;
+  --pine-green: #2F3E3B;
+  --lighter-salmon: #f99c87;
+  --darker-salmon: #f46e55;
+  --mocha: #4A3A33;
+  --warm-orange: #FFBD7D;
+  --tech-blue: #3C4F57;
+  --mist-gray: #87999B;
   font-family: 'Bodoni Moda', cursive;
 }
 
-/* Body */
 body {
-  background-color: #ffb3a8;
-  background-image: linear-gradient(90deg, #ffb3a8 0%, #ff8e9e 55%, #ffa67d 100%);
+    background: 
+        linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
+        url('/Images/lofi.gif') center/cover fixed no-repeat;
 }
 
-/* Reset and base font */
 * {
   margin: 0;
   padding: 0;
@@ -26,15 +30,14 @@ body {
 
 /* Header styling */
 header {
-  width: 100%;
-  padding: 1rem 0;
+  padding: 0 2rem;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  text-align: center;
   position: relative;
   z-index: 1000;
+  width: 100%;
+  background-color: #f99c87;
 }
 
 h1 {
@@ -42,16 +45,18 @@ h1 {
   font-weight: 700;
   color: var(--color-text-light);
   letter-spacing: 1.5px;
+  margin: 0;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
 }
 
 /* Navigation styling */
 nav {
-  display: flex;
-  justify-content: center;
-  background-color:rgba(255,255,255,0.2);
-  backdrop-filter: blur(5px);
-  padding: 0.5rem;
-  width: 100%;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 1rem;
+  margin-left: auto;
 }
 
 .nav__link {
@@ -72,12 +77,9 @@ nav {
 header nav ul {
   display: flex;
   list-style: none;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0;
-  justify-content: center;
+  margin: 0;
   gap: clamp(1.5rem, 5vw, 5rem);
+  padding: 0;
 }
 
 .nav__link::after {
@@ -88,13 +90,13 @@ header nav ul {
   height: 3px;
   bottom: 2px;
   left: 0;
-  background-color: var(--color-salmon);
+  background-color: var(--pine-green);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
 
 .nav__link:hover {
-  color: var(--color-primary-hover);
+  color: var(--pine-green);
 }
 
 .nav__link:hover::after {
@@ -104,25 +106,25 @@ header nav ul {
 
 /* Timer styles */
 #focus-timer h2 {
-  font-size:1.7rem;
+  font-size:2.5rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
-  color: var(--color-text-dark);
+  margin: 1.5rem;
+  color: var(--color-text-light);
   text-align: center;
 }
 
 .set_timer {
   margin: 1.5rem 0;
   font-size: 1.3rem;
-  color: var(--color-text-dark);
+  color: var(--color-text-light);
   text-align: center;
   cursor: default;
 }
 
 .timer-container {
   position: relative;
-  width: 240px;
-  height: 240px;
+  width: 360px;
+  height: 360px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -156,12 +158,18 @@ header nav ul {
 }
 
 .progress-ring {
+  width: 360px;
+  height: 360px;
   transform: rotate(0deg);
 }
 
 .progress-ring__circle {
-  stroke: var(--color-salmon) !important;
-  stroke-width: 10;
+  stroke: var(--lighter-salmon) !important;
+  stroke-width: 12;
+  fill: transparent;
+  r: 170;
+  cx: 180;
+  cy: 180;
   fill: transparent;
   transform-origin: 50% 50%;
   transform: rotate(-90deg) scaleY(-1);
@@ -178,7 +186,7 @@ header nav ul {
 }
 
 button {
-  background-color: var(--color-salmon);
+  background-color: var(--lighter-salmon);
   border: none;
   padding: 0.8rem 2.5rem;
   font-size: 1.2rem;
@@ -191,8 +199,9 @@ button {
 }
 
 button:hover {
-  background-color: rgb(255, 90, 90);
-  box-shadow: 0 5px 15px rgba(150, 50, 50, 0.5);
+  background-color: var(--darker-salmon);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px var(--pine-green);
 }
 
 button:active {

@@ -7,8 +7,12 @@ window.addEventListener("DOMContentLoaded", () => {
     const stop = document.getElementById('stop-timer');
     const reset = document.getElementById('reset-timer');
 
-    const radius = circle.r.baseVal.value;
-    const circumference = 2 * Math.PI * radius + 1;
+    const radius = 170;
+    const circumference = 2 * Math.PI * radius;
+    
+    circle.setAttribute('r', radius);
+    circle.setAttribute('cx', '180');
+    circle.setAttribute('cy', '180');
     circle.style.strokeDasharray = circumference;
     circle.style.strokeDashoffset = circumference;
 
@@ -20,7 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
     let isRefilling = false;
     let animationFrameId = null;
     let isFirstCycle = true;
-    let currentMode = 'focus'; // 'focus' or 'break'
+    let currentMode = 'focus';
 
     const focusEndMessages = [
         "Nice work! Deserve a break, don't you think?",
