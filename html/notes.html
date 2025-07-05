@@ -19,58 +19,29 @@
             </ul>
         </nav>
     </header>
-    <form>
-        <textarea id="message"></textarea>
-        </fieldset>
-        <input type="submit">
-        <input type="reset">
-    </form> 
 
-    <div class="notes-grid">
-      <!-- Beispielnotiz -->
-      <div class="note-card">
-        <h3>Math</h3>
-        <p>Integrals, derivatives, and all that jazz...</p>
-      </div>
+ <div class="notes-wrapper"> <!--Container für alles-->  
+      <!-- 🟣 Sidebar -->
+      <aside class="sidebar"> <!--Zusätzlicher Bereich -->
+        <h2>Categories</h2>
+        <ul id="category-list"></ul> <!--Behälter für <li>-Einträge -->
+        <div class="new-category">
+          <input type="text" id="new-category-input" placeholder="Add new category..." />
+          <button id="add-category-btn">Add</button>
+        </div>
+      </aside>
 
-      <div class="note-card">
-        <h3>Info</h3>
-        <p>Zuul Project structure & UML notes</p>
-      </div>
-
-      <div class="note-card">
-        <h3>Personal</h3>
-        <p>Call mom. Don't forget the bananas!</p>
-      </div>
-
-      <!-- 🔵 Neue Notiz hinzufügen -->
-      <div class="note-card add-note">
+      <!-- 🟢 Main Notes Section -->
+      <main class="notes-main">
+        <h1>Your Notes 💻</h1>
+        <div class="notes-grid" id="notes-grid"></div> <!-- class = Layout, id = JS-Zugriff -->
         <button id="add-note-btn">+ Add Note</button>
-      </div>
+      </main>
     </div>
-  </main>
-
-  <!-- 🔴 Detailansicht (versteckt) -->
-  <div class="note-detail hidden">
-    <button class="back-btn">← Back</button>
-    <h2 class="note-title">Note Title</h2>
-    <textarea class="note-content" placeholder="Write your note here..."></textarea>
-    <button class="save-btn">Save</button>
-  </div>
 
 
-
-      <!-- Eingabefeld zum Erstellen neuer Kategorien -->
-      <div class="new-category">
-        <input type="text" id="new-category-input" placeholder="Add new category..." />
-        <button id="add-category-btn">Add</button>
-      </div>
-
-
-
-
-    </main>
-    <script src="../script/notes.js"></script>
+  
     <script src="/script/script.js"></script>
+    <script src="/script/notes.js"></script>
   </body>
 </html>
