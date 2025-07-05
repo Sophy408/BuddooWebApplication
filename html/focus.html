@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Focus Timer 🕗</title>
-    <link rel="stylesheet" href="/style/focus.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    <header>
-        <h1>Your Focus Timer 🕗</h1>
-        <nav>
-            <ul>
-                <li><a href="/html/index.html">Home</a></li>
-                <li><a href="/html/notes.html">Notes</a></li>
-                <li><a href="/html/focus.html">Focus</a></li>
-                <li><a href="/html/events.html">Events</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="focus-timer">
-          <h2>Focus Timer</h2>
-          <div class="timer-container">
-            <svg class="progress-ring" width="150" height="150">
-              <circle class="progress-ring__circle" stroke="green" stroke-width="10" fill="transparent" r="65" cx="75" cy="75"/>
-            </svg>
-            <div id="timer-text">25:00</div>
-          </div>
-          <button id="start-timer">Start</button>
-          <button id="stop-timer">Stop</button>
-          <button id="reset-timer">Reset</button>
-        </section>
-    </main>
-    <script src="/script/focus.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Timer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/style/focus.css">
+</head>
+<body>
+<header>
+  <h1>Focus Countdown</h1>
+    <nav class="nav">
+      <ul>
+        <li><a href="/html/index.html" class="nav__link">Home</a></li>
+        <li><a href="/html/todos.html" class="nav__link">Tasks</a></li>
+        <li><a href="/html/notes.html" class="nav__link">Notes</a></li>
+        <li><a href="/html/events.html" class="nav__link">Events</a></li>
+      </ul>
+    </nav>
+</header>
+
+  <main>
+    <section id="focus-timer">
+      <h2>Pomodoro timer</h2>
+      <div class="timer-container">
+        <svg class="progress-ring" width="240" height="240">
+          <circle class="progress-ring__circle" stroke-width="10" fill="transparent" r="110" cx="120" cy="120"/>
+        </svg>
+        <div id="timer-text">25:00</div>
+      </div>
+      <div class="set_timer">Tap on the timer to edit</div>
+      <div class="timer-buttons">
+        <button id="start-timer" title="Start"><i class="fas fa-play"></i></button>
+        <button id="stop-timer" title="Stop"><i class="fas fa-stop"></i></button>
+        <button id="reset-timer" title="Reset"><i class="fas fa-redo"></i></button>
+      </div>
+    </section>
+  </main>
+
+  <script src="/script/focus.js"></script>
+</body>
 </html>
+

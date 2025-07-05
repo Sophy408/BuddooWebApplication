@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.key === 'Enter') {
                 addTask(section, input, listContainer, completedCounter, uncompletedCounter);
             }
-        });
+        }); 
         
         // List container events
         listContainer.addEventListener('click', (e) => {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const taskText = input.value.trim();
         
         if (!taskText) {
-            alert('Please enter a task!');
+            alert('Don`t fool around, enter a task!');
             return;
         }
         

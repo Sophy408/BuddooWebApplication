@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Events 📅</title>
-    <link rel="stylesheet" href="/style/styles.css" />
+    <link rel="stylesheet" href="/style/events.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
@@ -11,7 +11,7 @@
         <h1> Your upcoming Events 📅</h1>
         <nav>
             <ul>
-                <li><a href="/html/index.html">Home</a></li>
+                <li><a href="/html/home.html">Home</a></li>
                 <li><a href="/html/notes.html">Notes</a></li>
                 <li><a href="/html/focus.html">Focus</a></li>
                 <li><a href="/html/events.html">Events</a></li>
@@ -19,9 +19,52 @@
         </nav>
     </header>
     <main>
-
+      <div class="main-container">
+        <div class="event-section">
+          <div class="todo-section" id="assigments-todo">
+            <h2>Assigments</h2>
+            <div class="assigments-Form">
+              <input type="text" class="input-item" placeholder="Assigments..." aria-label="Add Assigments">
+              <button class="input-button">Add</button>
+            </div>
+            <ul class="list-container"></ul>
+            <div class="counter-container">
+              Completed: <span class="completed-counter">0</span> | 
+              Pending: <span class="uncompleted-counter">0</span>
+            </div>
+          </div>
+          <div class="todo-section" id="exams-todos">
+            <h2>Exams</h2>
+            <div class="exams-Form">
+              <input type="text" class="input-item" placeholder="Exams..." aria-label="Add Exam">
+              <button class="input-button">Add</button>
+            </div>
+              <ul class="list-container"></ul>
+              <div class="counter-container">
+                Completed: <span class="completed-counter">0</span> | 
+                Pending: <span class="uncompleted-counter">0</span>
+              </div>
+            </div>
+            <div class="calendar">
+              <div class="header">
+              <button id="prev">←</button>
+              <h2 id="month-year">Monat Jahr</h2>
+              <button id="next">→</button>
+            </div>
+            <div class="weekdays">
+              <div>Mo</div>
+              <div>Di</div>
+              <div>Mi</div>
+              <div>Do</div>
+              <div>Fr</div>
+              <div>Sa</div>
+              <div>So</div>
+            </div>
+            <div class="days" id="days"></div>
+          </div>
+        </div>
+      </div>
     </main>
-
-    <script src="/script/script.js"></script>
+    <script src="/script/events.js"></script>
   </body>
 </html>

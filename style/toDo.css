@@ -1,442 +1,400 @@
+/* Base Styles & Variables */
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@700&display=swap');
 
-/* ============ BASE STYLES ============ */
+:root {
+    /* Color Palette */
+    --dawn-blue: #5A6D78;
+    --pine-green: #2F3E3B;
+    --lighter-salmon: #f99c87;
+    --darker-salmon: #f46e55;
+    --mocha: #4A3A33;
+    --warm-orange: #FFBD7D;
+    --tech-blue: #3C4F57;
+    --mist-gray: #87999B;
+
+    /* Backgrounds */
+    --card-bg: --#f46e55
+    --input-bg: rgba(255, 255, 255, 0.9);
+    
+    /* Text Colors */
+    --text: #FFFFFF;
+    --text-dark: #2A3A44;
+    --text-muted: #B0BEC5;
+    --placeholder: #87999B;
+    
+    /* UI Elements */
+    --primary: var(--tech-blue);
+    --secondary: var(--pine-green);
+    --accent: var(--fire-red);
+    --highlight: var(--mist-gray);
+    --shadow: rgba(0, 0, 0, 0.2);
+    --completed: rgba(181, 234, 215, 0.7);
+    --border-radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Caveat', cursive;
+}
+
 body {
-  font-family: 'Caveat', cursive;
-  margin: 0;
-  padding: 0;
-  background-color: #ffb3a8;
-  background-image: linear-gradient(90deg, #ffb3a8 0%, #ff8e9e 55%, #ffa67d 100%);
-  color: white;
-  min-height: 100vh;
+    background: 
+        linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
+        url('/Images/lofi.gif') center/cover fixed no-repeat;
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+    font-weight: 400;
 }
 
-/* ============ HEADER STYLES ============ */
-header nav {
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(5px);
-  padding: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+/* Header & Navigation */
+header {
+    background-color: var(--lighter-salmon);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    margin-bottom: 30px;
+    padding: 15px 0;
+    backdrop-filter: blur(8px);
 }
 
-header nav ul {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
-  justify-content: center;
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 30px;
 }
 
-header nav li {
-  padding: 0;
-  margin: 0;
+nav a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 700;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
 }
 
-header nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.3rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
+nav a:hover {
+    background-color: var(--darker-salmon);
+    color: var(--text);
 }
 
-header nav a:hover {
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
-}
-
-/* ============ MAIN LAYOUT ============ */
+/* Main Layout */
 .main-container {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  align-items: start;
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* ============ TO-DO LISTS SECTION ============ */
+/* Todo Sections */
 .todo-column {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .todo-section {
-  background-color: rgba(198, 80, 73, 0.7);
-  padding: 1.5rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: height 0.3s ease;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--text-dark);
+    backdrop-filter: blur(5px);
+}
+
+.todo-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .todo-section h2 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.2rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    font-family: 'Dancing Script', cursive;
 }
 
-.counter-container {
-  font-size: 1.2rem;
-  text-align: center;
-  margin-top: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* ============ NOTES SECTION ============ */
-.notes-column {
-  position: relative;
-  background-color: rgba(198, 80, 73, 0.7);
-  border-radius: 15px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  align-self: flex-start;
-}
-
-.notes-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.notes-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255,255,255,0.5);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  margin-top: -50px;
-  margin-bottom: 15px;
-  z-index: 1;
-}
-
-.notes-title {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.2rem;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-  margin: 0;
-  text-align: center;
-}
-
-.notes-textarea {
-  width: calc(100% - 2rem);
-  height: 300px;
-  padding: 1rem;
-  border-radius: 10px;
-  border: none;
-  background-color: rgba(160, 60, 60, 0.5);
-  color: white;
-  font-family: 'Caveat', cursive;
-  font-size: 1.3rem;
-  resize: none;
-  margin-bottom: 1rem;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: all 0.3s ease;
-}
-
-.notes-textarea:focus {
-  outline: none;
-  background-color: rgba(160, 60, 60, 0.6);
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
-}
-
-.notes-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.2rem;
-}
-
-/* ============ ENHANCED SAVE BUTTON ============ */
-.save-notes-btn {
-  width: calc(100% - 2rem);
-  padding: 0.8rem;
-  background: rgba(160, 60, 60, 0.7);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.8rem;
-  font-weight: 700;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-  position: relative;
-  overflow: hidden;
-  margin: 0 auto;
-  display: block;
-  border: 2px solid rgba(255,255,255,0.3);
-}
-
-.save-notes-btn:hover {
-  background: rgba(160, 60, 60, 0.9);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-}
-
-.save-notes-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-.save-notes-btn::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to bottom right,
-    rgba(255,255,255,0.3) 0%,
-    rgba(255,255,255,0) 60%
-  );
-  transform: rotate(30deg);
-  transition: all 0.5s ease;
-}
-
-.save-notes-btn:hover::before {
-  left: 100%;
-}
-
-.save-notes-btn::after {
-  content: '✓';
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%) scale(0);
-  transition: transform 0.3s ease;
-  font-size: 1.5rem;
-}
-
-.save-notes-btn.saved::after {
-  transform: translateY(-50%) scale(1);
-}
-
-/* ============ COMMON ELEMENTS ============ */
+/* Todo Form Elements */
 .toDoForm {
-  display: flex;
-  gap: 0.8rem;
-  margin-bottom: 1.5rem;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .input-item {
-  flex-grow: 1;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 10px;
-  background-color: rgba(160, 60, 60, 0.5);
-  color: white;
-  font-family: 'Caveat', cursive;
-  font-size: 1.2rem;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.input-item:focus {
-  outline: none;
-  background-color: rgba(160, 60, 60, 0.6);
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid var(--mist-gray);
+    border-radius: var(--border-radius);
+    font-size: 1.2rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: var(--mist-gray);
+    color: var(--text-dark);
+    font-family: 'Caveat', cursive;
 }
 
 .input-item::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+    color: var(--pine-green);
+    opacity: 0.8;
+}
+
+.input-item:focus {
+    border-color: var(--fire-red);
+    background-color: var(--mist-gray);
 }
 
 .input-button {
-  padding: 0 1.8rem;
-  background-color: rgba(160, 60, 60, 0.7);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-family: 'Caveat', cursive;
-  font-size: 1.3rem;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255,255,255,0.2);
+    background-color: var(--lighter-salmon);
+    color: var(--text);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0 25px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    font-family: 'Caveat', cursive;
+    box-shadow: 0 2px 5px rgba(255, 78, 58, 0.3);
 }
 
 .input-button:hover {
-  background-color: rgba(160, 60, 60, 0.9);
-  transform: translateY(-2px);
+    background-color: var(--darker-salmon);
+    transform: scale(1.05);
 }
 
-.input-button:active {
-  transform: translateY(1px);
-}
-
-/* ============ TASK LIST STYLES ============ */
+/* Todo List Items */
 .list-container {
-  padding: 0;
-  margin: 1.5rem 0;
-  min-height: 150px;
-  max-height: 400px;
-  overflow-y: auto;
-  transition: all 0.3s ease;
+    list-style: none;
+    margin-bottom: 15px;
 }
 
 .list-container li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background-color: rgba(160, 60, 60, 0.5);
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  font-size: 1.4rem;
-  border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: var(--text-dark);
+    margin-bottom: 8px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    border-left: 4px solid var(--mist-gray);
+    color: var(--text);
+    font-size: 1.3rem;
 }
 
 .list-container li:hover {
-  background-color: rgba(160, 60, 60, 0.7);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    background-color: var(--mist-gray);
+    border-left-color: var(--lighter-salmon);
 }
 
-.task-checkbox {
-  margin-right: 0.5rem;
-  transform: scale(1.3);
-  accent-color: #ff8e9e;
-  cursor: pointer;
+.list-container li:active {
+    transform: scale(0.98);
 }
 
-.task-text {
-  flex-grow: 1;
-  margin: 0 0.5rem;
+.list-container li.completed {
+    background-color: var(--completed);
+    text-decoration: line-through;
+    color: var(--text-muted);
+    border-left-color: var(--pine-green);
+    position: relative;
+    overflow: hidden;
 }
 
-.task-completed .task-text {
-  text-decoration: line-through;
-  opacity: 0.7;
+.list-container li.completed::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--text), transparent);
+    animation: shine 1.5s ease-in-out infinite;
 }
 
-.edit-btn, .delete-btn {
-  padding: 0.3rem;
-  margin-left: 0.5rem;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: transform 0.2s;
-  background: none;
-  border: none;
-  color: white;
+.list-container li::before {
+    content: "✓";
+    margin-right: 10px;
+    color: transparent;
+    font-weight: bold;
 }
 
-.edit-btn:hover, .delete-btn:hover {
-  transform: scale(1.2);
+.list-container li.completed::before {
+    color: var(--text);
 }
 
-/* ============ ANIMATIONS ============ */
-@keyframes fadeOut {
-  0% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.8); }
+/* Counters */
+.counter-container {
+    font-size: 1.1rem;
+    color: var(--text);
+    opacity: 0.8;
 }
 
-.task-completed {
-  animation: fadeOut 0.5s ease forwards;
-  pointer-events: none;
+.completed-counter {
+    color: var(--fire-red);
+    font-weight: bold;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+.uncompleted-counter {
+    color: var(--fire-red);
+    font-weight: bold;
 }
 
-.save-notes-btn.saved {
-  animation: pulse 0.5s ease;
-}
-
-/* ============ SCROLLBAR STYLES ============ */
-/* To-do lists scrollbar */
-.list-container::-webkit-scrollbar {
-  width: 8px;
-}
-
-.list-container::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
-}
-
-.list-container::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-  border-radius: 10px;
-}
-
-.list-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.5);
-}
-
-/* Notes textarea scrollbar */
-.notes-textarea::-webkit-scrollbar {
-  width: 8px;
-}
-
-.notes-textarea::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
-  margin: 5px;
-}
-
-.notes-textarea::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-  border-radius: 10px;
-}
-
-.notes-textarea::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.5);
-}
-
-/* ============ RESPONSIVE DESIGN ============ */
-@media (max-width: 1024px) {
-  .main-container {
-    grid-template-columns: 1fr;
-  }
-  .notes-column {
-    margin-top: 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .main-container {
-    padding: 1.5rem;
-    gap: 2rem;
-  }
-  
-  header nav ul {
+/* Notes Section */
+.notes-column {
+    flex: 1;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: 0 4px 15px var(--shadow);
+    display: flex;
     flex-direction: column;
-    gap: 1rem;
+    color: var(--text-dark);
+    backdrop-filter: blur(5px);
+}
+
+.notes-header {
+    display: flex;
     align-items: center;
-  }
-  
-  .notes-icon {
-    margin-top: -30px;
-    width: 60px;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.notes-icon {
+    width: 100px;
     height: 60px;
-  }
-  
-  .todo-section h2, .notes-title {
+    border-radius: 50%;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notes-title {
+    color: var(--text);
     font-size: 1.8rem;
-  }
-  
-  .save-notes-btn {
-    font-size: 1.5rem;
-  }
+    font-family: 'Dancing Script', cursive;
+}
+
+.notes-textarea {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid var(--pine-green);
+    border-radius: var(--border-radius);
+    resize: none;
+    outline: none;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    background-color: var(--mist-gray);
+    color: var(--text-dark);
+    font-family: 'Caveat', cursive;
+}
+
+.notes-textarea::placeholder {
+    color: var(--pine-green);
+    opacity: 0.8;
+}
+
+.notes-textarea:focus {
+    border-color: var(--lighter-salmon);
+    background-color: var(--mist-gray);
+}
+
+.save-notes-btn {
+    background-color: var(--lighter-salmon);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 12px 0;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    font-family: 'Caveat', cursive;
+    box-shadow: 0 2px 5px rgba(255, 78, 58, 0.3);
+}
+
+.save-notes-btn:hover {
+    background-color: var(--darker-salmon);
+    transform: scale(1.02);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.todo-section, .notes-column {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.todo-section:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.todo-section:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.notes-column {
+    animation-delay: 0.3s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    body {
+        background: 
+            linear-gradient(rgba(30, 42, 50, 0.9), rgba(30, 42, 50, 0.9)),
+            url('/Images/lofi.gif') center/cover fixed no-repeat;
+    }
+    
+    .todo-section, .notes-column {
+        backdrop-filter: blur(2px);
+    }
+}
+
+@media (max-width: 480px) {
+    .input-item, .notes-textarea {
+        font-size: 1.4rem;
+    }
+    
+    nav a {
+        padding: 10px 20px;
+    }
+    
+    .todo-section, .notes-column {
+        padding: 20px;
+    }
+    
+    .list-container li {
+        font-size: 1.4rem;
+        padding: 15px;
+    }
 }
