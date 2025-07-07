@@ -6,41 +6,65 @@
     <link rel="stylesheet" href="/style/styles.css" />
     <link rel="stylesheet" href="/style/notes.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- For PDF downloading -->
   </head>
+
   <body>
+   <div class="page-container">
     <header>
-        <h1>Your Notes 💻</h1>
-        <nav>
-            <ul>
-                <li><a href="/html/home.html">Home</a></li>
-                <li><a href="/html/notes.html">Notes</a></li>
-                <li><a href="/html/focus.html">Focus</a></li>
-                <li><a href="/html/events.html">Events</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="/html/home.html">Home</a></li>
+          <li><a href="/html/todos.html">Notes</a></li>
+          <li><a href="/html/focus.html">Focus</a></li>
+          <li><a href="/html/events.html">Events</a></li>
+        </ul>
+      </nav>
     </header>
 
- <div class="notes-wrapper"> <!--Container für alles-->  
+    <div class="notes-wrapper">
       <!-- 🟣 Sidebar -->
-      <aside class="sidebar"> <!--Zusätzlicher Bereich -->
-        <h2>Categories</h2>
-        <ul id="category-list"></ul> <!--Behälter für <li>-Einträge -->
+      <aside class="sidebar">
+        <h2>
+            <img src="\Images\category.png" alt="Category Icon" style="width: 20px; vertical-align: middle; margin-right: 8px;">
+            Categories
+        </h2>
+        <ul id="category-list"></ul>
+
         <div class="new-category">
-          <input type="text" id="new-category-input" placeholder="Add new category..." />
+          <input
+            type="text"
+            id="new-category-input"
+            placeholder="Add new category..."
+          />
           <button id="add-category-btn">Add</button>
         </div>
       </aside>
 
       <!-- 🟢 Main Notes Section -->
       <main class="notes-main">
-        <h1>Your Notes 💻</h1>
-        <div class="notes-grid" id="notes-grid"></div> <!-- class = Layout, id = JS-Zugriff -->
+        <h1>
+            <img src="\Images\writing.gif" alt="Category Icon" style="width: 150px; vertical-align: middle; margin-right: 10px;">
+            Your Notes
+        </h1>
+
+       <!-- maybe later extra style for pdf
+        <label for="pdf-style-select">PDF Style:</label>
+        <select id="pdf-style-select">
+          <option value="default">Default</option>
+          <option value="lined">Lined Style</option>
+          <option value="fancy">Fancy Style</option>
+        </select>
+        --> 
+
+        <div id="notes-grid"></div>
+
         <button id="add-note-btn">+ Add Note</button>
+
       </main>
     </div>
-
-
-  
+  </div> 
     <script src="/script/script.js"></script>
     <script src="/script/notes.js"></script>
   </body>
