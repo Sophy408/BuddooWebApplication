@@ -1,19 +1,65 @@
-body {
-  font-family: 'Caveat', cursive;
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(90deg, #ffb3a8 0%, #ff8e9e 55%, #ffa67d 100%);
-  color: #333;
-  min-height: 100vh;
+:root {
+  /* 🌿 Hauptfarben */
+  --pine-green: #2F3E3B;         /* Dunkler Hintergrund */
+  --dawn-blue: #5A6D78;          /* Karten- und Sidebar-Hintergrund */
+  --mist-gray: #87999B;          /* Platzhalter, helle Inputs */
+  --tech-blue: #3C4F57;          /* Optional für dunklere Elemente */
+
+  /* 🌞 Akzentfarben */
+  --warm-orange: #FFBD7D;        /* Buttons & Highlights */
+  --soft-orange: #ffc590;        /* Hover-Variante */
+
+  /* ☕ Neutrale Farben */
+  --white: #FFFFFF;
+  --dark-text: #2A3A44;
+  --muted-text: #B0BEC5;
+
+  /* 🌫 Schatten & Transparenz */
+  --shadow: rgba(0, 0, 0, 0.2);
+  --completed: rgba(181, 234, 215, 0.7);
+  --border-radius: 12px;
+
+  /* 🎨 Schriftarten */
+  --main-font: 'Caveat', cursive;
+  --heading-font: 'Dancing Script', cursive;
 }
+
+
+body {
+    background: 
+        linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
+        url('/Images/lofi.gif') center/cover fixed no-repeat;
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+    font-weight: 400;
+}
+
+body::-webkit-scrollbar {
+  width: 13px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #11212c;  /* Deine Farbe */
+  border-radius: 6px;
+  border: 2px solid #ccc;     /* Optional: border für clean look */
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
 
 /* ============ HEADER STYLES ============ */
 header nav {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0);
   backdrop-filter: blur(5px);
   padding: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
+
 }
+
 
 header nav ul {
   display: flex;
@@ -46,22 +92,40 @@ header nav a:hover {
 /* Layout */
 .notes-wrapper {
   display: flex;
-  height: 100vh;
+  flex-wrap: wrap;      /* 🆕 Damit es umbrechen kann */
+  gap: 20px;            /* 🆕 Schöner Abstand */
 }
 
 /* Sidebar */
 .sidebar {
+  margin-top: 20px;
   width: 250px;
-  background-color: #ffffff;
   padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
   display: flex;
   flex-direction: column;
+  height: 90vh;  /* Sidebar immer volle Bildschirmhöhe */
+  overflow-y: auto;  /* 🆕 Scrollbalken bei Überlauf */
+  backdrop-filter: blur(5px);
+  margin-right: 20px;  /* ➕ Abstand zur rechten Seite */
+
 }
 
 .sidebar h2 {
   margin-bottom: 15px;
+  color: white;
 }
+
+.sidebar::-webkit-scrollbar {
+  width: 13px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #11212c;
+  border-radius: 4px;
+  border: 2px solid rgb(186, 183, 183);
+}
+
 
 #category-list {
   list-style: none;
@@ -89,66 +153,95 @@ header nav a:hover {
 .new-category input {
   flex: 1;
   padding: 5px 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #1d587a;
   border-radius: 5px;
 }
 
 .new-category button {
-  background-color: #6c63ff;
+  background-color: #1d587a;
   color: white;
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 10px 15px;          /* 🆕 größer & runder */
+  font-size: 16px;             /* 🆕 größerer Text */
+  border-radius: 8px;          /* 🆕 weicher */
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+
+.new-category button:hover {
+  background-color: #4caf50;
+  transform: scale(1.05);
+}
 /* Main Notes Grid */
 .notes-main {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
+  margin-top: 20px
 }
 
 .notes-main h1 {
   font-size: 24px;
   margin-bottom: 20px;
+  color: white;
 }
+
+.notes-main::-webkit-scrollbar {
+  width: 13px;
+}
+
+.notes-main::-webkit-scrollbar-thumb {
+  background-color: #11212c;
+  border-radius: 4px;
+  border: 2px solid rgb(186, 183, 183);
+}
+
 
 #add-note-btn {
   margin-top: 20px;
   padding: 10px 15px;
   font-size: 16px;
-  background-color: #6c63ff;
+  background-color: #1d587a;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
 }
 
-.notes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+.note-editor {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-height: 150px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-image: repeating-linear-gradient(white, white 24px, #ddd 25px);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  overflow-y: auto;
+  line-height: 1.5;
 }
 
+
 .note-card {
-  background-color: white;
+  background-color: #1d587a4a;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 20px;  /* 🆕 Abstand nach unten */
 }
 
 .note-card textarea {
   width: 100%;
-  height: 100px;
-  resize: vertical;
-  padding: 8px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  box-sizing: border-box;  /* 🆘 Ganz wichtig! */
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--mist-gray);
 }
 
 .note-card select {
@@ -157,12 +250,66 @@ header nav a:hover {
   border: 1px solid #ccc;
 }
 
-.save-note-btn {
-  align-self: flex-end;
-  background-color: #6c63ff;
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1d587a4a;
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.delete-category-btn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.note-btn-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+
+.note-toolbar {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  gap: 5px;
+}
+
+.note-toolbar button {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.page-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.note-action-btn {
+  background-color: #1d587a;
   color: white;
   border: none;
-  padding: 6px 12px;
   border-radius: 5px;
+  padding: 6px 12px;       /* Einheitliches Padding */
+  font-size: 15px;         /* Einheitliche Schriftgröße */
   cursor: pointer;
+  min-width: 60px;         /* Alle gleich breit */
+  text-align: center;
+  transition: background-color 0.6s ease, transform 0.6s ease;
+}
+
+.save-note-btn.saved {
+  background-color: #4caf50;
+  transform: scale(1.03);       /* ➕ Nur minimal größer */
+  color: white;
 }
