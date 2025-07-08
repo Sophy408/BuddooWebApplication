@@ -1,6 +1,35 @@
 "use strict";
 
 window.addEventListener("DOMContentLoaded", () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mainNav = document.getElementById('main-nav');
+  
+    mobileMenu.addEventListener('click', () => {
+    mainNav.classList.toggle('active');
+    
+    // Change icon between bars and times
+    const icon = mobileMenu.querySelector('i');
+        if (mainNav.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+        } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+        }
+    });
+  
+    // Close menu when a nav link is clicked
+    document.querySelectorAll('.nav__link').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                mainNav.classList.remove('active');
+                const icon = mobileMenu.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    });
+
     const circle = document.querySelector('.progress-ring__circle');
     const timerText = document.getElementById('timer-text');
     const start = document.getElementById('start-timer');
