@@ -7,7 +7,7 @@
   --dawn-blue: #5A6D78;
   --pine-green: #2F3E3B;
   --lighter-salmon: #f99c87;
-  --darker-salmon: #f46e55;
+  --darker-salmon: #f47f6a;
   --mocha: #4A3A33;
   --warm-orange: #FFBD7D;
   --tech-blue: #3C4F57;
@@ -37,7 +37,7 @@ header {
   position: relative;
   z-index: 1000;
   width: 100%;
-  background-color: #f99c87;
+  background-color: var(--dawn-blue);
 }
 
 h1 {
@@ -90,13 +90,13 @@ header nav ul {
   height: 3px;
   bottom: 2px;
   left: 0;
-  background-color: var(--pine-green);
+  background-color: var(--text-muted);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
 
 .nav__link:hover {
-  color: var(--pine-green);
+  color: var(--text-muted);
 }
 
 .nav__link:hover::after {
@@ -154,7 +154,7 @@ header nav ul {
 }
 
 #timer-text:hover {
-  color: var(--color-text-dark);
+  color: var(--mist-gray);
 }
 
 .progress-ring {
@@ -164,7 +164,7 @@ header nav ul {
 }
 
 .progress-ring__circle {
-  stroke: var(--lighter-salmon) !important;
+  stroke: var(--dawn-blue) !important;
   stroke-width: 12;
   fill: transparent;
   r: 170;
@@ -186,22 +186,21 @@ header nav ul {
 }
 
 button {
-  background-color: var(--lighter-salmon);
+  background-color: var(--dawn-blue);
   border: none;
   padding: 0.8rem 2.5rem;
   font-size: 1.2rem;
   color: var(--color-text-light);
   border-radius: 50px;
   cursor: pointer;
-  box-shadow: 0 3px 8px rgba(160, 60, 60, 0.5);
+  box-shadow: 0 3px 8px rgba(90, 109, 120, 0.5);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   user-select: none;
 }
 
 button:hover {
-  background-color: var(--darker-salmon);
+  background-color: var(--tech-blue);
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px var(--pine-green);
 }
 
 button:active {
