@@ -1,24 +1,51 @@
-"use strict"
-// LocalStorage
+"use strict";
+
+// LocalStorage laden
 let categories = JSON.parse(localStorage.getItem('categories')) || ['Math', 'Info', 'Personal'];
 let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-// 📌 DOM-Elemente abrufen
+// 📌 DOM-Elemente
 const categoryList = document.getElementById('category-list');
 const categoryInput = document.getElementById('new-category-input');
 const addCategoryBtn = document.getElementById('add-category-btn');
 const notesGrid = document.getElementById('notes-grid');
 const addNoteBtn = document.getElementById('add-note-btn');
+const linedToggle = document.getElementById('lined-toggle');
 
-// 📂 Kategorien anzeigen (Sidebar)
+// Kategorien anzeigen
 function renderCategories() {
   categoryList.innerHTML = '';
   categories.forEach(cat => {
     const li = document.createElement('li');
+    li.classList.add('category-item');
+
     const btn = document.createElement('button');
     btn.classList.add('category-btn');
     btn.textContent = cat;
+
+    
+    // 🆕 Bearbeiten per Klick
+    btn.addEventListener('click', () => {
+      const newName = prompt("Edit category name:", cat);
+      if (newName && newName.trim() !== "" && !categories.includes(newName.trim())) {
+        const index = categories.indexOf(cat);
+        categories[index] = newName.trim();
+        localStorage.setItem('categories', JSON.stringify(categories));
+        renderCategories();
+        renderNotes();
+      }
+    });
+
+    const delBtn = document.createElement('button');
+    delBtn.innerHTML = '🗑️';
+    delBtn.classList.add('delete-category-btn');
+    delBtn.title = 'Delete category';
+    delBtn.addEventListener('click', () => {
+      deleteCategory(cat);
+    });
+
     li.appendChild(btn);
+    li.appendChild(delBtn);
     categoryList.appendChild(li);
   });
 }
@@ -34,28 +61,37 @@ addCategoryBtn.addEventListener('click', () => {
   }
 });
 
-// 💾 Notiz speichern (Text + Kategorie)
-function saveNote(index, newCategory, newText) {
-  notes[index] = { category: newCategory, text: newText };
+
+
+// Notiz speichern
+function saveNote(index, newCategory, newText, fontSize, isBold, isItalic) {
+  notes[index] = { 
+    category: newCategory, 
+    text: newText, 
+    fontSize: fontSize, 
+    isBold: isBold, 
+    isItalic: isItalic
+  };
   localStorage.setItem('notes', JSON.stringify(notes));
-  renderNotes();
 }
 
-// ➕ Neue leere Notiz hinzufügen
+
+// Neue Notiz hinzufügen
 addNoteBtn.addEventListener('click', () => {
   notes.push({ category: categories[0] || 'Uncategorized', text: '' });
   localStorage.setItem('notes', JSON.stringify(notes));
   renderNotes();
 });
 
-// 🗒️ Notizen anzeigen (mit Dropdown & Textarea)
+// Notizen anzeigen
 function renderNotes() {
   notesGrid.innerHTML = '';
+
   notes.forEach((note, index) => {
     const noteCard = document.createElement('div');
     noteCard.classList.add('note-card');
 
-    // Dropdown mit Kategorien    
+    // Kategorie Auswahl
     const select = document.createElement('select');
     categories.forEach(cat => {
       const option = document.createElement('option');
@@ -65,37 +101,128 @@ function renderNotes() {
       select.appendChild(option);
     });
 
+    // Formatierungs-Toolbar
+    const toolbar = document.createElement('div');
+    toolbar.classList.add('note-toolbar');
 
-    // Textfeld für Notiz
+    const boldBtn = document.createElement('button');
+    boldBtn.textContent = 'B';
+    boldBtn.addEventListener('click', () => {
+      textarea.style.fontWeight = textarea.style.fontWeight === 'bold' ? 'normal' : 'bold';
+    });
+
+    const italicBtn = document.createElement('button');
+    italicBtn.textContent = 'I';
+    italicBtn.addEventListener('click', () => {
+      textarea.style.fontStyle = textarea.style.fontStyle === 'italic' ? 'normal' : 'italic';
+    });
+
+    const fontSizeSelect = document.createElement('select');
+    ['12px', '14px', '16px', '18px', '20px'].forEach(size => {
+      const option = document.createElement('option');
+      option.value = size;
+      option.textContent = size;
+      fontSizeSelect.appendChild(option);
+    });
+
+    fontSizeSelect.addEventListener('change', () => {
+      textarea.style.fontSize = fontSizeSelect.value;
+    });
+
+    toolbar.appendChild(boldBtn);
+    toolbar.appendChild(italicBtn);
+    toolbar.appendChild(fontSizeSelect);
+    noteCard.appendChild(toolbar);
+
+    // Textarea
     const textarea = document.createElement('textarea');
     textarea.value = note.text;
+    textarea.style.backgroundImage = 'repeating-linear-gradient(white, white 24px, #ddd 25px)';  // 🆕 Immer liniert
+    textarea.style.fontSize = note.fontSize || '14px';
+    textarea.style.fontWeight = note.isBold ? 'bold' : 'normal';
+    textarea.style.fontStyle = note.isItalic ? 'italic' : 'normal';
 
-    // Speichern-Button
-    const saveBtn = document.createElement('button');
+
+    // Buttons
+    const btnContainer = document.createElement('div');
+    btnContainer.classList.add('note-btn-container');
+
+  const saveBtn = document.createElement('button');
     saveBtn.textContent = 'Save';
-    saveBtn.classList.add('save-note-btn');
-
-    // 🧠 Bei Klick neue Werte speichern
+    saveBtn.classList.add('note-action-btn','save-note-btn');
     saveBtn.addEventListener('click', () => {
       const selectedCat = select.value;
       const newText = textarea.value;
-      saveNote(index, selectedCat, newText);
+      const fontSize = textarea.style.fontSize || '14px';
+      const isBold = textarea.style.fontWeight === 'bold';
+      const isItalic = textarea.style.fontStyle === 'italic';
+
+  saveNote(index, selectedCat, newText, fontSize, isBold, isItalic);
+
+  // ➕ Button-Änderung
+  saveBtn.classList.add('saved');
+  saveBtn.textContent = '✅ Saved';
+
+  // ➕ Zurück nach 1,5 Sekunden
+  setTimeout(() => {
+    saveBtn.classList.remove('saved');
+    saveBtn.textContent = 'Save';
+  }, 2000);
+});
+
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = '🗑️';
+    deleteBtn.classList.add('note-action-btn','delete-note-btn');
+    deleteBtn.title = 'Delete note';
+    deleteBtn.addEventListener('click', () => {
+      deleteNote(index);
     });
 
-    // 🧱 Bausteine zusammensetzen
+    const downloadBtn = document.createElement('button');
+    downloadBtn.innerHTML = '⬇️';
+    downloadBtn.classList.add('note-action-btn','download-note-btn');
+    downloadBtn.title = 'Download PDF';
+    downloadBtn.addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const noteData = notes[index];
+      const fontSize = parseInt(noteData.fontSize) || 14;
+      doc.setFontSize(fontSize);
+
+      let fontStyle = 'normal';
+      if (noteData.isBold && noteData.isItalic) fontStyle = 'bolditalic';
+      else if (noteData.isBold) fontStyle = 'bold';
+      else if (noteData.isItalic) fontStyle = 'italic';
+
+      doc.setFont(undefined, fontStyle);
+
+      const noteContent = `Category: ${noteData.category}\n\n${noteData.text}`;
+      doc.text(noteContent, 10, 10);
+      doc.save(`Note_${index + 1}.pdf`);
+  });
+
+
+    btnContainer.appendChild(saveBtn);
+    btnContainer.appendChild(deleteBtn);
+    btnContainer.appendChild(downloadBtn);
+
+    // Alles zusammenbauen
     noteCard.appendChild(select);
     noteCard.appendChild(textarea);
-    noteCard.appendChild(saveBtn);
+    noteCard.appendChild(btnContainer);
     notesGrid.appendChild(noteCard);
   });
 }
 
+
+
+// Kategorie löschen
 function deleteCategory(categoryToDelete) {
-  // Filtert die Kategorie aus dem Array raus
   categories = categories.filter(cat => cat !== categoryToDelete);
   localStorage.setItem('categories', JSON.stringify(categories));
 
-  // Alle Notizen, die diese Kategorie hatten, auf 'Uncategorized' setzen
   notes = notes.map(note => {
     if (note.category === categoryToDelete) {
       return { ...note, category: 'Uncategorized' };
@@ -104,29 +231,17 @@ function deleteCategory(categoryToDelete) {
   });
   localStorage.setItem('notes', JSON.stringify(notes));
 
-  // UI neu laden
   renderCategories();
   renderNotes();
 }
 
+// Notiz löschen
 function deleteNote(indexToDelete) {
-  // Entfernt die Notiz an dieser Stelle
   notes.splice(indexToDelete, 1);
   localStorage.setItem('notes', JSON.stringify(notes));
-
-  // UI neu laden
   renderNotes();
 }
 
-const deleteBtn = document.createElement('button');
-deleteBtn.textContent = '🗑️';
-deleteBtn.classList.add('delete-note-btn');
-deleteBtn.addEventListener('click', () => {
-  deleteNote(index);
-});
-noteCard.appendChild(deleteBtn);
-
-
-// 🔁 Beim Start alles anzeigen
+// Initial render
 renderCategories();
 renderNotes();
