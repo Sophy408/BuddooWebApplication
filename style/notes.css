@@ -111,7 +111,7 @@ header nav a:hover {
 
 }
 
-.sidebar h2 {
+.sidebar h1 {
   margin-bottom: 15px;
   color: white;
 }
@@ -226,7 +226,7 @@ header nav a:hover {
 
 
 .note-card {
-  background-color: #1d587a4a;
+  background-color: #1e6d9ea1;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
