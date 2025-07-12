@@ -1,42 +1,36 @@
 /* Base Styles & Variables */
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
     /* Color Palette */
-    --dawn-blue: #5A6D78;
+    --dark-teal: #1E333C;
     --pine-green: #2F3E3B;
-    --lighter-salmon: #f99c87;
-    --darker-salmon: #f46e55;
-    --mocha: #4A3A33;
-    --warm-orange: #FFBD7D;
-    --tech-blue: #3C4F57;
+    --calm-teal: #39a195;
+    --ivy-green: #1d7b73;
     --mist-gray: #87999B;
 
     /* Backgrounds */
-    --card-bg: --#f46e55
-    --input-bg: rgba(255, 255, 255, 0.9);
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --input-bg: rgba(108, 152, 139, 0.9);
     
     /* Text Colors */
     --text: #FFFFFF;
-    --text-dark: #2A3A44;
+    --text-dark: #2a4443;
     --text-muted: #B0BEC5;
     --placeholder: #87999B;
     
     /* UI Elements */
-    --primary: var(--tech-blue);
-    --secondary: var(--pine-green);
-    --accent: var(--fire-red);
-    --highlight: var(--mist-gray);
     --shadow: rgba(0, 0, 0, 0.2);
     --completed: rgba(181, 234, 215, 0.7);
     --border-radius: 12px;
+    font-family: 'Bodoni Moda', cursive;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Caveat', cursive;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--color-text-light);
 }
 
 body {
@@ -45,12 +39,12 @@ body {
         url('/Images/lofi.gif') center/cover fixed no-repeat;
     color: var(--text);
     line-height: 1.6;
-    padding: 20px;
     min-height: 100vh;
     font-weight: 400;
 }
 
-/* Header & Navigation */
+
+/* Header styling */
 header {
   padding: 0 2rem;
   display: flex;
@@ -59,7 +53,7 @@ header {
   position: relative;
   z-index: 1000;
   width: 100%;
-  background-color: #f99c87;
+  background-color: var(--dark-teal);
 }
 
 h1 {
@@ -118,7 +112,7 @@ header nav ul {
 }
 
 .nav__link:hover {
-  color: var(--pine-green);
+  color: var(--calm-teal);
 }
 
 .nav__link:hover::after {
@@ -128,6 +122,7 @@ header nav ul {
 
 /* Main Layout */
 .main-container {
+    padding: 20px;
     display: flex;
     gap: 30px;
     max-width: 1200px;
@@ -164,7 +159,6 @@ header nav ul {
     align-items: center;
     gap: 10px;
     color: var(--text);
-    font-family: 'Dancing Script', cursive;
 }
 
 /* Todo Form Elements */
@@ -184,7 +178,6 @@ header nav ul {
     transition: all 0.3s ease;
     background-color: var(--mist-gray);
     color: var(--text-dark);
-    font-family: 'Caveat', cursive;
 }
 
 .input-item::placeholder {
@@ -193,12 +186,12 @@ header nav ul {
 }
 
 .input-item:focus {
-    border-color: var(--fire-red);
+    border-color: var(--dark-teal);
     background-color: var(--mist-gray);
 }
 
 .input-button {
-    background-color: var(--lighter-salmon);
+    background-color: var(--calm-teal);
     color: var(--text);
     border: none;
     border-radius: var(--border-radius);
@@ -207,12 +200,11 @@ header nav ul {
     font-weight: 700;
     transition: all 0.3s ease;
     font-size: 1.2rem;
-    font-family: 'Caveat', cursive;
-    box-shadow: 0 2px 5px rgba(255, 78, 58, 0.3);
+    box-shadow: 0 2px 5px var(--shadow);
 }
 
 .input-button:hover {
-    background-color: var(--darker-salmon);
+    background-color: var(--ivy-green);
     transform: scale(1.05);
 }
 
@@ -239,7 +231,7 @@ header nav ul {
 
 .list-container li:hover {
     background-color: var(--mist-gray);
-    border-left-color: var(--lighter-salmon);
+    border-left-color: var(--calm-teal);
 }
 
 .list-container li:active {
@@ -285,12 +277,12 @@ header nav ul {
 }
 
 .completed-counter {
-    color: var(--fire-red);
+    color: var(--calm-teal);
     font-weight: bold;
 }
 
 .uncompleted-counter {
-    color: var(--fire-red);
+    color: var(--calm-teal);
     font-weight: bold;
 }
 
@@ -299,7 +291,6 @@ header nav ul {
     flex: 1;
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
-    padding: 25px;
     box-shadow: 0 4px 15px var(--shadow);
     display: flex;
     flex-direction: column;
@@ -311,13 +302,13 @@ header nav ul {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 20px;
 }
 
 .notes-icon {
     width: 100px;
     height: 60px;
     border-radius: 50%;
+    margin: 20px;
     object-fit: cover;
     display: flex;
     align-items: center;
@@ -327,7 +318,6 @@ header nav ul {
 .notes-title {
     color: var(--text);
     font-size: 1.8rem;
-    font-family: 'Dancing Script', cursive;
 }
 
 .notes-textarea {
@@ -338,11 +328,10 @@ header nav ul {
     resize: none;
     outline: none;
     font-size: 1.2rem;
-    margin-bottom: 20px;
+    margin: 20px;
     transition: all 0.3s ease;
     background-color: var(--mist-gray);
     color: var(--text-dark);
-    font-family: 'Caveat', cursive;
 }
 
 .notes-textarea::placeholder {
@@ -351,26 +340,26 @@ header nav ul {
 }
 
 .notes-textarea:focus {
-    border-color: var(--lighter-salmon);
+    border-color: var(--border-radius);
     background-color: var(--mist-gray);
 }
 
 .save-notes-btn {
-    background-color: var(--lighter-salmon);
+    background-color: var(--calm-teal);
     color: white;
     border: none;
     border-radius: var(--border-radius);
     padding: 12px 0;
+    margin: 20px ;
     cursor: pointer;
     font-weight: 700;
     transition: all 0.3s ease;
     font-size: 1.2rem;
-    font-family: 'Caveat', cursive;
-    box-shadow: 0 2px 5px rgba(255, 78, 58, 0.3);
+    box-shadow: 0 2px 5px var(--shadow);
 }
 
 .save-notes-btn:hover {
-    background-color: var(--darker-salmon);
+    background-color: var(--ivy-green);
     transform: scale(1.02);
 }
 
