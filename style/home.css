@@ -3,8 +3,8 @@
 
 /* Root-Variablen für Farben */
 :root {
-  --color-primary: hsl(10, 100%, 75%);
-  --color-primary-hover: hsl(7, 100%, 68%);
+  --accent-green: rgba(60, 124, 84, 0.996);
+  --saved-green: #4caf50;
   --color-text-light: hsl(0, 0%, 100%);
   --color-background-dark: hsl(0, 0%, 13%);
   --color-background-light: hsl(0, 0%, 98%);
@@ -15,7 +15,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family:  'Caveat', cursive;
+  font-family:  Georgia, sans-serif;
 }
 
 /* Klassen-Selektor */
@@ -43,6 +43,7 @@
   margin-bottom: 2rem;
   font-weight: 400;
   text-align: center;
+  font-family:Georgia, sans-serif;
 }
 
 .footer-section {
@@ -69,8 +70,8 @@
 #nav-notes,
 #nav-focus,
 #nav-events {
-  font-family: 'Caveat', cursive;
-  font-weight: 700;
+  font-family: Georgia, sans-serif;
+  font-weight: 500;
   letter-spacing: 1px;
 }
 
@@ -129,7 +130,7 @@
 }
 
 #hero-nav button {
-  background-color: var(--color-primary);
+  background-color: var(--accent-green);
   border: none;
   padding: 1rem 7rem;
   font-size: 1.3rem;
@@ -140,11 +141,11 @@
 }
 
 #hero-nav button:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--saved-green);
 }
 
 #start-btn {
-  background-color: var(--color-primary);
+  background-color: var(--accent-green);
   border: none;
   padding: 1rem 4rem;
   font-size: 1.2rem;
@@ -156,14 +157,14 @@
 }
 
 #start-btn:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--saved-green);
 }
 
 #nav-tasks,
 #nav-notes,
 #nav-focus,
 #nav-events {
-  background-color: var(--color-primary);
+  background-color: var(--accent-green);
   border: none;
   padding: 1rem 2rem;
   font-size: 1.1rem;
@@ -178,5 +179,6 @@
 #nav-notes:hover,
 #nav-focus:hover,
 #nav-events:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--saved-green);
 }
+
