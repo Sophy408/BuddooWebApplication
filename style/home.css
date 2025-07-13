@@ -8,6 +8,10 @@
   --color-text-light: hsl(0, 0%, 100%);
   --color-background-dark: hsl(0, 0%, 13%);
   --color-background-light: hsl(0, 0%, 98%);
+  --calm-teal: #39a195;
+  --ivy-green: #1d7b73;
+  --shadow: rgba(0, 0, 0, 0.2);
+  font-family: 'Bodoni Moda', cursive;
 }
 
 /* Universal-Selektor */
