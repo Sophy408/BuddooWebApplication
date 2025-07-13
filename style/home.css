@@ -1,10 +1,8 @@
 /* Add this at the VERY TOP of your CSS file */
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 /* Root-Variablen für Farben */
 :root {
-  --accent-green: rgba(60, 124, 84, 0.996);
-  --saved-green: #4caf50;
   --color-text-light: hsl(0, 0%, 100%);
   --color-background-dark: hsl(0, 0%, 13%);
   --color-background-light: hsl(0, 0%, 98%);
@@ -39,7 +37,6 @@
   font-weight: 700; /* Made bolder to match handwriting */
   letter-spacing: 1px;
   text-align: center;
-  font-family: 'Dancing Script', cursive; /* Added for headings */
 }
 
 .hero-content p {
@@ -74,8 +71,7 @@
 #nav-notes,
 #nav-focus,
 #nav-events {
-  font-family: Georgia, sans-serif;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 1px;
 }
 
@@ -134,7 +130,7 @@
 }
 
 #hero-nav button {
-  background-color: var(--accent-green);
+  background-color: var(--calm-teal);
   border: none;
   padding: 1rem 7rem;
   font-size: 1.3rem;
@@ -142,14 +138,16 @@
   border-radius: 50px;
   cursor: pointer;
   transition: background 0.3s ease;
+  box-shadow: 0 2px 5px var(--shadow);
 }
 
 #hero-nav button:hover {
-  background-color: var(--saved-green);
+  background-color: var(--ivy-green);
+  box-shadow: 0 2px 5px var(--shadow);
 }
 
 #start-btn {
-  background-color: var(--accent-green);
+  background-color: var(--calm-teal);
   border: none;
   padding: 1rem 4rem;
   font-size: 1.2rem;
@@ -158,17 +156,19 @@
   cursor: pointer;
   transition: background 0.3s ease;
   text-align: center;
+  box-shadow: 0 2px 5px var(--shadow);
 }
 
 #start-btn:hover {
-  background-color: var(--saved-green);
+  background-color: var(--ivy-green);
+  box-shadow: 0 2px 5px var(--shadow);
 }
 
 #nav-tasks,
 #nav-notes,
 #nav-focus,
 #nav-events {
-  background-color: var(--accent-green);
+  background-color: var(--calm-teal);
   border: none;
   padding: 1rem 2rem;
   font-size: 1.1rem;
@@ -177,12 +177,13 @@
   cursor: pointer;
   transition: background 0.3s ease;
   text-align: center;
+  box-shadow: 0 2px 5px var(--shadow);
 }
 
 #nav-tasks:hover,
 #nav-notes:hover,
 #nav-focus:hover,
 #nav-events:hover {
-  background-color: var(--saved-green);
+  background-color: var(--ivy-green);
+  box-shadow: 0 2px 5px var(--shadow);
 }
-
