@@ -74,48 +74,61 @@ function editEntry(type, id, newTitle, newDate) {
 }
 
 function renderEntries() {
-    const render = (list, ul, type) => {
-        ul.innerHTML = '';
-        let completed = 0;
-        list.forEach(item => {
-            const li = document.createElement('li');
+    const assignmentsList = document.getElementById('assignments-list');
+    const examsList = document.getElementById('exams-list');
+    if (!assignmentsList || !examsList) return;
 
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.checked = item.completed;
-            checkbox.addEventListener('change', () => toggleCompletion(type, item.id));
+    assignmentsList.innerHTML = '';
+    examsList.innerHTML = '';
 
-            const span = document.createElement('span');
-            span.textContent = ` ${item.title} – ${item.date}`;
+    function createEntryItem(item, type) {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span class="entry-title">${item.title} – ${item.date}</span>
+            <span class="edit-btn" title="Bearbeiten">✏️</span>
+            <span class="delete-btn" title="Löschen">🗑️</span>
+        `;
 
-            const editBtn = document.createElement('button');
-            editBtn.textContent = '✏️';
-            editBtn.addEventListener('click', () => {
-                const newTitle = prompt('New title:', item.title);
-                const newDate = prompt('New date (YYYY-MM-DD):', item.date);
-                if (newTitle && newDate) editEntry(type, item.id, newTitle, newDate);
-            });
-
-            const delBtn = document.createElement('button');
-            delBtn.textContent = '🗑️';
-            delBtn.addEventListener('click', () => deleteEntry(type, item.id));
-
-            li.appendChild(checkbox);
-            li.appendChild(span);
-            li.appendChild(editBtn);
-            li.appendChild(delBtn);
-            ul.appendChild(li);
-
-            if (item.completed) completed++;
+        // ✏️ Bearbeiten
+        li.querySelector('.edit-btn').addEventListener('click', () => {
+            const newTitle = prompt('Titel bearbeiten:', item.title);
+            const newDate = prompt('Datum bearbeiten (YYYY-MM-DD):', item.date);
+            if (newTitle && newDate) {
+                item.title = newTitle.trim();
+                item.date = newDate.trim();
+                saveData();
+                renderEntries();
+                renderCalendar(); // Kalender auch aktualisieren
+            }
         });
-        const counterContainer = ul.parentElement.querySelector('.counter-container');
-        counterContainer.querySelector('.completed-counter').textContent = completed;
-        counterContainer.querySelector('.uncompleted-counter').textContent = list.length - completed;
-    };
 
-    render(data.assignments, document.getElementById('assignments-list'), 'assignment');
-    render(data.exams, document.getElementById('exams-list'), 'exam');
+        // 🗑️ Löschen
+        li.querySelector('.delete-btn').addEventListener('click', () => {
+            if (confirm('Eintrag wirklich löschen?')) {
+                if (type === 'assignment') {
+                    data.assignments = data.assignments.filter(e => e.id !== item.id);
+                } else if (type === 'exam') {
+                    data.exams = data.exams.filter(e => e.id !== item.id);
+                }
+                data.calendarEvents = data.calendarEvents.filter(e => e.id !== item.id);
+                saveData();
+                renderEntries();
+                renderCalendar();
+            }
+        });
+
+        return li;
+    }
+
+    data.assignments.forEach(item => {
+        assignmentsList.appendChild(createEntryItem(item, 'assignment'));
+    });
+
+    data.exams.forEach(item => {
+        examsList.appendChild(createEntryItem(item, 'exam'));
+    });
 }
+
 
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
