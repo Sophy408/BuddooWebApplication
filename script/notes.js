@@ -4,6 +4,23 @@
 let categories = JSON.parse(localStorage.getItem('categories')) || ['Math', 'Info', 'Personal'];
 let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
+// ✅ Default Category & Default Note nur wenn nichts da ist
+if (categories.length === 0) {
+  categories.push('Click here to create your first Category🍃');
+  localStorage.setItem('categories', JSON.stringify(categories));
+}
+
+if (notes.length === 0) {
+  notes.push({
+    category: 'General',
+    text: '',
+    fontSize: '14px',
+    isBold: false,
+    isItalic: false
+  });
+  localStorage.setItem('notes', JSON.stringify(notes));
+}
+
 // 📌 DOM-Elemente
 const categoryList = document.getElementById('category-list');
 const categoryInput = document.getElementById('new-category-input');
@@ -78,7 +95,7 @@ function saveNote(index, newCategory, newText, fontSize, isBold, isItalic) {
 
 // Neue Notiz hinzufügen
 addNoteBtn.addEventListener('click', () => {
-  notes.push({ category: categories[0] || 'Uncategorized', text: '' });
+notes.push({ category: '', text: '' });
   localStorage.setItem('notes', JSON.stringify(notes));
   renderNotes();
 });
@@ -93,13 +110,21 @@ function renderNotes() {
 
     // Kategorie Auswahl
     const select = document.createElement('select');
-    categories.forEach(cat => {
-      const option = document.createElement('option');
-      option.value = cat;
-      option.textContent = cat;
-      if (cat === note.category) option.selected = true;
-      select.appendChild(option);
-    });
+    
+    // 1️⃣ Placeholder-Option
+      const placeholderOption = document.createElement('option');
+      placeholderOption.textContent = 'Choose Your Category';
+      placeholderOption.disabled = true;
+      placeholderOption.selected = true;
+      select.appendChild(placeholderOption);
+
+// 2️⃣ Deine Kategorien dynamisch hinzufügen
+categories.forEach(cat => {
+  const option = document.createElement('option');
+  option.value = cat;
+  option.textContent = cat;
+  select.appendChild(option);
+});
 
     // Formatierungs-Toolbar
     const toolbar = document.createElement('div');

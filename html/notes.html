@@ -16,7 +16,7 @@
       <nav>
         <ul>
           <li><a href="/html/home.html">Home</a></li>
-          <li><a href="/html/todos.html">Notes</a></li>
+          <li><a href="/html/todos.html">Tasks</a></li>
           <li><a href="/html/focus.html">Focus</a></li>
           <li><a href="/html/events.html">Events</a></li>
         </ul>
@@ -26,17 +26,17 @@
     <div class="notes-wrapper">
       <!-- 🟣 Sidebar -->
       <aside class="sidebar">
-        <h2>
+        <h1 class="headings">
             <img src="\Images\category.png" alt="Category Icon" style="width: 20px; vertical-align: middle; margin-right: 8px;">
             Categories
-        </h2>
+        </h1>
         <ul id="category-list"></ul>
 
         <div class="new-category">
           <input
             type="text"
             id="new-category-input"
-            placeholder="Add new category..."
+            placeholder="New category for Notes..."
           />
           <button id="add-category-btn">Add</button>
         </div>
@@ -44,7 +44,7 @@
 
       <!-- 🟢 Main Notes Section -->
       <main class="notes-main">
-        <h1>
+        <h1 class="headings">
             <img src="\Images\writing.gif" alt="Category Icon" style="width: 150px; vertical-align: middle; margin-right: 10px;">
             Your Notes
         </h1>

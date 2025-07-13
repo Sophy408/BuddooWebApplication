@@ -1,29 +1,17 @@
 :root {
   /* 🌿 Hauptfarben */
-  --pine-green: #2F3E3B;         /* Dunkler Hintergrund */
-  --dawn-blue: #5A6D78;          /* Karten- und Sidebar-Hintergrund */
-  --mist-gray: #87999B;          /* Platzhalter, helle Inputs */
-  --tech-blue: #3C4F57;          /* Optional für dunklere Elemente */
+  --accent-green: rgba(60, 124, 84, 0.996);
+  --saved-green: #4caf50;
+  --button-color: rgba(1, 74, 42, 0.543);
+  --color-text-light: rgb(250, 250, 250);
 
-  /* 🌞 Akzentfarben */
-  --warm-orange: #FFBD7D;        /* Buttons & Highlights */
-  --soft-orange: #ffc590;        /* Hover-Variante */
-
-  /* ☕ Neutrale Farben */
-  --white: #FFFFFF;
-  --dark-text: #2A3A44;
-  --muted-text: #B0BEC5;
-
-  /* 🌫 Schatten & Transparenz */
-  --shadow: rgba(0, 0, 0, 0.2);
-  --completed: rgba(181, 234, 215, 0.7);
-  --border-radius: 12px;
-
-  /* 🎨 Schriftarten */
-  --main-font: 'Caveat', cursive;
-  --heading-font: 'Dancing Script', cursive;
+  /* Font */
+  --font-family: 'Bodoni Moda', cursive;
 }
 
+*{
+  font-family: Georgia, sans-serif;
+}
 
 body {
     background: 
@@ -52,14 +40,14 @@ body::-webkit-scrollbar-track {
 
 
 /* ============ HEADER STYLES ============ */
+/* ============ HEADER STYLES ============ */
 header nav {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: var(--accent-green);
   backdrop-filter: blur(5px);
   padding: 1.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
-
+  border-radius: 10px;  /* Optional: macht's softer */
 }
-
 
 header nav ul {
   display: flex;
@@ -76,18 +64,40 @@ header nav li {
 }
 
 header nav a {
-  color: white;
+  position: relative;  
+  color: var(--color-text-light);
   text-decoration: none;
   font-weight: 700;
   font-size: 1.3rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+header nav a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;                                
+  bottom: 0;                                  
+  left: 0;
+  background-color: var(--color-text-light);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
 }
 
 header nav a:hover {
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   transform: translateY(-2px);
+  color: var(--color-text-light);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);   /* 🆕 Stärkerer Schatten */
 }
+
+header nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+
 
 /* Layout */
 .notes-wrapper {
@@ -111,9 +121,20 @@ header nav a:hover {
 
 }
 
-.sidebar h2 {
-  margin-bottom: 15px;
-  color: white;
+h1.headings {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;         /* Hier kannst du die Größe ändern */
+  font-weight: 700;
+  color: var(--color-text-light);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent-green);
+  padding-left: 12px;
+  margin-bottom: 30px;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -158,8 +179,8 @@ header nav a:hover {
 }
 
 .new-category button {
-  background-color: #1d587a;
-  color: white;
+  background-color: var(--button-color);
+  color: var(--color-text-light);
   border: none;
   padding: 10px 15px;          /* 🆕 größer & runder */
   font-size: 16px;             /* 🆕 größerer Text */
@@ -170,9 +191,10 @@ header nav a:hover {
 
 
 .new-category button:hover {
-  background-color: #4caf50;
+  background-color: var(--saved-green);
   transform: scale(1.05);
 }
+
 /* Main Notes Grid */
 .notes-main {
   flex: 1;
@@ -186,7 +208,7 @@ header nav a:hover {
 .notes-main h1 {
   font-size: 24px;
   margin-bottom: 20px;
-  color: white;
+  color: var(--color-text-light);
 }
 
 .notes-main::-webkit-scrollbar {
@@ -204,11 +226,18 @@ header nav a:hover {
   margin-top: 20px;
   padding: 10px 15px;
   font-size: 16px;
-  background-color: #1d587a;
-  color: white;
+  background-color: var(--button-color);
+  color: var(--color-text-light);
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+}
+
+#add-note-btn:hover {
+  background-color: var(--saved-green);
+  transform: scale(1.05);
 }
 
 .note-editor {
@@ -226,7 +255,7 @@ header nav a:hover {
 
 
 .note-card {
-  background-color: #1d587a4a;
+  background-color: var(--accent-green);
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -255,7 +284,7 @@ header nav a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1d587a4a;
+  background-color: var(--accent-green);
   padding: 8px;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -267,6 +296,12 @@ header nav a:hover {
   font-size: 14px;
   cursor: pointer;
   margin-left: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.delete-category-btn:hover {
+  background-color: var(--saved-green);
+  transform: scale(1.05);
 }
 
 .note-btn-container {
@@ -287,6 +322,9 @@ header nav a:hover {
 .note-toolbar button {
   padding: 4px 8px;
   cursor: pointer;
+  background-color: var(--button-color);
+  color: var(--color-text-light);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .page-container {
@@ -296,8 +334,8 @@ header nav a:hover {
 }
 
 .note-action-btn {
-  background-color: #1d587a;
-  color: white;
+  background-color: var(--button-color);
+  color: var(--color-text-light);
   border: none;
   border-radius: 5px;
   padding: 6px 12px;       /* Einheitliches Padding */
@@ -309,7 +347,14 @@ header nav a:hover {
 }
 
 .save-note-btn.saved {
-  background-color: #4caf50;
+  background-color: var(--saved-green);
   transform: scale(1.03);       /* ➕ Nur minimal größer */
-  color: white;
+  color: var(--color-text-light);
 }
+
+select:invalid {
+  color: gray;
+}
+
+.notes-main h1.headings {
+  font-size: 40px !important;}
