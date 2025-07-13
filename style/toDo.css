@@ -106,7 +106,7 @@ header nav ul {
   height: 3px;
   bottom: 2px;
   left: 0;
-  background-color: var(--pine-green);
+  background-color: var(--calm-teal);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
@@ -218,7 +218,7 @@ header nav ul {
     display: flex;
     align-items: center;
     padding: 12px 15px;
-    background-color: var(--text-dark);
+    background-color: var(--dark-teal);
     margin-bottom: 8px;
     border-radius: var(--border-radius);
     cursor: pointer;
@@ -230,8 +230,8 @@ header nav ul {
 }
 
 .list-container li:hover {
-    background-color: var(--mist-gray);
-    border-left-color: var(--calm-teal);
+    background-color: var(--calm-teal);
+    border-left-color: var(--ivy-green);
 }
 
 .list-container li:active {
