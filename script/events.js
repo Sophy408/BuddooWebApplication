@@ -1,7 +1,7 @@
 // 🔁 Datenstruktur
 const data = {
     assignments: [],
-    exams: [],
+    appointments: [],
     calendarEvents: []
 };
 
@@ -10,7 +10,7 @@ function loadData() {
     if (stored) {
         const parsed = JSON.parse(stored);
         data.assignments = parsed.assignments || [];
-        data.exams = parsed.exams || [];
+        data.appointments = parsed.appointments || [];
         data.calendarEvents = parsed.calendarEvents || [];
     }
 }
@@ -29,7 +29,7 @@ function addEntry(type, title, date) {
     };
 
     if (type === 'assignment') data.assignments.push(entry);
-    if (type === 'exam') data.exams.push(entry);
+    if (type === 'appointment') data.appointments.push(entry);
 
     data.calendarEvents.push(entry);
     saveData();
@@ -38,7 +38,7 @@ function addEntry(type, title, date) {
 }
 
 function toggleCompletion(type, id) {
-    const list = type === 'assignment' ? data.assignments : data.exams;
+    const list = type === 'assignment' ? data.assignments : data.appointments;
     const entry = list.find(e => e.id === id);
     if (entry) {
         entry.completed = !entry.completed;
@@ -49,7 +49,7 @@ function toggleCompletion(type, id) {
 
 function deleteEntry(type, id) {
     data.assignments = data.assignments.filter(e => !(type === 'assignment' && e.id === id));
-    data.exams = data.exams.filter(e => !(type === 'exam' && e.id === id));
+    data.appointments = data.appointments.filter(e => !(type === 'appointment' && e.id === id));
     data.calendarEvents = data.calendarEvents.filter(e => e.id !== id);
     saveData();
     renderEntries();
@@ -57,7 +57,7 @@ function deleteEntry(type, id) {
 }
 
 function editEntry(type, id, newTitle, newDate) {
-    const list = type === 'assignment' ? data.assignments : data.exams;
+    const list = type === 'assignment' ? data.assignments : data.appointments;
     const entry = list.find(e => e.id === id);
     if (entry) {
         entry.title = newTitle;
@@ -75,21 +75,49 @@ function editEntry(type, id, newTitle, newDate) {
 
 function renderEntries() {
     const assignmentsList = document.getElementById('assignments-list');
-    const examsList = document.getElementById('exams-list');
-    if (!assignmentsList || !examsList) return;
+    const appointmentsList = document.getElementById('appointments-list');
+    if (!assignmentsList || !appointmentsList) return;
 
     assignmentsList.innerHTML = '';
-    examsList.innerHTML = '';
+    appointmentsList.innerHTML = '';
+
+    // Zähler
+    let assignmentCompleted = 0;
+    let assignmentPending = 0;
+    let appointmentCompleted = 0;
+    let appointmentPending = 0;
 
     function createEntryItem(item, type) {
         const li = document.createElement('li');
+        li.style.opacity = '0';
+        li.style.transform = 'translateY(-10px)';
+        li.style.transition = 'opacity 0.3s, transform 0.3s';
+        setTimeout(() => {
+            li.style.opacity = '1';
+            li.style.transform = 'translateY(0)';
+        }, 10);
+
+        const today = new Date().toISOString().split('T')[0];
+
+        if (!item.completed && item.date < today) {
+            li.classList.add('overdue');
+        }
+
         li.innerHTML = `
-            <span class="entry-title">${item.title} – ${item.date}</span>
-            <span class="edit-btn" title="Bearbeiten">✏️</span>
-            <span class="delete-btn" title="Löschen">🗑️</span>
+        <input type="checkbox" class="entry-checkbox" ${item.completed ? 'checked' : ''}>
+        <span class="entry-title">${item.title} – ${item.date}</span>
+        <span class="edit-btn" title="Bearbeiten">✏️</span>
+        <span class="delete-btn" title="Löschen">🗑️</span>
         `;
 
-        // ✏️ Bearbeiten
+        const checkbox = li.querySelector('.entry-checkbox');
+        checkbox.addEventListener('change', () => {
+            item.completed = checkbox.checked;
+            saveData();
+            renderEntries();
+            renderCalendar();
+        });
+
         li.querySelector('.edit-btn').addEventListener('click', () => {
             const newTitle = prompt('Titel bearbeiten:', item.title);
             const newDate = prompt('Datum bearbeiten (YYYY-MM-DD):', item.date);
@@ -98,36 +126,53 @@ function renderEntries() {
                 item.date = newDate.trim();
                 saveData();
                 renderEntries();
-                renderCalendar(); // Kalender auch aktualisieren
+                renderCalendar();
             }
         });
 
-        // 🗑️ Löschen
-        li.querySelector('.delete-btn').addEventListener('click', () => {
+        li.querySelector('.delete-btn').addEventListener('click', (e) => {
             if (confirm('Eintrag wirklich löschen?')) {
-                if (type === 'assignment') {
-                    data.assignments = data.assignments.filter(e => e.id !== item.id);
-                } else if (type === 'exam') {
-                    data.exams = data.exams.filter(e => e.id !== item.id);
-                }
-                data.calendarEvents = data.calendarEvents.filter(e => e.id !== item.id);
-                saveData();
-                renderEntries();
-                renderCalendar();
+                li.style.opacity = '0';
+                li.style.transform = 'translateX(100%)';
+                li.style.transition = 'opacity 0.3s, transform 0.3s';
+                setTimeout(() => {
+                    if (type === 'assignment') {
+                        data.assignments = data.assignments.filter(e => e.id !== item.id);
+                    } else if (type === 'appointment') {
+                        data.appointments = data.appointments.filter(e => e.id !== item.id);
+                    }
+                    data.calendarEvents = data.calendarEvents.filter(e => e.id !== item.id);
+                    saveData();
+                    renderEntries();
+                    renderCalendar();
+                }, 300);
             }
         });
 
         return li;
     }
 
+    // 📚 Assignments
     data.assignments.forEach(item => {
-        assignmentsList.appendChild(createEntryItem(item, 'assignment'));
+        const li = createEntryItem(item, 'assignment');
+        assignmentsList.appendChild(li);
+        item.completed ? assignmentCompleted++ : assignmentPending++;
     });
 
-    data.exams.forEach(item => {
-        examsList.appendChild(createEntryItem(item, 'exam'));
+    // 📄 Appointments
+    data.appointments.forEach(item => {
+        const li = createEntryItem(item, 'appointment');
+        appointmentsList.appendChild(li);
+        item.completed ? appointmentCompleted++ : appointmentPending++;
     });
+
+    // 🔢 Zähler aktualisieren
+    document.querySelector('#assigments-todo .completed-counter').textContent = assignmentCompleted;
+    document.querySelector('#assigments-todo .uncompleted-counter').textContent = assignmentPending;
+    document.querySelector('#appointment-todos .completed-counter').textContent = appointmentCompleted;
+    document.querySelector('#appointment-todos .uncompleted-counter').textContent = appointmentPending;
 }
+
 
 
 let currentDate = new Date();
@@ -165,11 +210,14 @@ function renderCalendar() {
         ) {
             dayElement.classList.add('today');
         }
-
+        const today = new Date().toISOString().split('T')[0];
         const events = data.calendarEvents.filter(ev => ev.date === dateStr);
         events.forEach(ev => {
             const evDiv = document.createElement('div');
-            evDiv.className = `event ${ev.type}`;
+            evDiv.className = 'event';
+            if (!ev.completed && ev.date < today) {
+                evDiv.classList.add('overdue');
+            }
             evDiv.textContent = ev.title;
             dayElement.appendChild(evDiv);
         });
@@ -207,7 +255,7 @@ function setupCalendarNavigation() {
 
 function setupFormHandlers() {
     const assignmentForm = document.getElementById('assignment-form');
-    const examForm = document.getElementById('exam-form');
+    const appointmentForm = document.getElementById('appointment-form');
 
     if (assignmentForm) {
         assignmentForm.addEventListener('submit', e => {
@@ -221,14 +269,14 @@ function setupFormHandlers() {
         });
     }
 
-    if (examForm) {
-        examForm.addEventListener('submit', e => {
+    if (appointmentForm) {
+        appointmentForm.addEventListener('submit', e => {
             e.preventDefault();
-            const title = document.getElementById('exam-title').value;
-            const date = document.getElementById('exam-date').value;
+            const title = document.getElementById('appointment-title').value;
+            const date = document.getElementById('appointment-date').value;
             if (title && date) {
-                addEntry('exam', title, date);
-                examForm.reset();
+                addEntry('appointment', title, date);
+                appointmentForm.reset();
             }
         });
     }
