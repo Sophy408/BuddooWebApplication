@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
+  /* Color Palette */
+  --dark-teal: #1E333C;
+  --pine-green: #2F3E3B;
+  --calm-teal: #39a195;
+  --ivy-green: #1d7b73;
+  --mist-gray: #87999B;
   /* Color Palette */
   --dark-teal: #1E333C;
   --pine-green: #2F3E3B;
@@ -11,13 +18,26 @@
   /* Backgrounds */
   --card-bg: rgba(255, 255, 255, 0.05);
   --input-bg: rgba(108, 152, 139, 0.9);
+  /* Backgrounds */
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --input-bg: rgba(108, 152, 139, 0.9);
     
   /* Text Colors */
   --text: #FFFFFF;
   --text-dark: #2a4443;
   --text-muted: #B0BEC5;
   --placeholder: #87999B;
+  /* Text Colors */
+  --text: #FFFFFF;
+  --text-dark: #2a4443;
+  --text-muted: #B0BEC5;
+  --placeholder: #87999B;
     
+  /* UI Elements */
+  --shadow: rgba(0, 0, 0, 0.2);
+  --completed: rgba(181, 234, 215, 0.7);
+  --border-radius: 12px;
+  font-family: 'Bodoni Moda', cursive;
   /* UI Elements */
   --shadow: rgba(0, 0, 0, 0.2);
   --completed: rgba(181, 234, 215, 0.7);
@@ -34,8 +54,22 @@
 }
 
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--color-text-light);
+}
+
+
 body {
   background: 
+  linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
+  url('/Images/lofi.gif') center/cover fixed no-repeat;
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  font-weight: 400;
   linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
   url('/Images/lofi.gif') center/cover fixed no-repeat;
   color: var(--text);
@@ -56,7 +90,45 @@ header {
 }
 
 h1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+  background-color: var(--dark-teal);
+}
+
+h1 {
   font-size: 3rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1.5px;
+  margin: 0;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+}
+
+/* Navigation styling */
+nav {
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin-left: auto;
+}
+
+.nav__link {
+  list-style: none;
+  display: flex;
+  align-items: space-between;
+  padding: 0.3rem 0;
+  margin: 0;
+  position: relative;
+  font-size: 1.3rem;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
   font-weight: 700;
   color: var(--text);
   letter-spacing: 1.5px;
@@ -91,7 +163,21 @@ header nav ul {
   list-style: none;
   margin: 0;
   gap: clamp(1.5rem, 5vw, 5rem);
+  gap: clamp(1.5rem, 5vw, 5rem);
   padding: 0;
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  bottom: 2px;
+  left: 0;
+  background-color: var(--calm-teal);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
 }
 
 .nav__link::after {
@@ -114,10 +200,19 @@ header nav ul {
 .nav__link:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+.nav__link:hover {
+  color: var(--calm-teal);
+}
+
+.nav__link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 /* Main Layout */
+/* Main Layout */
 .main-container {
+  padding: 20px;
   padding: 20px;
   padding: 2rem;
   max-width: 1400px;
@@ -138,11 +233,16 @@ header nav ul {
 }
 
 /* Todo Sections */
+/* Todo Sections */
 .todo-section {
   background-color: var(--card-bg);
   border-radius: var(--border-radius);
   padding: 25px;
+  border-radius: var(--border-radius);
+  padding: 25px;
   box-shadow: 0 4px 15px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: var(--text-dark);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: var(--text-dark);
   backdrop-filter: blur(5px);
@@ -167,7 +267,10 @@ header nav ul {
   flex-grow: 1;
   padding: 0.8rem;
   border: 2px solid var(--mist-gray);
+  border: 2px solid var(--mist-gray);
   border-radius: 10px;
+  background-color: var(--mist-gray);
+  color: var(--text-dark);
   background-color: var(--mist-gray);
   color: var(--text-dark);
   font-size: 1.2rem;
@@ -177,9 +280,13 @@ header nav ul {
   outline: none;
   background-color: var(--mist-gray);
   border-color: var(--dark-teal);
+  background-color: var(--mist-gray);
+  border-color: var(--dark-teal);
 }
 
 .input-item::placeholder {
+  color: var(--pine-green);
+  opacity: 0.8;
   color: var(--pine-green);
   opacity: 0.8;
 }
@@ -188,20 +295,27 @@ header nav ul {
   padding: 0 1.8rem;
   background-color: var(--calm-teal);
   color: var(--text);
+  background-color: var(--calm-teal);
+  color: var(--text);
   border: none;
+  border-radius: 10px var(--border-radius);
   border-radius: 10px var(--border-radius);
   cursor: pointer;
   font-size: 1.3rem;
   font-weight: bold;
   transition: all 0.3s ease;
   box-shadow: 0 2px 5px var(--shadow);
+  box-shadow: 0 2px 5px var(--shadow);
 }
 
 .input-button:hover {
   background-color: var(--ivy-green);
   transform: scale(1.05);
+  background-color: var(--ivy-green);
+  transform: scale(1.05);
 }
 
+/* List Styles */
 /* List Styles */
 .list-container {
   padding: 0;
@@ -217,6 +331,14 @@ header nav ul {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  margin-bottom: 8px;
+  background-color: var(--dark-teal);
+  border-radius: 10px var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-size: 1.3rem;
+  border-left: 4px solid var(--mist-gray);
+  color: var(--text);
   margin-bottom: 8px;
   background-color: var(--dark-teal);
   border-radius: 10px var(--border-radius);
@@ -265,10 +387,61 @@ border-left-color: var(--ivy-green);
 
 .list-container li.completed::before {
   color: var(--text);
+background-color: var(--calm-teal);
+border-left-color: var(--ivy-green);
+}
+
+.list-container li:active {
+  transform: scale(0.98);
+}
+
+.list-container li.completed {
+  background-color: var(--completed);
+  text-decoration: line-through;
+  color: var(--text-muted);
+  border-left-color: var(--pine-green);
+  position: relative;
+  overflow: hidden;
+}
+
+.list-container li.completed::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--text), transparent);
+  animation: shine 1.5s ease-in-out infinite;
+}
+
+.list-container li::before {
+  content: "✓";
+  margin-right: 10px;
+  color: transparent;
+  font-weight: bold;
+}
+
+.list-container li.completed::before {
+  color: var(--text);
 }
 
 /* Counter Styles */
+/* Counter Styles */
 .counter-container {
+  font-size: 1.1rem;
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.completed-counter {
+  color: var(--calm-teal);
+  font-weight: bold;
+}
+
+.uncompleted-counter {
+  color: var(--calm-teal);
+  font-weight: bold;
   font-size: 1.1rem;
   color: var(--text);
   opacity: 0.8;
@@ -291,12 +464,17 @@ border-left-color: var(--ivy-green);
 }
 
 /* Calender Styles */
+/* Calender Styles */
 .calendar {
+  background-color: var(--card-bg);
   background-color: var(--card-bg);
   padding: 1.5rem;
   border-radius: var(--border-radius);
   box-shadow: 0 4px 15px var(--shadow);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 15px var(--shadow);
   backdrop-filter: blur(5px);
+  color: var(--text);
   color: var(--text);
   grid-column: span 2;
   margin-top: 2rem;
@@ -319,10 +497,12 @@ border-left-color: var(--ivy-green);
   font-size: 2rem;
   margin: 0;
   color:var(--text);
+  color:var(--text);
 }
 
 .calendar .header button {
   color: white;
+  background-color: var(--calm-teal);
   background-color: var(--calm-teal);
   border: none;
   border-radius: 50%;
@@ -335,6 +515,7 @@ border-left-color: var(--ivy-green);
 
 .calendar .header button:hover {
   transform: translateY(-2px);
+  background-color: var(--ivy-green);
   background-color: var(--ivy-green);
 }
 
@@ -363,12 +544,14 @@ border-left-color: var(--ivy-green);
 
 .calendar .days div:hover {
   background-color: var(--calm-teal);
+  background-color: var(--calm-teal);
 }
 
 .calendar .days .today {
   font-weight: bold;
 }
 
+/* scrollbar*/
 /* scrollbar*/
 .list-container::-webkit-scrollbar {
   width: 8px;
@@ -388,6 +571,7 @@ border-left-color: var(--ivy-green);
   background: rgba(255,255,255,0.5);
 }
 
+/* Respnosive Design */
 /* Respnosive Design */
 @media (max-width: 768px) {
   header nav ul {

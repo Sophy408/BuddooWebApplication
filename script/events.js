@@ -178,7 +178,19 @@ function renderEntries() {
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
+let currentDate = new Date();
+let currentMonth = currentDate.getMonth();
+let currentYear = currentDate.getFullYear();
 
+function renderCalendar() {
+    const daysContainer = document.getElementById('days');
+    const monthYear = document.getElementById('month-year');
+    if (!daysContainer || !monthYear) return;
+
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
 function renderCalendar() {
     const daysContainer = document.getElementById('days');
     const monthYear = document.getElementById('month-year');
@@ -191,7 +203,12 @@ function renderCalendar() {
 
     monthYear.textContent = `${new Intl.DateTimeFormat('de-DE', { month: 'long' }).format(firstDay)} ${currentYear}`;
     daysContainer.innerHTML = '';
+    monthYear.textContent = `${new Intl.DateTimeFormat('de-DE', { month: 'long' }).format(firstDay)} ${currentYear}`;
+    daysContainer.innerHTML = '';
 
+    for (let i = 0; i < startDay; i++) {
+        daysContainer.innerHTML += '<div class="empty"></div>';
+    }
     for (let i = 0; i < startDay; i++) {
         daysContainer.innerHTML += '<div class="empty"></div>';
     }
@@ -226,6 +243,20 @@ function renderCalendar() {
     }
 }
 
+function setupCalendarNavigation() {
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        });
+    }
 function setupCalendarNavigation() {
     const prevBtn = document.getElementById('prev');
     const nextBtn = document.getElementById('next');
@@ -288,4 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
     setupFormHandlers();
     setupCalendarNavigation();
+    setupFormHandlers();
+    setupCalendarNavigation();
 });
+
