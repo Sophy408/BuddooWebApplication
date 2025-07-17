@@ -81,7 +81,6 @@ function renderEntries() {
     assignmentsList.innerHTML = '';
     appointmentsList.innerHTML = '';
 
-    // Zähler
     let assignmentCompleted = 0;
     let assignmentPending = 0;
     let appointmentCompleted = 0;
@@ -98,7 +97,6 @@ function renderEntries() {
         }, 10);
 
         const today = new Date().toISOString().split('T')[0];
-
         if (!item.completed && item.date < today) {
             li.classList.add('overdue');
         }
@@ -110,9 +108,8 @@ function renderEntries() {
         <span class="delete-btn" title="Löschen">🗑️</span>
         `;
 
-        const checkbox = li.querySelector('.entry-checkbox');
-        checkbox.addEventListener('change', () => {
-            item.completed = checkbox.checked;
+        li.querySelector('.entry-checkbox').addEventListener('change', () => {
+            item.completed = !item.completed;
             saveData();
             renderEntries();
             renderCalendar();
@@ -130,7 +127,7 @@ function renderEntries() {
             }
         });
 
-        li.querySelector('.delete-btn').addEventListener('click', (e) => {
+        li.querySelector('.delete-btn').addEventListener('click', () => {
             if (confirm('Eintrag wirklich löschen?')) {
                 li.style.opacity = '0';
                 li.style.transform = 'translateX(100%)';
@@ -152,32 +149,25 @@ function renderEntries() {
         return li;
     }
 
-    // 📚 Assignments
     data.assignments.forEach(item => {
         const li = createEntryItem(item, 'assignment');
         assignmentsList.appendChild(li);
         item.completed ? assignmentCompleted++ : assignmentPending++;
     });
 
-    // 📄 Appointments
     data.appointments.forEach(item => {
         const li = createEntryItem(item, 'appointment');
         appointmentsList.appendChild(li);
         item.completed ? appointmentCompleted++ : appointmentPending++;
     });
 
-    // 🔢 Zähler aktualisieren
     document.querySelector('#assigments-todo .completed-counter').textContent = assignmentCompleted;
     document.querySelector('#assigments-todo .uncompleted-counter').textContent = assignmentPending;
     document.querySelector('#appointment-todos .completed-counter').textContent = appointmentCompleted;
     document.querySelector('#appointment-todos .uncompleted-counter').textContent = appointmentPending;
 }
 
-
-
-let currentDate = new Date();
-let currentMonth = currentDate.getMonth();
-let currentYear = currentDate.getFullYear();
+// 📅 Kalender
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
@@ -191,24 +181,10 @@ function renderCalendar() {
     const lastDay = new Date(currentYear, currentMonth + 1, 0);
     const daysInMonth = lastDay.getDate();
     const startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
-function renderCalendar() {
-    const daysContainer = document.getElementById('days');
-    const monthYear = document.getElementById('month-year');
-    if (!daysContainer || !monthYear) return;
-
-    const firstDay = new Date(currentYear, currentMonth, 1);
-    const lastDay = new Date(currentYear, currentMonth + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
 
     monthYear.textContent = `${new Intl.DateTimeFormat('de-DE', { month: 'long' }).format(firstDay)} ${currentYear}`;
     daysContainer.innerHTML = '';
-    monthYear.textContent = `${new Intl.DateTimeFormat('de-DE', { month: 'long' }).format(firstDay)} ${currentYear}`;
-    daysContainer.innerHTML = '';
 
-    for (let i = 0; i < startDay; i++) {
-        daysContainer.innerHTML += '<div class="empty"></div>';
-    }
     for (let i = 0; i < startDay; i++) {
         daysContainer.innerHTML += '<div class="empty"></div>';
     }
@@ -227,6 +203,7 @@ function renderCalendar() {
         ) {
             dayElement.classList.add('today');
         }
+
         const today = new Date().toISOString().split('T')[0];
         const events = data.calendarEvents.filter(ev => ev.date === dateStr);
         events.forEach(ev => {
@@ -243,20 +220,6 @@ function renderCalendar() {
     }
 }
 
-function setupCalendarNavigation() {
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
-
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            currentMonth--;
-            if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
-            }
-            renderCalendar();
-        });
-    }
 function setupCalendarNavigation() {
     const prevBtn = document.getElementById('prev');
     const nextBtn = document.getElementById('next');
@@ -319,7 +282,4 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
     setupFormHandlers();
     setupCalendarNavigation();
-    setupFormHandlers();
-    setupCalendarNavigation();
 });
-

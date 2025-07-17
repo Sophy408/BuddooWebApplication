@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
   /* Color Palette */
@@ -8,36 +7,17 @@
   --calm-teal: #39a195;
   --ivy-green: #1d7b73;
   --mist-gray: #87999B;
-  /* Color Palette */
-  --dark-teal: #1E333C;
-  --pine-green: #2F3E3B;
-  --calm-teal: #39a195;
-  --ivy-green: #1d7b73;
-  --mist-gray: #87999B;
 
   /* Backgrounds */
   --card-bg: rgba(255, 255, 255, 0.05);
   --input-bg: rgba(108, 152, 139, 0.9);
-  /* Backgrounds */
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --input-bg: rgba(108, 152, 139, 0.9);
     
   /* Text Colors */
   --text: #FFFFFF;
   --text-dark: #2a4443;
   --text-muted: #B0BEC5;
   --placeholder: #87999B;
-  /* Text Colors */
-  --text: #FFFFFF;
-  --text-dark: #2a4443;
-  --text-muted: #B0BEC5;
-  --placeholder: #87999B;
-    
-  /* UI Elements */
-  --shadow: rgba(0, 0, 0, 0.2);
-  --completed: rgba(181, 234, 215, 0.7);
-  --border-radius: 12px;
-  font-family: 'Bodoni Moda', cursive;
+
   /* UI Elements */
   --shadow: rgba(0, 0, 0, 0.2);
   --completed: rgba(181, 234, 215, 0.7);
@@ -53,23 +33,8 @@
   color: var(--color-text-light);
 }
 
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  color: var(--color-text-light);
-}
-
-
 body {
   background: 
-  linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
-  url('/Images/lofi.gif') center/cover fixed no-repeat;
-  color: var(--text);
-  line-height: 1.6;
-  min-height: 100vh;
-  font-weight: 400;
   linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
   url('/Images/lofi.gif') center/cover fixed no-repeat;
   color: var(--text);
@@ -89,15 +54,6 @@ header {
   background-color: var(--dark-teal);
 }
 
-h1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  z-index: 1000;
-  width: 100%;
-  background-color: var(--dark-teal);
-}
 
 h1 {
   font-size: 3rem;
@@ -180,19 +136,6 @@ header nav ul {
   transition: transform 0.25s ease-out;
 }
 
-.nav__link::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 3px;
-  bottom: 2px;
-  left: 0;
-  background-color: var(--calm-teal);
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-}
-
 .nav__link:hover {
   color: var(--calm-teal);
 }
@@ -200,6 +143,8 @@ header nav ul {
 .nav__link:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
 .nav__link:hover {
   color: var(--calm-teal);
 }
