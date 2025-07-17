@@ -75,6 +75,25 @@ nav {
   margin-left: auto;
 }
 
+/* Default: Navigation ausblenden (mobile first) */
+nav ul {
+    list-style: none;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--dark-teal);
+  width: 100%;
+  padding: 1rem 0;
+  gap: 1rem;
+  border-radius: var(--border-radius);
+}
+
+/* Wenn .show gesetzt: Navigation anzeigen */
+nav ul.show {
+  display: flex;
+}
+
+
 .nav__link {
   list-style: none;
   display: flex;
@@ -88,14 +107,6 @@ nav {
   font-weight: 600;
   cursor: pointer;
   transition: color 0.3s ease;
-}
-
-header nav ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  gap: clamp(1.5rem, 5vw, 5rem);
-  padding: 0;
 }
 
 .nav__link::after {
@@ -391,43 +402,173 @@ header nav ul {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
-    }
-    
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    body {
-        background: 
-            linear-gradient(rgba(30, 42, 50, 0.9), rgba(30, 42, 50, 0.9)),
-            url('/Images/lofi.gif') center/cover fixed no-repeat;
-    }
-    
-    .todo-section, .notes-column {
-        backdrop-filter: blur(2px);
-    }
+/* ==== Responsive Anpassungen ==== */
+
+/* Breakpoint: Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+  .main-container {
+    padding: 15px;
+    gap: 20px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+  }
+
+  .input-item,
+  .notes-textarea {
+    font-size: 1.1rem;
+  }
+
+.nav-toggle {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--text, white);
+  cursor: pointer;
+}
 }
 
+/* Desktop-Navigation standardmäßig sichtbar */
+@media (min-width: 769px) {
+  nav ul {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 5rem);
+    position: static;
+    background: none;
+    width: auto;
+    padding: 0;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  nav {
+    position: relative;
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: block;
+    font-size: 2rem;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text);
+    z-index: 1001;
+  }
+
+  nav ul {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--dark-teal);
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    display: none;
+    z-index: 1000;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  .main-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  header {
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
+  .nav-toggle {
+    display: block;
+    font-size: 2rem;
+    color: var(--text);
+    cursor: pointer;
+    margin-left: auto;
+    padding: 0.5rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    display: none; /* Standard: versteckt */
+    background-color: var(--dark-teal);
+    padding: 1rem 0;
+    gap: 15px;
+    border-radius: var(--border-radius);
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  .todo-section,
+  .notes-column {
+    padding: 20px;
+    backdrop-filter: blur(3px);
+  }
+
+  .input-button {
+    padding: 0 18px;
+    font-size: 1.1rem;
+  }
+
+  .notes-icon {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+  }
+}
+
+/* Breakpoint: Smartphones (<= 480px) */
 @media (max-width: 480px) {
-    .input-item, .notes-textarea {
-        font-size: 1.4rem;
-    }
-    
-    nav a {
-        padding: 10px 20px;
-    }
-    
-    .todo-section, .notes-column {
-        padding: 20px;
-    }
-    
-    .list-container li {
-        font-size: 1.4rem;
-        padding: 15px;
-    }
+  h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .nav__link {
+    font-size: 1.1rem;
+  }
+
+  .todo-section,
+  .notes-column {
+    padding: 15px;
+  }
+
+  .input-item,
+  .notes-textarea {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .input-button,
+  .save-notes-btn {
+    font-size: 1rem;
+    padding: 10px 15px;
+  }
+
+  .list-container li {
+    font-size: 1.1rem;
+    padding: 12px;
+  }
 }
