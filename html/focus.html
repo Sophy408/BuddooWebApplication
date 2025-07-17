@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="/style/focus.css">
 </head>
 <body>
-<header>
-  <h1>Buddoo</h1>
-    <div class="menu-toggle" id="mobile-menu">
-    <i class="fas fa-bars"></i>
-    </div>
+  <header>
+    <h1>Buddoo</h1>
+    <button class="menu-toggle" id="mobile-menu" aria-label="Toggle menu">
+      <i class="fas fa-bars"></i>
+    </button>
     <nav id="main-nav">
       <ul>
         <li><a href="/html/home.html" class="nav__link">Home</a></li>
@@ -21,27 +21,26 @@
         <li><a href="/html/events.html" class="nav__link">Events</a></li>
       </ul>
     </nav>
-</header>
+  </header>
 
   <main>
-    <section id="focus-timer">
-      <h2>Pomodoro timer</h2>
+    <section id="focus-timer" aria-labelledby="timer-heading">
+      <h2>Pomodoro Timer</h2>
       <div class="timer-container">
         <svg class="progress-ring" width="360" height="360">
           <circle class="progress-ring__circle"/>
         </svg>
-        <div id="timer-text">25:00</div>
+        <div id="timer-text" role="timer" aria-live="polite">25:00</div>
       </div>
-      <div class="set_timer">Tap on the timer to edit</div>
+      <label for="timer-text" class="set_timer">Tap on the timer to edit</label>
       <div class="timer-buttons">
-        <button id="start-timer" title="Start"><i class="fas fa-play"></i></button>
-        <button id="stop-timer" title="Stop"><i class="fas fa-stop"></i></button>
-        <button id="reset-timer" title="Reset"><i class="fas fa-redo"></i></button>
+        <button id="start-timer" aria-label="Start timer"><i class="fas fa-play"></i></button>
+        <button id="stop-timer" aria-label="Stop timer"><i class="fas fa-stop"></i></button>
+        <button id="reset-timer" aria-label="Reset timer"><i class="fas fa-redo"></i></button>
       </div>
     </section>
   </main>
 
-  <script src="/script/focus.js"></script>
+  <script src="/script/focus.js" type="module"></script>
 </body>
 </html>
-
