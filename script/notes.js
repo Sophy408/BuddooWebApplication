@@ -12,14 +12,18 @@ if (categories.length === 0) {
 
 if (notes.length === 0) {
   notes.push({
-    category: 'General',
+    category: '', // ← damit der Placeholder auch gezeigt wird
     text: '',
     fontSize: '14px',
     isBold: false,
     isItalic: false
   });
+
+  // Jetzt merken: Seite wurde besucht
+  localStorage.setItem('visitedNotesPage', 'true');
   localStorage.setItem('notes', JSON.stringify(notes));
 }
+
 
 // 📌 DOM-Elemente
 const categoryList = document.getElementById('category-list');
@@ -28,6 +32,8 @@ const addCategoryBtn = document.getElementById('add-category-btn');
 const notesGrid = document.getElementById('notes-grid');
 const addNoteBtn = document.getElementById('add-note-btn');
 const linedToggle = document.getElementById('lined-toggle');
+const isFirstVisit = !localStorage.getItem('visitedNotesPage'); // true wenn noch nie da
+
 
 // Kategorien anzeigen
 function renderCategories() {
@@ -169,16 +175,19 @@ function renderNotes() {
     const noteCard = document.createElement('div');
     noteCard.classList.add('note-card');
 
-    // Kategorie Auswahl
-    const select = document.createElement('select');
-    
-const placeholderOption = document.createElement('option');
-placeholderOption.textContent = 'Choose Your Category';
-placeholderOption.value = '';
-placeholderOption.disabled = true;
-select.appendChild(placeholderOption);
+const select = document.createElement('select');
 
-// Append category options
+// Placeholder nur beim allerersten Besuch
+if (isFirstVisit) {
+  const placeholderOption = document.createElement('option');
+  placeholderOption.textContent = 'Choose Your Category';
+  placeholderOption.value = '';
+  placeholderOption.disabled = true;
+  placeholderOption.selected = !note.category;
+  select.appendChild(placeholderOption);
+}
+
+// Kategorien hinzufügen
 categories.forEach(cat => {
   const option = document.createElement('option');
   option.value = cat;
@@ -186,8 +195,10 @@ categories.forEach(cat => {
   select.appendChild(option);
 });
 
-// Set selected value — now '' will select the placeholder!
-select.value = note.category;
+if (note.category) {
+  select.value = note.category;
+}
+
 
 
     // Formatierungs-Toolbar
