@@ -282,4 +282,10 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
     setupFormHandlers();
     setupCalendarNavigation();
+
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+    }
 });

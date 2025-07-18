@@ -72,10 +72,27 @@ nav {
   margin-left: auto;
 }
 
+nav ul {
+  list-style: none;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--dark-teal);
+  width: 100%;
+  padding: 1rem 0;
+  gap: 1rem;
+  border-radius: var(--border-radius);
+}
+
+nav ul.show {
+  display: flex;
+}
+
 .nav__link {
   list-style: none;
   display: flex;
   align-items: space-between;
+<<<<<<< HEAD
   padding: 0.3rem 0;
   margin: 0;
   position: relative;
@@ -103,6 +120,8 @@ nav {
 .nav__link {
   list-style: none;
   display: flex;
+=======
+>>>>>>> sophy
   padding: 0.3rem 0;
   margin: 0;
   position: relative;
@@ -114,6 +133,7 @@ nav {
   transition: color 0.3s ease;
 }
 
+<<<<<<< HEAD
 header nav ul {
   display: flex;
   list-style: none;
@@ -123,6 +143,8 @@ header nav ul {
   padding: 0;
 }
 
+=======
+>>>>>>> sophy
 .nav__link::after {
   content: '';
   position: absolute;
@@ -426,9 +448,205 @@ border-left-color: var(--ivy-green);
 }
 
 @media (max-width: 1024px) {
-  .calendar {
-    grid-column: span 1;
+  .main-container {
+    padding: 15px;
+    gap: 20px;
   }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+  }
+
+  .input-item {
+    font-size: 1.1rem;
+  }
+
+.nav-toggle {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--text, white);
+  cursor: pointer;
+}
+}
+
+@media (min-width: 768px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  nav ul {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    background: none;
+    width: auto;
+    gap: clamp(1.5rem, 4vw, 5rem);
+    padding: 0;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =================== MAIN LAYOUT =================== */
+.main-container {
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* =================== EVENT GRID =================== */
+.event-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* =================== TODO SECTION =================== */
+.todo-section {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px var(--shadow);
+  color: var(--text-dark);
+  backdrop-filter: blur(5px);
+}
+
+.todo-section h2 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+/* =================== FORM =================== */
+.assigments-Form,
+.appointment-Form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-item {
+  flex: 1 1 auto;
+  padding: 0.8rem;
+  border: 2px solid var(--mist-gray);
+  border-radius: 10px;
+  background-color: var(--mist-gray);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-dark);
+}
+
+.input-item::placeholder {
+  color: var(--pine-green);
+  opacity: 0.8;
+}
+
+.input-button {
+  background-color: var(--calm-teal);
+  color: var(--text);
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px var(--shadow);
+}
+
+.input-button:hover {
+  background-color: var(--ivy-green);
+  transform: scale(1.05);
+}
+
+/* =================== LIST =================== */
+.list-container {
+  margin: 1.5rem 0;
+  min-height: 150px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.list-container li {
+  background-color: var(--dark-teal);
+  color: var(--text);
+  border-left: 4px solid var(--mist-gray);
+  padding: 1rem;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.list-container li:hover {
+  background-color: var(--calm-teal);
+  border-left-color: var(--ivy-green);
+}
+
+.list-container li.completed {
+  background-color: var(--completed);
+  color: var(--text-muted);
+  text-decoration: line-through;
+  border-left-color: var(--pine-green);
+  position: relative;
+}
+
+.list-container li.completed::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--text), transparent);
+  animation: shine 1.5s ease-in-out infinite;
+}
+
+.list-container li::before {
+  content: "✓";
+  margin-right: 10px;
+  color: transparent;
+}
+
+.list-container li.completed::before {
+  color: var(--text);
+}
+
+/* =================== COUNTER =================== */
+.counter-container {
+  font-size: 1.1rem;
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.completed-counter,
+.uncompleted-counter {
+  color: var(--calm-teal);
+  font-weight: bold;
+}
+
+.overdue {
+  background-color: rgb(233, 86, 86);
+  color: var(--text);
+  font-weight: bold;
+}
+
+/* =================== CALENDAR =================== */
+.calendar {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 15px var(--shadow);
+  backdrop-filter: blur(5px);
+  color: var(--text);
+  margin-top: 2rem;
+  grid-column: span 2;
 }
 
 .calendar .header {
@@ -439,10 +657,14 @@ border-left-color: var(--ivy-green);
 }
 
 .calendar .header h2 {
+<<<<<<< HEAD
   font-size: 2rem;
   margin: 0;
   color:var(--text);
   color:var(--text);
+=======
+  font-size: clamp(1.5rem, 3vw, 2rem);
+>>>>>>> sophy
 }
 
 .calendar .header button {
@@ -464,27 +686,19 @@ border-left-color: var(--ivy-green);
   background-color: var(--ivy-green);
 }
 
-.calendar .weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  font-weight: bold;
-}
-
+.calendar .weekdays,
 .calendar .days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 0.5rem;
+  text-align: center;
 }
 
 .calendar .days div {
   padding: 0.8rem;
-  text-align: center;
   border-radius: 10px;
-  transition: all 0.3s ease;
   font-size: 1.2rem;
+  transition: background-color 0.3s;
 }
 
 .calendar .days div:hover {
@@ -496,44 +710,50 @@ border-left-color: var(--ivy-green);
   font-weight: bold;
 }
 
+<<<<<<< HEAD
 /* scrollbar*/
 /* scrollbar*/
+=======
+/* =================== SCROLLBAR =================== */
+>>>>>>> sophy
 .list-container::-webkit-scrollbar {
   width: 8px;
 }
-
 .list-container::-webkit-scrollbar-track {
   background: rgba(255,255,255,0.1);
-  border-radius: 10px;
 }
-
 .list-container::-webkit-scrollbar-thumb {
   background: rgba(255,255,255,0.3);
   border-radius: 10px;
 }
-
 .list-container::-webkit-scrollbar-thumb:hover {
   background: rgba(255,255,255,0.5);
 }
 
+<<<<<<< HEAD
 /* Respnosive Design */
 /* Respnosive Design */
 @media (max-width: 768px) {
   header nav ul {
+=======
+/* =================== MOBILE FORM FIX =================== */
+@media (max-width: 480px) {
+  .assigments-Form,
+  .appointment-Form {
+>>>>>>> sophy
     flex-direction: column;
-    gap: 1rem;
-    align-items: center;
   }
-  
-  .event-section {
-    grid-template-columns: 1fr;
+
+  .input-button {
+    width: 100%;
   }
-  
-  .todo-section h2 {
-    font-size: 1.8rem;
+
+  .list-container li {
+    font-size: 1.1rem;
+    padding: 12px;
   }
-  
-  header h1 {
-    font-size: 2.5rem;
+
+  .todo-section {
+    padding: 1rem;
   }
 }
