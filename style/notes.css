@@ -51,6 +51,7 @@ header nav {
   padding: 1.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
   border-radius: 10px;  /* Optional: macht's softer */
+  animation: fadeInSlide 0.4s ease-out;
 }
 
 header nav ul {
@@ -75,6 +76,8 @@ header nav a {
   font-size: 1.3rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+  animation: fadeInSlide 0.4s ease-out;
+
 }
 
 header nav a::after {
@@ -122,7 +125,7 @@ header nav a:hover::after {
   overflow-y: auto;  /* 🆕 Scrollbalken bei Überlauf */
   backdrop-filter: blur(5px);
   margin-right: 20px;  /* ➕ Abstand zur rechten Seite */
-
+  animation: fadeInSlide 0.7s ease-out;
 }
 
 h1.headings {
@@ -216,6 +219,8 @@ h1.headings {
   font-size: 24px;
   margin-bottom: 20px;
   color: var(--color-text-light);
+  animation: fadeInSlide 0.8s ease-out;
+
 }
 
 .notes-main::-webkit-scrollbar {
@@ -273,6 +278,8 @@ h1.headings {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;  /* 🆕 Abstand nach unten */
+  animation: fadeInSlide 0.8s ease-out;
+
 }
 
 .note-card textarea {
@@ -386,3 +393,45 @@ select:invalid {
 
 .notes-main h1.headings {
   font-size: 40px !important;}
+
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);  /* oder X für horizontal */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .notes-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 60px;
+    left: -260px;
+    height: calc(100vh - 60px);
+    width: 250px;
+    background: #fff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .sidebar-toggle-btn {
+    display: block;
+  }
+
+  .notes-main {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}
