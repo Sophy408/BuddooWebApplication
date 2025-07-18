@@ -1,7 +1,7 @@
-/* Add this at the VERY TOP of your CSS file */
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+/* 💡 Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda&family=Lora&family=Noto+Sans+Mono&family=Playfair+Display&display=swap');
 
-/* Root-Variablen für Farben */
+/* 🌿 Farb- und Schriftvariablen */
 :root {
   --color-text-light: hsl(0, 0%, 100%);
   --color-background-dark: hsl(0, 0%, 13%);
@@ -12,15 +12,15 @@
   font-family: 'Bodoni Moda', cursive;
 }
 
-/* Universal-Selektor */
+/* Reset + Basics */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family:  Georgia, sans-serif;
+  font-family: Georgia, sans-serif;
 }
 
-/* Klassen-Selektor */
+/* 🎯 Hero Content */
 .hero-content {
   max-width: 1000px;
   margin: 0 auto;
@@ -34,37 +34,17 @@
 .hero-content h1 {
   font-size: 6rem;
   margin-bottom: 1rem;
-  font-weight: 700; /* Made bolder to match handwriting */
+  font-weight: 700;
   letter-spacing: 1px;
-  text-align: center;
 }
 
 .hero-content p {
   font-size: 1.5rem;
   margin-bottom: 2rem;
   font-weight: 400;
-  text-align: center;
-  font-family:Georgia, sans-serif;
 }
 
-.footer-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; 
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  padding: 10px;
-  color: var(--color-text-light);
-  font-size: 1.0 rem;
-  z-index: 1000;
-}
-
-
-
-/* Buttons - Updated font */
+/* ✨ Buttons */
 #hero-nav button,
 #start-btn,
 #nav-tasks,
@@ -75,27 +55,26 @@
   letter-spacing: 1px;
 }
 
-/* Rest of your existing CSS remains the same... */
-.fade-out {
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  pointer-events: none;
+/* 🎮 Start Button */
+#start-btn {
+  background-color: var(--calm-teal);
+  border: none;
+  padding: 1rem 4rem;
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 5px var(--shadow);
+  text-align: center;
 }
 
-.fade-in {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 1s ease, transform 1s ease;
-  pointer-events: auto;
+#start-btn:hover {
+  background-color: var(--ivy-green);
 }
 
-.hidden {
-  display: none !important;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-/* ID-Selektor */
+/* 📍 Hero Section Layout */
+/*
 #hero-section {
   height: 100vh;
   background-image: url('/Images/Lofi.gif');
@@ -108,6 +87,23 @@
   color: var(--color-text-light);
 }
 
+*/
+
+#hero-section {
+  height: 100vh;
+  background-image: url('/Images/Lofi.gif');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-light);
+  overflow: hidden; /* ❗ Wichtig: entfernt überstehende Bildteile */
+}
+
+
+/* 🧭 Hero Navigation */
 #hero-nav {
   display: flex;
   justify-content: center;
@@ -122,6 +118,8 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.95);
 }
+
+
 
 #hero-nav.show {
   opacity: 1;
@@ -143,47 +141,64 @@
 
 #hero-nav button:hover {
   background-color: var(--ivy-green);
-  box-shadow: 0 2px 5px var(--shadow);
 }
 
-#start-btn {
-  background-color: var(--calm-teal);
-  border: none;
-  padding: 1rem 4rem;
-  font-size: 1.2rem;
-  color: var(--color-text-light);
-  border-radius: 50px;
+/* 🌙 Footer + Dark Mode */
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
   cursor: pointer;
-  transition: background 0.3s ease;
-  text-align: center;
-  box-shadow: 0 2px 5px var(--shadow);
-}
-
-#start-btn:hover {
-  background-color: var(--ivy-green);
-  box-shadow: 0 2px 5px var(--shadow);
-}
-
-#nav-tasks,
-#nav-notes,
-#nav-focus,
-#nav-events {
-  background-color: var(--calm-teal);
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
   color: var(--color-text-light);
-  border-radius: 50px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  text-align: center;
-  box-shadow: 0 2px 5px var(--shadow);
+  font-size: 1.0 rem;
+  z-index: 1000;
 }
 
-#nav-tasks:hover,
-#nav-notes:hover,
-#nav-focus:hover,
-#nav-events:hover {
-  background-color: var(--ivy-green);
-  box-shadow: 0 2px 5px var(--shadow);
+/* ⚙️ Animations */
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s ease, transform 1s ease;
+  pointer-events: auto;
+}
+
+.hidden {
+  display: none !important;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* 📱 MEDIA QUERIES */
+@media (max-width: 600px) {
+  #hero-nav {
+    flex-direction: column;
+    align-items: center; /* Zentriert die Buttons horizontal */
+  }
+
+  #hero-nav button {
+    width: 300px; /* feste Breite beibehalten */
+    padding: 2rem;
+  }
+
+}
+
+@media (max-width: 900px) and (min-width: 601px) {
+  #hero-nav {
+    justify-content: center;
+  }
+
+  #hero-nav button {
+    flex: 0 0 calc(50% - 2rem); /* 2 pro Zeile */
+  }
 }
