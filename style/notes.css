@@ -314,6 +314,8 @@ h1.headings {
   align-items: center;
   gap: 10px;
   border-color: var(--shadow);
+  animation: fadeInSlide 0.75s ease-out;
+
 }
 
 .filter-category label {

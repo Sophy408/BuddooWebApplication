@@ -32,7 +32,6 @@ const addCategoryBtn = document.getElementById('add-category-btn');
 const notesGrid = document.getElementById('notes-grid');
 const addNoteBtn = document.getElementById('add-note-btn');
 const linedToggle = document.getElementById('lined-toggle');
-const isFirstVisit = !localStorage.getItem('visitedNotesPage'); // true wenn noch nie da
 
 
 // Kategorien anzeigen
@@ -178,7 +177,7 @@ function renderNotes() {
 const select = document.createElement('select');
 
 // Placeholder nur beim allerersten Besuch
-if (isFirstVisit) {
+if (!localStorage.getItem('visitedNotesPage') && !note.category) {
   const placeholderOption = document.createElement('option');
   placeholderOption.textContent = 'Choose Your Category';
   placeholderOption.value = '';
