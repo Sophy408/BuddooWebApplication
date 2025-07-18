@@ -50,6 +50,7 @@ function renderCategories() {
         localStorage.setItem('categories', JSON.stringify(categories));
         renderCategories();
         renderNotes();
+
       }
     });
 
@@ -65,7 +66,23 @@ function renderCategories() {
     li.appendChild(delBtn);
     categoryList.appendChild(li);
   });
+
+  updateCategoryFilterOptions(); // ← Dropdown wird aktualisiert
 }
+
+function updateCategoryFilterOptions() {
+  const filterSelect = document.getElementById('categoryFilter');
+  const selectedCategory = filterSelect ? filterSelect.value : 'all';
+  filterSelect.innerHTML = '<option value="all">All Categories</option>';
+
+  categories.forEach(cat => {
+    const option = document.createElement('option');
+    option.value = cat;
+    option.textContent = cat;
+    filterSelect.appendChild(option);
+  });
+}
+
 
 // Neue Kategorie hinzufügen
 addCategoryBtn.addEventListener('click', () => {
@@ -75,6 +92,26 @@ addCategoryBtn.addEventListener('click', () => {
     localStorage.setItem('categories', JSON.stringify(categories));
     categoryInput.value = '';
     renderCategories();
+    renderNotes(); // 🆕 HIER!
+    document.getElementById('categoryFilter').value = 'all'; // ← Reset Filter
+
+
+  }
+});
+
+// Enter-Taste zum Hinzufügen einer Kategorie
+categoryInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const newCat = categoryInput.value.trim();
+    if (newCat && !categories.includes(newCat)) {
+      categories.push(newCat);
+      localStorage.setItem('categories', JSON.stringify(categories));
+      categoryInput.value = '';
+      renderCategories();
+      renderNotes(); // 🆕 HIER AUCH!
+      document.getElementById('categoryFilter').value = 'all';
+    }
   }
 });
 
@@ -95,36 +132,63 @@ function saveNote(index, newCategory, newText, fontSize, isBold, isItalic) {
 
 // Neue Notiz hinzufügen
 addNoteBtn.addEventListener('click', () => {
-notes.push({ category: '', text: '' });
+  const selectedCategory = document.getElementById('categoryFilter').value;
+  
+
+  // Wenn eine spezifische Kategorie gefiltert ist, soll diese auch übernommen werden
+  let noteCategory = selectedCategory;
+
+  // Wenn NICHTS gefiltert → Nutzer darf später selbst auswählen
+  if (selectedCategory === 'all') {
+    noteCategory = ''; // leer lassen, Nutzer soll selbst auswählen in Dropdown
+  }
+
+  
+  const newNote = {
+    category: selectedCategory !== 'all' ? selectedCategory : '',
+    text: '',
+    fontSize: '14px',
+    isBold: false,
+    isItalic: false
+  };
+  notes.push(newNote);
   localStorage.setItem('notes', JSON.stringify(notes));
   renderNotes();
 });
 
+
 // Notizen anzeigen
 function renderNotes() {
   notesGrid.innerHTML = '';
+  const selectedCategory = document.getElementById('categoryFilter').value;
+
 
   notes.forEach((note, index) => {
+    if (selectedCategory !== 'all' && note.category !== selectedCategory) return;
+    
     const noteCard = document.createElement('div');
     noteCard.classList.add('note-card');
 
     // Kategorie Auswahl
     const select = document.createElement('select');
     
-    // 1️⃣ Placeholder-Option
-      const placeholderOption = document.createElement('option');
-      placeholderOption.textContent = 'Choose Your Category';
-      placeholderOption.disabled = true;
-      placeholderOption.selected = true;
-      select.appendChild(placeholderOption);
+const placeholderOption = document.createElement('option');
+placeholderOption.textContent = 'Choose Your Category';
+placeholderOption.value = '';
+placeholderOption.disabled = true;
+select.appendChild(placeholderOption);
 
-// 2️⃣ Deine Kategorien dynamisch hinzufügen
+// Append category options
 categories.forEach(cat => {
   const option = document.createElement('option');
   option.value = cat;
   option.textContent = cat;
   select.appendChild(option);
 });
+
+// Set selected value — now '' will select the placeholder!
+select.value = note.category;
+
 
     // Formatierungs-Toolbar
     const toolbar = document.createElement('div');
@@ -181,6 +245,12 @@ categories.forEach(cat => {
       const fontSize = textarea.style.fontSize || '14px';
       const isBold = textarea.style.fontWeight === 'bold';
       const isItalic = textarea.style.fontStyle === 'italic';
+
+      const currentFilter = document.getElementById('categoryFilter').value;
+  if (currentFilter !== 'all' && selectedCat !== currentFilter) {
+    alert(`Please select the filtered category: ${currentFilter}`);
+    return;
+  }
 
   saveNote(index, selectedCat, newText, fontSize, isBold, isItalic);
 
@@ -270,3 +340,7 @@ function deleteNote(indexToDelete) {
 // Initial render
 renderCategories();
 renderNotes();
+
+// 🆕 Filter nach Kategorie anwenden, wenn Auswahl sich ändert
+document.getElementById('categoryFilter').addEventListener('change', renderNotes);
+

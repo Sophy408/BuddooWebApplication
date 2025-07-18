@@ -307,6 +307,41 @@ h1.headings {
   margin-bottom: 10px;
 }
 
+
+.filter-category {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-color: var(--shadow);
+}
+
+.filter-category label {
+  color: white; /* oder jede gewünschte Farbe */
+  font-weight: bold; /* optional */
+  font-size: 18px;
+}
+
+
+#categoryFilter {
+  border: 2px solid #1aa196;
+  border-radius: 8px;
+  padding: 5px 10px;
+  background-color: white;
+  font-size: 16px;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+#categoryFilter:focus {
+  outline: none;
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+}
+
+
+
 .delete-category-btn {
   background: none;
   border: none;
