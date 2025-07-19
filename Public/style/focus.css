@@ -30,7 +30,7 @@ body {
   color: var(--text-light);
   background: 
     linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
-    url('/Images/lofi.gif') center/cover fixed no-repeat;
+    url('../Images/lofi.gif') center/cover fixed no-repeat;
   min-height: 100vh;
 }
 

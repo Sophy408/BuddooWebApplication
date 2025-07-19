@@ -27,22 +27,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Navigation zu Seiten
   document.getElementById("nav-tasks")?.addEventListener("click", () => {
-    window.location.href = "/html/todos.html";
+    window.location.href = "../html/todos.html";
   });
   document.getElementById("nav-notes")?.addEventListener("click", () => {
-    window.location.href = "/html/notes.html";
+    window.location.href = "../html/notes.html";
   });
   document.getElementById("nav-focus")?.addEventListener("click", () => {
-    window.location.href = "/html/focus.html";
+    window.location.href = "../html/focus.html";
   });
   document.getElementById("nav-events")?.addEventListener("click", () => {
-    window.location.href = "/html/events.html";
-  });
-
-  // 🌙 Dark Mode
-  const darkToggle = document.getElementById("dark-mode-toggle");
-  darkToggle?.addEventListener("change", () => {
-    document.body.classList.toggle("dark-mode", darkToggle.checked);
+    window.location.href = "../html/events.html";
   });
 
   // 👩‍💻 Autor anzeigen
