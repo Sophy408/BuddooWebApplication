@@ -91,7 +91,7 @@
 
 #hero-section {
   height: 100vh;
-  background-image: url('/Images/Lofi.gif');
+  background-image: url('../Images/Lofi.gif');
   background-size: cover;
   background-position: center;
   display: flex;
