@@ -1,31 +1,36 @@
 :root {
   /* 🌿 Hauptfarben */
-  --button-color: #43bdaf;
+  --button-color: rgb(66, 189, 174);
   --accent-green: rgba(60, 124, 84, 0.996);
-  --saved-green: #315955;
-  --color-text-light: hsl(0, 0%, 100%);
-  --color-background-dark: hsl(0, 0%, 13%);
-  --color-background-light: hsl(0, 0%, 98%);
-  --calm-teal: #39a195;
-  --ivy-green: #1d7b73;
+  --saved-green: rgb(49, 89, 85);
+  --color-text-light: rgb(255, 255, 255);
+  --color-background-dark: rgb(33, 33, 33);
+  --color-background-light: rgb(250, 250, 250);
+  --calm-teal: rgb(57, 161, 149);
+  --ivy-green: rgb(29, 123, 115);
   --shadow: rgba(0, 0, 0, 0.2);
+    /* Ergänzungeb */
+  --hover-button-color: rgb(0, 102, 102);
+  --input-border-color: rgb(29, 88, 122);
+  --scrollbar-border: rgb(186, 183, 183);
   /* Font */
   --font-family: 'Bodoni Moda', cursive;
 }
 
-*{
+/* ============ BASE STYLES ============ */
+* {
   font-family: Georgia, sans-serif;
 }
 
 body {
-    background: 
-        linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
-        url('../Images/lofi.gif') center/cover fixed no-repeat;
-    color: var(--text);
-    line-height: 1.6;
-    padding: 20px;
-    min-height: 100vh;
-    font-weight: 400;
+  background: 
+    linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
+    url('../Images/lofi.gif') center/cover fixed no-repeat;
+  color: var(--text);
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+  font-weight: 400;
 }
 
 body::-webkit-scrollbar {
@@ -33,24 +38,35 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #11212c;  /* Deine Farbe */
+  background-color: #11212c;
   border-radius: 6px;
-  border: 2px solid #ccc;     /* Optional: border für clean look */
+  border: 2px solid #ccc;
 }
 
 body::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
+/* ============ LAYOUT STYLES ============ */
+.page-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-/* ============ HEADER STYLES ============ */
+.notes-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 /* ============ HEADER STYLES ============ */
 header nav {
   background-color: var(--calm-teal);
   backdrop-filter: blur(5px);
   padding: 1.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
-  border-radius: 10px;  /* Optional: macht's softer */
+  border-radius: 10px;
   animation: fadeInSlide 0.4s ease-out;
 }
 
@@ -69,7 +85,7 @@ header nav li {
 }
 
 header nav a {
-  position: relative;  
+  position: relative;
   color: var(--color-text-light);
   text-decoration: none;
   font-weight: 700;
@@ -77,7 +93,6 @@ header nav a {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
   animation: fadeInSlide 0.4s ease-out;
-
 }
 
 header nav a::after {
@@ -85,8 +100,8 @@ header nav a::after {
   position: absolute;
   width: 100%;
   transform: scaleX(0);
-  height: 2px;                                
-  bottom: 0;                                  
+  height: 2px;
+  bottom: 0;
   left: 0;
   background-color: var(--color-text-light);
   transform-origin: bottom right;
@@ -96,7 +111,7 @@ header nav a::after {
 header nav a:hover {
   transform: translateY(-2px);
   color: var(--color-text-light);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);   /* 🆕 Stärkerer Schatten */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 header nav a:hover::after {
@@ -104,16 +119,7 @@ header nav a:hover::after {
   transform-origin: bottom left;
 }
 
-
-
-/* Layout */
-.notes-wrapper {
-  display: flex;
-  flex-wrap: wrap;      /* 🆕 Damit es umbrechen kann */
-  gap: 20px;            /* 🆕 Schöner Abstand */
-}
-
-/* Sidebar */
+/* ============ SIDEBAR STYLES ============ */
 .sidebar {
   margin-top: 20px;
   width: 250px;
@@ -121,27 +127,11 @@ header nav a:hover::after {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
   display: flex;
   flex-direction: column;
-  height: 90vh;  /* Sidebar immer volle Bildschirmhöhe */
-  overflow-y: auto;  /* 🆕 Scrollbalken bei Überlauf */
+  height: 90vh;
+  overflow-y: auto;
   backdrop-filter: blur(5px);
-  margin-right: 20px;  /* ➕ Abstand zur rechten Seite */
+  margin-right: 20px;
   animation: fadeInSlide 0.7s ease-out;
-}
-
-h1.headings {
-  font-family: 'Playfair Display', serif;
-  font-size: 40px;         /* Hier kannst du die Größe ändern */
-  font-weight: 700;
-  color: var(--color-text-light);
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  padding: 10px 15px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  border-left: 4px solid var(--calm-teal);
-  padding-left: 12px;
-  margin-bottom: 30px;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -151,9 +141,8 @@ h1.headings {
 .sidebar::-webkit-scrollbar-thumb {
   background-color: #11212c;
   border-radius: 4px;
-  border: 2px solid rgb(186, 183, 183);
+  border: 2px solid var(--scrollbar-border);
 }
-
 
 #category-list {
   list-style: none;
@@ -172,47 +161,38 @@ h1.headings {
   cursor: pointer;
 }
 
-/* Category input */
-.new-category {
+.category-item {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--ivy-green);
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
-.new-category input {
-  flex: 1;
-  padding: 5px 10px;
-  border: 1px solid #1d587a;
-  border-radius: 5px;
-}
-
-.new-category button {
-  background-color: var(--button-color);
-  color: var(--color-text-light);
+.delete-category-btn {
+  background: none;
   border: none;
-  padding: 10px 15px;          /* 🆕 größer & runder */
-  font-size: 16px;             /* 🆕 größerer Text */
-  border-radius: 8px;          /* 🆕 weicher */
+  font-size: 14px;
   cursor: pointer;
+  margin-left: 10px;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-
-.new-category button:hover {
+.delete-category-btn:hover {
+  background-color: var(--calm-teal);
   transform: scale(1.05);
-  background-color: #ffffff;     /* neue Hintergrundfarbe beim Hover */
-  color: #006666;                /* neue Schriftfarbe beim Hover */
-  border: 1px solid #006666;     /* optional: Rahmenfarbe beim Hover */
-  cursor: pointer;   
 }
 
-/* Main Notes Grid */
+/* ============ NOTES MAIN AREA STYLES ============ */
 .notes-main {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
   backdrop-filter: blur(5px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
-  margin-top: 20px
+  margin-top: 20px;
 }
 
 .notes-main h1 {
@@ -220,7 +200,10 @@ h1.headings {
   margin-bottom: 20px;
   color: var(--color-text-light);
   animation: fadeInSlide 0.8s ease-out;
+}
 
+.notes-main h1.headings {
+  font-size: 40px !important;
 }
 
 .notes-main::-webkit-scrollbar {
@@ -230,44 +213,16 @@ h1.headings {
 .notes-main::-webkit-scrollbar-thumb {
   background-color: #11212c;
   border-radius: 4px;
-  border: 2px solid rgb(186, 183, 183);
+  border: 2px solid var(--scrollbar-border);
 }
 
-
-#add-note-btn {
-  margin-top: 20px;
-  padding: 10px 15px;
-  font-size: 16px;
-  background-color: var(--button-color);
-  color: var(--color-text-light);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-
+/* ============ NOTES GRID & CARD STYLES ============ */
+#notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
 }
-
-#add-note-btn:hover {
-  transform: scale(1.05);
-  background-color: #ffffff;     /* neue Hintergrundfarbe beim Hover */
-  color: #006666;                /* neue Schriftfarbe beim Hover */
-  border: 1px solid #006666;     /* optional: Rahmenfarbe beim Hover */
-  cursor: pointer;   
-}
-
-.note-editor {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  min-height: 150px;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-image: repeating-linear-gradient(white, white 24px, #ddd 25px);
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  overflow-y: auto;
-  line-height: 1.5;
-}
-
 
 .note-card {
   background-color: var(--ivy-green);
@@ -277,14 +232,13 @@ h1.headings {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;  /* 🆕 Abstand nach unten */
+  margin-bottom: 20px;
   animation: fadeInSlide 0.8s ease-out;
-
 }
 
 .note-card textarea {
   width: 100%;
-  box-sizing: border-box;  /* 🆘 Ganz wichtig! */
+  box-sizing: border-box;
   padding: 10px;
   border-radius: 8px;
   border: 1px solid var(--mist-gray);
@@ -296,17 +250,128 @@ h1.headings {
   border: 1px solid #ccc;
 }
 
-
-.category-item {
+.note-toolbar {
+  margin-top: 10px;
+  margin-bottom: 5px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--ivy-green);
-  padding: 8px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  gap: 5px;
 }
 
+.note-btn-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+/* ============ BUTTON STYLES ============ */
+#add-note-btn {
+  margin-top: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: var(--button-color);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#add-note-btn:hover {
+  transform: scale(1.05);
+  background-color: #ffffff;
+  color: var(--hover-button-color);
+  border: 1px solid var(--hover-button-color);
+  cursor: pointer;
+}
+
+.note-action-btn {
+  background-color: var(--button-color);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 15px;
+  cursor: pointer;
+  min-width: 60px;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.note-action-btn:hover {
+  transform: scale(1.05);
+  background-color: #ffffff;
+  color: var(--hover-button-color);
+  border: 1px solid var(--hover-button-color);
+  cursor: pointer;
+}
+
+.note-toolbar button {
+  padding: 4px 8px;
+  cursor: pointer;
+  background-color: var(--button-color);
+  color: var(--color-text-light);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.note-toolbar button:hover {
+  transform: scale(1.05);
+  background-color: #ffffff;
+  color: var(--hover-button-color);
+  border: 1px solid var(--hover-button-color);
+  cursor: pointer;
+}
+
+.save-note-btn.saved {
+  background-color: var(--saved-green);
+  transform: scale();
+  color: var(--color-text-light);
+}
+
+/* ============ FORM & INPUT STYLES ============ */
+.new-category {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: stretch;
+}
+
+.new-category input {
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 5px;
+}
+
+.new-category button {
+  padding: 8px 12px;
+  background-color: var(--calm-teal);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+
+.new-category button {
+  background-color: var(--button-color);
+  color: var(--color-text-light);
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.new-category button:hover {
+  transform: scale(1.05);
+  background-color: #ffffff;
+  color: var(--hover-button-color);
+  border: 1px solid var(--hover-button-color);
+  cursor: pointer;
+}
 
 .filter-category {
   display: flex;
@@ -316,15 +381,13 @@ h1.headings {
   gap: 10px;
   border-color: var(--shadow);
   animation: fadeInSlide 0.75s ease-out;
-
 }
 
 .filter-category label {
-  color: white; /* oder jede gewünschte Farbe */
-  font-weight: bold; /* optional */
+  color: white;
+  font-weight: bold;
   font-size: 18px;
 }
-
 
 #categoryFilter {
   border: 2px solid #1aa196;
@@ -343,111 +406,110 @@ h1.headings {
   box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
 }
 
-
-
-.delete-category-btn {
-  background: none;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  margin-left: 10px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.delete-category-btn:hover {
-  background-color: var(--calm-teal);
-  transform: scale(1.05);
-}
-
-.note-btn-container {
-  display: flex;
-  justify-content: flex-start;
-  gap: 8px;
-  margin-top: 5px;
-}
-
-
-.note-toolbar {
-  margin-top: 10px;
-  margin-bottom: 5px;
-  display: flex;
-  gap: 5px;
-}
-
-.note-toolbar button {
-  padding: 4px 8px;
-  cursor: pointer;
-  background-color: var(--button-color);
-  color: var(--color-text-light);
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.note-toolbar button:hover{
-  transform: scale(1.05);
-  background-color: #ffffff;     /* neue Hintergrundfarbe beim Hover */
-  color: #006666;                /* neue Schriftfarbe beim Hover */
-  border: 1px solid #006666;     /* optional: Rahmenfarbe beim Hover */
-  cursor: pointer;   
-}
-
-
-.page-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.note-action-btn {
-  background-color: var(--button-color);
-  color: var(--color-text-light);
-  border: none;
-  border-radius: 5px;
-  padding: 6px 12px;       /* Einheitliches Padding */
-  font-size: 15px;         /* Einheitliche Schriftgröße */
-  cursor: pointer;
-  min-width: 60px;         /* Alle gleich breit */
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.note-action-btn:hover {
-  transform: scale(1.05);
-  background-color: #ffffff;     /* neue Hintergrundfarbe beim Hover */
-  color: #006666;                /* neue Schriftfarbe beim Hover */
-  border: 1px solid #006666;     /* optional: Rahmenfarbe beim Hover */
-  cursor: pointer;              /* zeigt den "Hand"-Cursor */
-}
-
-
-.save-note-btn.saved {
-  background-color: var(--saved-green);
-  transform: scale();       /* ➕ Nur minimal größer */
-  color: var(--color-text-light);
-}
-
 select:invalid {
   color: gray;
 }
 
-.notes-main h1.headings {
-  font-size: 40px !important;}
+/* ============ TYPOGRAPHY STYLES ============ */
+h1.headings {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--color-text-light);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border-left: 4px solid var(--calm-teal);
+  padding-left: 12px;
+  margin-bottom: 30px;
+}
 
-/* Base burger menu (hidden on desktop) */
+/* ============ EDITOR STYLES ============ */
+.note-editor {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-height: 150px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-image: repeating-linear-gradient(white, white 24px, #ddd 25px);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+
+/* ============ BURGER MENU STYLES ============ */
 .burger-menu {
   display: none;
 }
 
-
+/* ============ ANIMATIONS ============ */
 @keyframes fadeInSlide {
   0% {
     opacity: 0;
-    transform: translateY(20px);  /* oder X für horizontal */
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
+/* ============ MEDIA QUERIES ============ */
+
+@media (max-width: 768px) {
+  .new-category {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px; /* Bessere Alternative zu margin-top */
+    padding: 0 10px; /* Seitliche Polsterung hinzufügen */
+  }
+
+  .new-category input,
+  .new-category button {
+    width: 100%;
+    font-size: 1rem; /* Originalgröße beibehalten */
+    box-sizing: border-box; /* Wichtig für korrekte Breitenberechnung */
+  }
+
+  .new-category input {
+    padding: 8px 12px; /* Etwas weniger vertikales Padding */
+  }
+
+  .new-category button {
+    padding: 8px 12px; /* Gleichmäßiges Padding */
+    margin-top: 0; /* Wird durch gap ersetzt */
+  }
+
+  .notes-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    order: 2;
+    margin-top: 1rem;
+  }
+
+  .notes-main {
+    width: 100%;
+    padding: 1rem;
+    order: 1;
+  }
+
+  #notes-grid {
+    grid-template-columns: 1fr; /* Eine Spalte */
+  }
+
+  #add-note-btn {
+    width: 100%;
+    font-size: 1.2rem;
+  }
+}
+
 
 @media (max-width: 852px) {
   /* Hide sidebar by default */
