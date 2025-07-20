@@ -1,20 +1,25 @@
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
 
-  const email = e.target.email.value;
-  const password = e.target.password.value;
+    const data = {
+      email: form.email.value,
+      password: form.password.value
+    };
 
-  const res = await fetch('/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    if (res.ok) {
+      alert('Login erfolgreich!');
+      // Beispiel: Weiterleitung auf Profilseite oder Dashboard
+      window.location.href = 'dashboard.html';
+    } else {
+      alert(result.error || 'Fehler beim Login');
+    }
   });
 
-  const data = await res.json();
-
-  if (res.ok) {
-    window.location.href = 'home.html';
-  } else {
-    alert(data.error || 'Fehler beim Login');
-  }
-});
