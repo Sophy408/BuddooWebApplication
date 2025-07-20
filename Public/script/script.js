@@ -39,6 +39,12 @@ window.addEventListener("DOMContentLoaded", () => {
     window.location.href = "../html/events.html";
   });
 
+  // 🌙 Dark Mode
+  const darkToggle = document.getElementById("dark-mode-toggle");
+  darkToggle?.addEventListener("change", () => {
+    document.body.classList.toggle("dark-mode", darkToggle.checked);
+  });
+
   // 👩‍💻 Autor anzeigen
   const author = document.querySelector('meta[name="author"]')?.getAttribute("content");
   if (author) {
