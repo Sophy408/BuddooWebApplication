@@ -21,9 +21,9 @@ app.use(session({
 
 app.use('/api/auth', authRoutes);
 
-app.use(express.static(path.join(__dirname, '../Public')));
+app.use(express.static(path.join(__dirname, 'Public')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../Public/html/index.html'));
+  res.sendFile(path.join(__dirname, 'Public/html/index.html'));
 });
 
 app.listen(PORT, () => {
