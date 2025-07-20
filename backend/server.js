@@ -10,20 +10,28 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Session-Konfiguration (secure nur bei HTTPS!)
 app.use(session({
   secret: 'supersecretkey',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: true } // Für HTTP
+  cookie: {
+    secure: process.env.NODE_ENV === 'production' // Nur bei HTTPS aktiv
+  }
 }));
 
-// Routen
+// API-Routen
 app.use('/api/auth', authRoutes);
 
-// Statische Dateien (z. B. HTML, CSS)
-app.use(express.static(path.join(__dirname, '')));
+// 🟢 Statische Dateien bereitstellen (Public-Ordner)
+app.use(express.static(path.join(__dirname, '../Public')));
 
-// Start Server
+// 🟢 Standard-Route: Home laden
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../Public/html/index.html'));
+});
+
+// Server starten
 app.listen(PORT, () => {
-  console.log(`Server läuft auf http://localhost:${PORT}`);
+  console.log(`✅ Server läuft auf http://localhost:${PORT}`);
 });
