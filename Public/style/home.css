@@ -3,11 +3,11 @@
 
 /* 🌿 Farb- und Schriftvariablen */
 :root {
-  --color-text-light: hsl(0, 0%, 100%);
-  --color-background-dark: hsl(0, 0%, 13%);
-  --color-background-light: hsl(0, 0%, 98%);
-  --calm-teal: #39a195;
-  --ivy-green: #1d7b73;
+  --color-text-light: rgb(255, 255, 255);
+  --color-background-dark: rgb(33, 33, 33);
+  --color-background-light: rgb(250, 250, 250);
+  --calm-teal: rgb(57, 161, 149);
+  --ivy-green: rgb(29, 123, 115);
   --shadow: rgba(0, 0, 0, 0.2);
   font-family: 'Bodoni Moda', cursive;
 }

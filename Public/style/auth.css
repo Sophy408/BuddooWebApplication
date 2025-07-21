@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
 
 :root {
-  --primary: #2F3E3B;
-  --accent: #39a195;
-  --bg: #1E333C;
-  --text: #ffffff;
+  --primary: rgb(47, 62, 59);
+  --accent: rgb(57, 161, 149);
+  --bg: rgb(30, 51, 60);
+  --text: rgb(255, 255, 255);
   --border-radius: 10px;
 }
 

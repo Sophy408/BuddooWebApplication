@@ -2,21 +2,21 @@
 
 :root {
   /* Color Palette */
-  --dark-teal: #1E333C;
-  --pine-green: #2F3E3B;
-  --calm-teal: #39a195;
-  --ivy-green: #1d7b73;
-  --mist-gray: #87999B;
+  --dark-teal: rgb(30, 51, 60);
+  --pine-green: rgb(47, 62, 59);
+  --calm-teal: rgb(57, 161, 149);
+  --ivy-green: rgb(29, 123, 115);
+  --mist-gray: rgb(135, 153, 155);
 
   /* Backgrounds */
   --card-bg: rgba(255, 255, 255, 0.05);
   --input-bg: rgba(108, 152, 139, 0.9);
     
   /* Text Colors */
-  --text: #FFFFFF;
-  --text-dark: #2a4443;
-  --text-muted: #B0BEC5;
-  --placeholder: #87999B;
+  --text: rgb(255, 255, 255);
+  --text-dark: rgb(42, 68, 67);
+  --text-muted: rgb(176, 190, 197);
+  --placeholder: rgb(135, 153, 155);
 
   /* UI Elements */
   --shadow: rgba(0, 0, 0, 0.2);
