@@ -1,3 +1,8 @@
+/**
+ * BUDDOO NOTES MODULE  
+ * Handles creating, saving, editing, and deleting notes  
+ */
+
 "use strict";
 
 // =============================================

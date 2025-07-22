@@ -1,26 +1,49 @@
-
-  document.getElementById('register-form').addEventListener('submit', async (e) => {
+"use strict"
+/**
+ * REGISTRATION FORM HANDLER
+ * Handles new user registration form submission
+ */
+document.getElementById('register-form').addEventListener('submit', async (e) => {
+    // Prevent default form submission
     e.preventDefault();
+    
+    // Get form reference
     const form = e.target;
 
-    const data = {
-      username: form.username.value,
-      email: form.email.value,
-      password: form.password.value
+    // Prepare registration data with trimmed values
+    const userData = {
+        username: form.username.value.trim(),
+        email: form.email.value.trim(),
+        password: form.password.value
     };
 
-    const res = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+    try {
+        // Send registration request to server
+        const response = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(userData)
+        });
 
-    const result = await res.json();
-    if (res.ok) {
-      alert('Registrierung erfolgreich!');
-      window.location.href = 'index.html'; // Weiterleitung zum Login
-    } else {
-      alert(result.error || 'Fehler bei der Registrierung');
+        // Process response
+        const responseData = await response.json();
+
+        if (response.ok) {
+            // Successful registration
+            alert('Registrierung erfolgreich!');
+            // Redirect to login page
+            window.location.href = 'index.html';
+        } else {
+            // Handle registration error
+            const errorMessage = responseData.error || 'Fehler bei der Registrierung';
+            alert(errorMessage);
+        }
+        
+    } catch (error) {
+        // Handle network or unexpected errors
+        console.error('Registration error:', error);
+        alert('Ein unerwarteter Fehler ist aufgetreten');
     }
-  });
-
+});

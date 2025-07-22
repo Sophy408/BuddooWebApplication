@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
+/* ========== Root Variables ========== */
 :root {
   /* Color Palette */
   --dark-teal: rgb(30, 51, 60);
@@ -19,6 +20,7 @@
   --completed: rgba(181, 234, 215, 0.7);
 }
 
+/* ========== Global Reset ========== */
 * {
   margin: 0;
   padding: 0;
@@ -34,7 +36,7 @@ body {
   min-height: 100vh;
 }
 
-/* Header */
+/* ========== Header ========== */
 header {
   padding: 0 2rem;
   display: flex;
@@ -50,10 +52,9 @@ h1 {
   font-size: 3rem;
   font-weight: 700;
   padding: 0.5rem 1.5rem;
-
 }
 
-/* Navigation */
+/* ========== Navigation ========== */
 nav {
   padding: 0.5rem 1rem;
 }
@@ -106,7 +107,7 @@ header nav ul {
   border: none;
 }
 
-/* Timer Section */
+/* ========== Timer Section ========== */
 #focus-timer {
   display: flex;
   flex-direction: column;
@@ -171,7 +172,7 @@ h2 {
   transition: stroke-dashoffset 1s linear;
 }
 
-/* Buttons */
+/* ========== Buttons ========== */
 .timer-buttons {
   display: flex;
   gap: 2rem;
@@ -200,13 +201,13 @@ button:active {
   transform: scale(0.95);
 }
 
-/* Media Queries */
+/* ========== Media Queries ========== */
 @media (max-width: 768px) {
   h1 {
     font-size: 2rem;
     font-weight: 650;
-    padding: 0.8rem 0.3rem ;
-  } 
+    padding: 0.8rem 0.3rem;
+  }
 
   .menu-toggle {
     background: none;
@@ -216,9 +217,9 @@ button:active {
   }
 
   h2 {
-  font-size: 1.8rem;
-  font-weight: 550;
-  margin-bottom: 1.3rem;
+    font-size: 1.8rem;
+    font-weight: 550;
+    margin-bottom: 1.3rem;
   }
 
   #timer-text {
@@ -235,21 +236,21 @@ button:active {
     transition: right 0.3s ease;
     z-index: 1000;
   }
-  
+
   nav.active {
     right: 0;
   }
-  
+
   nav ul {
     flex-direction: column;
   }
-  
+
   .nav__link {
     display: block;
     padding: 0.3rem;
     font-size: 1rem;
   }
-  
+
   .nav__link::after {
     display: none;
   }
@@ -277,9 +278,9 @@ button:active {
   }
 
   h2 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
   }
 
   #timer-text {
@@ -299,5 +300,5 @@ button:active {
 
   .set_timer {
     font-size: 1rem;
-  } 
+  }
 }
