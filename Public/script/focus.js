@@ -1,4 +1,13 @@
+/**
+ * POMODORO TIMER CLASS
+ * Handles focus/break timer functionality with visual feedback
+ */
+
+"use strict";
+
+
 class PomodoroTimer {
+  // Static message arrays
   static FOCUS_END_MESSAGES = [
     "Nice work! Deserve a break, don't you think?",
     "Focus complete! Time to let your neurons stretch.",
@@ -17,20 +26,22 @@ class PomodoroTimer {
     "Unleash the productivity beast!"
   ];
 
+  // ======================
+  // INITIALIZATION
+  // ======================
+
   constructor() {
     this.initElements();
     this.initState();
     this.setupEventListeners();
-    this.initCircle(); 
-
-    this.resizeObserver = new ResizeObserver(() => {
-      this.initCircle();
-      this.updateDisplay();
-    });
-    this.resizeObserver.observe(document.querySelector('.timer-container'));
-    
+    this.initCircle();
+    this.setupResizeObserver();
     this.updateDisplay();
   }
+
+  // ======================
+  // SETUP METHODS
+  // ======================
 
   initElements() {
     this.circle = document.querySelector('.progress-ring__circle');
@@ -42,25 +53,8 @@ class PomodoroTimer {
     this.mainNav = document.getElementById('main-nav');
   }
 
-  initCircle() {
-    const timerContainer = document.querySelector('.timer-container');
-    const containerWidth = parseFloat(getComputedStyle(timerContainer).width);
-
-    this.radius = containerWidth * 0.47;
-    this.circumference = 2 * Math.PI * this.radius;
-
-    const center = containerWidth / 2;
-    this.circle.setAttribute('r', this.radius);
-    this.circle.setAttribute('cx', center);
-    this.circle.setAttribute('cy', center);
-    this.circle.style.strokeDasharray = this.circumference;
-    this.circle.style.strokeDashoffset = this.circumference;
-
-    this.circle.style.strokeWidth = containerWidth * 0.03;
-  }
-
   initState() {
-    this.timerDuration = 25 * 60;
+    this.timerDuration = 25 * 60; // 25 minutes in seconds
     this.timeLeft = this.timerDuration;
     this.interval = null;
     this.running = false;
@@ -82,6 +76,34 @@ class PomodoroTimer {
       link.addEventListener('click', () => this.closeMobileMenu());
     });
   }
+
+  initCircle() {
+    const timerContainer = document.querySelector('.timer-container');
+    const containerWidth = parseFloat(getComputedStyle(timerContainer).width);
+
+    this.radius = containerWidth * 0.47;
+    this.circumference = 2 * Math.PI * this.radius;
+
+    const center = containerWidth / 2;
+    this.circle.setAttribute('r', this.radius);
+    this.circle.setAttribute('cx', center);
+    this.circle.setAttribute('cy', center);
+    this.circle.style.strokeDasharray = this.circumference;
+    this.circle.style.strokeDashoffset = this.circumference;
+    this.circle.style.strokeWidth = containerWidth * 0.03;
+  }
+
+  setupResizeObserver() {
+    this.resizeObserver = new ResizeObserver(() => {
+      this.initCircle();
+      this.updateDisplay();
+    });
+    this.resizeObserver.observe(document.querySelector('.timer-container'));
+  }
+
+  // ======================
+  // TIMER CONTROL METHODS
+  // ======================
 
   startTimer() {
     if (this.isRefilling) return;
@@ -126,18 +148,33 @@ class PomodoroTimer {
     this.isRefilling = false;
   }
 
-  updateDisplay() {
-    this.timerText.textContent = this.secondsToMMSS(this.timeLeft);
-    this.setProgress((this.timeLeft / this.timerDuration) * 100);
+  resumeTimer() {
+    if (!this.running && !this.isRefilling && this.timeLeft > 0) {
+      this.targetTime = Math.floor(Date.now() / 1000) + this.timeLeft;
+      this.running = true;
+      this.interval = setInterval(() => this.checkTimer(() => {
+        if (this.isFirstCycle) {
+          this.isFirstCycle = false;
+          const message = this.getRandomMessage(PomodoroTimer.FOCUS_END_MESSAGES);
+          if (confirm(message)) {
+            this.promptForNewTime("Enter break duration (MM:SS):", "05:00", (breakSeconds) => {
+              this.animateRefill(breakSeconds, 'var(--color-secondary)', () => {
+                this.startBreakCycle(breakSeconds);
+              });
+            });
+          }
+        } else {
+          this.currentMode === 'focus'
+            ? this.startFocusCycle(this.timerDuration)
+            : this.startBreakCycle(this.timerDuration);
+        }
+      }), 1000);
+    }
   }
 
-  setProgress(percentRemaining) {
-    const offset = this.circumference * (1 - (percentRemaining / 100));
-    this.circle.style.strokeDashoffset = offset;
-    this.circle.style.stroke = this.currentMode === 'focus' 
-      ? 'var(--color-primary)' 
-      : 'var(--color-secondary)';
-  }
+  // ======================
+  // TIMER CYCLE METHODS
+  // ======================
 
   startFocusCycle(seconds) {
     this.runTimer(seconds, 'var(--color-primary)', 'focus', () => {
@@ -204,6 +241,23 @@ class PomodoroTimer {
     }
   }
 
+  // ======================
+  // VISUAL EFFECTS
+  // ======================
+
+  updateDisplay() {
+    this.timerText.textContent = this.secondsToMMSS(this.timeLeft);
+    this.setProgress((this.timeLeft / this.timerDuration) * 100);
+  }
+
+  setProgress(percentRemaining) {
+    const offset = this.circumference * (1 - (percentRemaining / 100));
+    this.circle.style.strokeDashoffset = offset;
+    this.circle.style.stroke = this.currentMode === 'focus' 
+      ? 'var(--color-primary)' 
+      : 'var(--color-secondary)';
+  }
+
   animateRefill(newDuration, finalColor, callback) {
     this.clearAllTimers();
     this.isRefilling = true;
@@ -239,6 +293,10 @@ class PomodoroTimer {
     this.animationFrameId = requestAnimationFrame(refillStep);
   }
 
+  // ======================
+  // USER INTERACTION
+  // ======================
+
   handleTimerClick() {
     if (this.running || this.isRefilling) return;
 
@@ -263,6 +321,26 @@ class PomodoroTimer {
     }
   }
 
+  toggleMobileMenu() {
+    this.mainNav.classList.toggle('active');
+    const icon = this.mobileMenu.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-times');
+  }
+
+  closeMobileMenu() {
+    if (window.innerWidth <= 768) {
+      this.mainNav.classList.remove('active');
+      const icon = this.mobileMenu.querySelector('i');
+      icon.classList.remove('fa-times');
+      icon.classList.add('fa-bars');
+    }
+  }
+
+  // ======================
+  // UTILITY METHODS
+  // ======================
+
   secondsToMMSS(seconds) {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -281,48 +359,9 @@ class PomodoroTimer {
   getRandomMessage(messages) {
     return messages[Math.floor(Math.random() * messages.length)];
   }
-
-  toggleMobileMenu() {
-    this.mainNav.classList.toggle('active');
-    const icon = this.mobileMenu.querySelector('i');
-    icon.classList.toggle('fa-bars');
-    icon.classList.toggle('fa-times');
-  }
-
-  closeMobileMenu() {
-    if (window.innerWidth <= 768) {
-      this.mainNav.classList.remove('active');
-      const icon = this.mobileMenu.querySelector('i');
-      icon.classList.remove('fa-times');
-      icon.classList.add('fa-bars');
-    }
-  }
-
-  resumeTimer() {
-    if (!this.running && !this.isRefilling && this.timeLeft > 0) {
-      this.targetTime = Math.floor(Date.now() / 1000) + this.timeLeft;
-      this.running = true;
-      this.interval = setInterval(() => this.checkTimer(() => {
-        if (this.isFirstCycle) {
-          this.isFirstCycle = false;
-          const message = this.getRandomMessage(PomodoroTimer.FOCUS_END_MESSAGES);
-          if (confirm(message)) {
-            this.promptForNewTime("Enter break duration (MM:SS):", "05:00", (breakSeconds) => {
-              this.animateRefill(breakSeconds, 'var(--color-secondary)', () => {
-                this.startBreakCycle(breakSeconds);
-              });
-            });
-          }
-        } else {
-          this.currentMode === 'focus'
-            ? this.startFocusCycle(this.timerDuration)
-            : this.startBreakCycle(this.timerDuration);
-        }
-      }), 1000);
-    }
-  }
 }
 
+// Initialize timer when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new PomodoroTimer();
 });

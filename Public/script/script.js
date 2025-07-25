@@ -1,51 +1,63 @@
 "use strict";
 
+/**
+ * BUDDOO LANDING PAGE SCRIPT
+ * Handles hero section transitions and navigation
+ */
 window.addEventListener("DOMContentLoaded", () => {
   console.log("🚀 Buddoo gestartet!");
 
+  // DOM Elements
   const startBtn = document.getElementById("start-btn");
   const heroContent = document.querySelector(".hero-content");
   const heroNav = document.getElementById("hero-nav");
 
+  // ======================
+  // EVENT HANDLERS
+  // ======================
 
-  startBtn?.addEventListener("click", () => {
-    // Hero-Content ausfaden
+  /**
+   * Start Button Click Handler
+   * Transitions from hero content to navigation buttons
+   */
+  const handleStartClick = () => {
+    // Fade out hero content
     heroContent.classList.add("fade-out");
 
-    // Buttons sofort einblenden (während heroContent ausfadet)
-    heroNav.classList.remove("hidden");      // sichtbar machen (nicht display:none)
+    // Immediately show nav (without display:none) and start fade-in
+    heroNav.classList.remove("hidden");
     requestAnimationFrame(() => {
-    heroNav.classList.add("show");         // fade-in starten direkt im nächsten Frame
-});
+      heroNav.classList.add("show");
+    });
 
-    // Nach dem Ausfaden wirklich ausblenden (optional)
+    // Complete transition after animation
     setTimeout(() => {
       heroContent.classList.add("hidden");
       heroNav.classList.add("show");
-    }, 800);
+    }, 800); // Matches CSS transition duration
+  };
+
+  // Navigation Handlers
+  const navHandlers = {
+    "nav-tasks": () => (window.location.href = "../html/todos.html"),
+    "nav-notes": () => (window.location.href = "../html/notes.html"),
+    "nav-focus": () => (window.location.href = "../html/focus.html"),
+    "nav-events": () => (window.location.href = "../html/events.html")
+  };
+
+  // ======================
+  // INITIALIZATION
+  // ======================
+
+  // Set up event listeners
+  startBtn?.addEventListener("click", handleStartClick);
+
+  // Set up navigation buttons
+  Object.entries(navHandlers).forEach(([id, handler]) => {
+    document.getElementById(id)?.addEventListener("click", handler);
   });
 
-  // Navigation zu Seiten
-  document.getElementById("nav-tasks")?.addEventListener("click", () => {
-    window.location.href = "../html/todos.html";
-  });
-  document.getElementById("nav-notes")?.addEventListener("click", () => {
-    window.location.href = "../html/notes.html";
-  });
-  document.getElementById("nav-focus")?.addEventListener("click", () => {
-    window.location.href = "../html/focus.html";
-  });
-  document.getElementById("nav-events")?.addEventListener("click", () => {
-    window.location.href = "../html/events.html";
-  });
-
-  // 🌙 Dark Mode
-  const darkToggle = document.getElementById("dark-mode-toggle");
-  darkToggle?.addEventListener("change", () => {
-    document.body.classList.toggle("dark-mode", darkToggle.checked);
-  });
-
-  // 👩‍💻 Autor anzeigen
+  // Log author info if available
   const author = document.querySelector('meta[name="author"]')?.getAttribute("content");
   if (author) {
     console.log("👩‍💻 Autor:", author);

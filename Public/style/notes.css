@@ -1,31 +1,40 @@
 :root {
   /* 🌿 Hauptfarben */
-  --button-color: #43bdaf;
+  --button-color: rgb(66, 189, 174);
   --accent-green: rgba(60, 124, 84, 0.996);
-  --saved-green: #315955;
-  --color-text-light: hsl(0, 0%, 100%);
-  --color-background-dark: hsl(0, 0%, 13%);
-  --color-background-light: hsl(0, 0%, 98%);
-  --calm-teal: #39a195;
-  --ivy-green: #1d7b73;
+  --saved-green: rgb(49, 89, 85);
+  --color-text-light: rgb(255, 255, 255);
+  --color-background-dark: rgb(33, 33, 33);
+  --color-background-light: rgb(250, 250, 250);
+  --dark-teal: rgb(30, 51, 60);
+  --calm-teal: rgb(57, 161, 149);
+  --ivy-green: rgb(29, 123, 115);
   --shadow: rgba(0, 0, 0, 0.2);
+    /* Ergänzungen */
+  --hover-button-color: rgb(0, 102, 102);
+  --input-border-color: rgb(29, 88, 122);
+  --scrollbar-border: rgb(186, 183, 183);
+  --scrollbar-thumb: rgb(17, 33, 44);
+  --border-color-light: rgb(204, 204, 204);
+  --box-shadow-color: rgba(0, 0, 0, 0.473);
   /* Font */
   --font-family: 'Bodoni Moda', cursive;
 }
 
-*{
+/* ============ BASE STYLES ============ */
+* {
   font-family: Georgia, sans-serif;
 }
 
 body {
-    background: 
-        linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
-        url('../Images/lofi.gif') center/cover fixed no-repeat;
-    color: var(--text);
-    line-height: 1.6;
-    padding: 20px;
-    min-height: 100vh;
-    font-weight: 400;
+  background: 
+    linear-gradient(rgba(30, 42, 50, 0.85), rgba(30, 42, 50, 0.85)),
+    url('../Images/lofi.gif') center/cover fixed no-repeat;
+  color: var(--text);
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+  font-weight: 400;
 }
 
 body::-webkit-scrollbar {
@@ -33,24 +42,35 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #11212c;  /* Deine Farbe */
+  background-color: var(--scrollbar-thumb);
   border-radius: 6px;
-  border: 2px solid #ccc;     /* Optional: border für clean look */
+  border: 2px solid var(--border-color-light);
 }
 
 body::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
+/* ============ LAYOUT STYLES ============ */
+.page-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-/* ============ HEADER STYLES ============ */
-/* ============ HEADER STYLES ============ */
+.notes-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* ============ HEADER AND NAV STYLES ============ */
 header nav {
-  background-color: var(--calm-teal);
+  background-color: var(--dark-teal);
   backdrop-filter: blur(5px);
   padding: 1.5rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
-  border-radius: 10px;  /* Optional: macht's softer */
+  box-shadow: 0 2px 5px var(--box-shadow-color);
+  border-radius: 10px;
   animation: fadeInSlide 0.4s ease-out;
 }
 
@@ -69,15 +89,14 @@ header nav li {
 }
 
 header nav a {
-  position: relative;  
+  position: relative;
   color: var(--color-text-light);
   text-decoration: none;
   font-weight: 700;
   font-size: 1.3rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 2px var(--shadow);
   transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
   animation: fadeInSlide 0.4s ease-out;
-
 }
 
 header nav a::after {
@@ -85,18 +104,18 @@ header nav a::after {
   position: absolute;
   width: 100%;
   transform: scaleX(0);
-  height: 2px;                                
-  bottom: 0;                                  
+  height: 2px;
+  bottom: 0;
   left: 0;
-  background-color: var(--color-text-light);
+  background-color: var(--calm-teal);
   transform-origin: bottom right;
   transition: transform 0.3s ease;
 }
 
 header nav a:hover {
   transform: translateY(-2px);
-  color: var(--color-text-light);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);   /* 🆕 Stärkerer Schatten */
+  color: var(--calm-teal);
+  text-shadow: 2px 2px 4px var(--shadow);
 }
 
 header nav a:hover::after {
@@ -104,44 +123,19 @@ header nav a:hover::after {
   transform-origin: bottom left;
 }
 
-
-
-/* Layout */
-.notes-wrapper {
-  display: flex;
-  flex-wrap: wrap;      /* 🆕 Damit es umbrechen kann */
-  gap: 20px;            /* 🆕 Schöner Abstand */
-}
-
-/* Sidebar */
+/* ============ SIDEBAR STYLES ============ */
 .sidebar {
   margin-top: 20px;
   width: 250px;
   padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
+  box-shadow: 0 2px 5px var(--box-shadow-color);
   display: flex;
   flex-direction: column;
-  height: 90vh;  /* Sidebar immer volle Bildschirmhöhe */
-  overflow-y: auto;  /* 🆕 Scrollbalken bei Überlauf */
+  height: 90vh;
+  overflow-y: auto;
   backdrop-filter: blur(5px);
-  margin-right: 20px;  /* ➕ Abstand zur rechten Seite */
+  margin-right: 20px;
   animation: fadeInSlide 0.7s ease-out;
-}
-
-h1.headings {
-  font-family: 'Playfair Display', serif;
-  font-size: 40px;         /* Hier kannst du die Größe ändern */
-  font-weight: 700;
-  color: var(--color-text-light);
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  padding: 10px 15px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  border-left: 4px solid var(--calm-teal);
-  padding-left: 12px;
-  margin-bottom: 30px;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -149,11 +143,10 @@ h1.headings {
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background-color: #11212c;
+  background-color: var(--scrollbar-thumb);
   border-radius: 4px;
-  border: 2px solid rgb(186, 183, 183);
+  border: 2px solid var(--scrollbar-border);
 }
-
 
 #category-list {
   list-style: none;
@@ -164,138 +157,13 @@ h1.headings {
 .category-btn {
   width: 100%;
   padding: 10px;
-  background-color: #f0f0f0;
+  background-color: var(--color-background-light);
   margin-bottom: 10px;
   border: none;
   text-align: left;
   border-radius: 5px;
   cursor: pointer;
 }
-
-/* Category input */
-.new-category {
-  display: flex;
-  gap: 10px;
-}
-
-.new-category input {
-  flex: 1;
-  padding: 5px 10px;
-  border: 1px solid #1d587a;
-  border-radius: 5px;
-}
-
-.new-category button {
-  background-color: var(--button-color);
-  color: var(--color-text-light);
-  border: none;
-  padding: 10px 15px;          /* 🆕 größer & runder */
-  font-size: 16px;             /* 🆕 größerer Text */
-  border-radius: 8px;          /* 🆕 weicher */
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-
-.new-category button:hover {
-  transform: scale(1.05);
-  background-color: #ffffff;     /* neue Hintergrundfarbe beim Hover */
-  color: #006666;                /* neue Schriftfarbe beim Hover */
-  border: 1px solid #006666;     /* optional: Rahmenfarbe beim Hover */
-  cursor: pointer;   
-}
-
-/* Main Notes Grid */
-.notes-main {
-  flex: 1;
-  padding: 30px;
-  overflow-y: auto;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.473);
-  margin-top: 20px
-}
-
-.notes-main h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: var(--color-text-light);
-  animation: fadeInSlide 0.8s ease-out;
-
-}
-
-.notes-main::-webkit-scrollbar {
-  width: 13px;
-}
-
-.notes-main::-webkit-scrollbar-thumb {
-  background-color: #11212c;
-  border-radius: 4px;
-  border: 2px solid rgb(186, 183, 183);
-}
-
-
-#add-note-btn {
-  margin-top: 20px;
-  padding: 10px 15px;
-  font-size: 16px;
-  background-color: var(--button-color);
-  color: var(--color-text-light);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-
-}
-
-#add-note-btn:hover {
-  transform: scale(1.05);
-  background-color: #ffffff;     /* neue Hintergrundfarbe beim Hover */
-  color: #006666;                /* neue Schriftfarbe beim Hover */
-  border: 1px solid #006666;     /* optional: Rahmenfarbe beim Hover */
-  cursor: pointer;   
-}
-
-.note-editor {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  min-height: 150px;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-image: repeating-linear-gradient(white, white 24px, #ddd 25px);
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  overflow-y: auto;
-  line-height: 1.5;
-}
-
-
-.note-card {
-  background-color: var(--ivy-green);
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;  /* 🆕 Abstand nach unten */
-  animation: fadeInSlide 0.8s ease-out;
-
-}
-
-.note-card textarea {
-  width: 100%;
-  box-sizing: border-box;  /* 🆘 Ganz wichtig! */
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid var(--mist-gray);
-}
-
-.note-card select {
-  padding: 5px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
 
 .category-item {
   display: flex;
@@ -306,44 +174,6 @@ h1.headings {
   border-radius: 10px;
   margin-bottom: 10px;
 }
-
-
-.filter-category {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 15px 0;
-  align-items: center;
-  gap: 10px;
-  border-color: var(--shadow);
-  animation: fadeInSlide 0.75s ease-out;
-
-}
-
-.filter-category label {
-  color: white; /* oder jede gewünschte Farbe */
-  font-weight: bold; /* optional */
-  font-size: 18px;
-}
-
-
-#categoryFilter {
-  border: 2px solid #1aa196;
-  border-radius: 8px;
-  padding: 5px 10px;
-  background-color: white;
-  font-size: 16px;
-  color: #333;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-}
-
-#categoryFilter:focus {
-  outline: none;
-  border-color: #0f766e;
-  box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
-}
-
-
 
 .delete-category-btn {
   background: none;
@@ -359,6 +189,78 @@ h1.headings {
   transform: scale(1.05);
 }
 
+/* ============ NOTES MAIN AREA STYLES ============ */
+.notes-main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 5px var(--box-shadow-color);
+  margin-top: 20px;
+}
+
+.notes-main h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--color-text-light);
+  animation: fadeInSlide 0.8s ease-out;
+}
+
+.notes-main h1.headings {
+  font-size: 40px !important;
+}
+
+.notes-main::-webkit-scrollbar {
+  width: 13px;
+}
+
+.notes-main::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 4px;
+  border: 2px solid var(--scrollbar-border);
+}
+
+/* ============ NOTES GRID & CARD STYLES ============ */
+#notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.note-card {
+  background-color: var(--ivy-green);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px var(--box-shadow-color);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  animation: fadeInSlide 0.8s ease-out;
+}
+
+.note-card textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--mist-gray);
+}
+
+.note-card select {
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color-light);
+}
+
+.note-toolbar {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  gap: 5px;
+}
+
 .note-btn-container {
   display: flex;
   justify-content: flex-start;
@@ -366,12 +268,46 @@ h1.headings {
   margin-top: 5px;
 }
 
+/* ============ BUTTON STYLES ============ */
+#add-note-btn {
+  margin-top: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: var(--button-color);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
 
-.note-toolbar {
-  margin-top: 10px;
-  margin-bottom: 5px;
-  display: flex;
-  gap: 5px;
+#add-note-btn:hover {
+  transform: scale(1.05);
+  background-color: var(--color-background-light);
+  color: var(--hover-button-color);
+  border: 1px solid var(--hover-button-color);
+  cursor: pointer;
+}
+
+.note-action-btn {
+  background-color: var(--button-color);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 15px;
+  cursor: pointer;
+  min-width: 60px;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.note-action-btn:hover {
+  transform: scale(1.05);
+  background-color: var(--color-background-light);
+  color: var(--hover-button-color);
+  border: 1px solid var(--hover-button-color);
+  cursor: pointer;
 }
 
 .note-toolbar button {
@@ -382,66 +318,179 @@ h1.headings {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.note-toolbar button:hover{
+.note-toolbar button:hover {
   transform: scale(1.05);
-  background-color: #ffffff;     /* neue Hintergrundfarbe beim Hover */
-  color: #006666;                /* neue Schriftfarbe beim Hover */
-  border: 1px solid #006666;     /* optional: Rahmenfarbe beim Hover */
-  cursor: pointer;   
-}
-
-
-.page-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.note-action-btn {
-  background-color: var(--button-color);
-  color: var(--color-text-light);
-  border: none;
-  border-radius: 5px;
-  padding: 6px 12px;       /* Einheitliches Padding */
-  font-size: 15px;         /* Einheitliche Schriftgröße */
+  background-color: var(--color-background-light);
+  color: var(--hover-button-color);
+  border: 1px solid var(--hover-button-color);
   cursor: pointer;
-  min-width: 60px;         /* Alle gleich breit */
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
-.note-action-btn:hover {
-  transform: scale(1.05);
-  background-color: #ffffff;     /* neue Hintergrundfarbe beim Hover */
-  color: #006666;                /* neue Schriftfarbe beim Hover */
-  border: 1px solid #006666;     /* optional: Rahmenfarbe beim Hover */
-  cursor: pointer;              /* zeigt den "Hand"-Cursor */
-}
-
 
 .save-note-btn.saved {
   background-color: var(--saved-green);
-  transform: scale();       /* ➕ Nur minimal größer */
+  transform: scale();
   color: var(--color-text-light);
+}
+
+/* ============ FORM & INPUT STYLES ============ */
+.new-category {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: stretch;
+}
+
+.new-category input {
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 5px;
+}
+
+.new-category button {
+  padding: 8px 12px;
+  background-color: var(--calm-teal);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+
+.new-category button {
+  background-color: var(--button-color);
+  color: var(--color-text-light);
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.new-category button:hover {
+  transform: scale(1.05);
+  background-color: var(--color);
+  color: var(--hover-button-color);
+  border: 1px solid var(--hover-button-color);
+  cursor: pointer;
+}
+
+/*Select/ filter by categories */
+
+.filter-category {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px 0;
+  align-items: center;
+  gap: 10px;
+  border-color: var(--shadow);
+  animation: fadeInSlide 0.75s ease-out;
+}
+
+.filter-category label {
+  color: var(--color-text-light);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#categoryFilter {
+  border: 2px solid var(--calm-teal);
+  border-radius: 8px;
+  padding: 5px 10px;
+  background-color: var(--color-background-light);
+  font-size: 16px;
+  color: #333; /* Dunkler Text bleibt bewusst gesetzt, damit man ihn lesen kann */
+  box-shadow: 0 2px 6px var(--box-shadow-color);
+  transition: all 0.3s ease;
+}
+
+#categoryFilter:focus {
+  outline: none;
+  border-color: var(--hover-button-color);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); /* dieser Wert ist keine root-Variable, da er mit Transparenz funktioniert */
 }
 
 select:invalid {
   color: gray;
 }
 
-.notes-main h1.headings {
-  font-size: 40px !important;}
-
-/* Base burger menu (hidden on desktop) */
-.burger-menu {
-  display: none;
+/* ============ TYPOGRAPHY STYLES ============ */
+h1.headings {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--color-text-light);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border-left: 4px solid var(--calm-teal);
+  padding-left: 12px;
+  margin-bottom: 30px;
 }
 
+/* ============ EDITOR STYLES ============ */
+.note-editor {
+  border: 1px solid var(--border-color-light);
+  border-radius: 8px;
+  min-height: 150px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-image: repeating-linear-gradient(
+    var(--color-background-light),
+    var(--color-background-light) 24px,
+    #ddd 25px
+  );
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  overflow-y: auto;
+  line-height: 1.5;
+}
 
+/* ============ BURGER MENU STYLES ============ */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 35px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.burger-menu span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background-color: var(--color-text-light);
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.burger-menu:hover {
+  transform: scale(1.05);
+  background-color: var(--color-background-light);
+  border: 1px solid var(--hover-button-color);
+}
+
+.burger-menu:hover span {
+  background-color: var(--hover-button-color);
+}
+
+/* ============ ANIMATIONS ============ */
 @keyframes fadeInSlide {
   0% {
     opacity: 0;
-    transform: translateY(20px);  /* oder X für horizontal */
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;
@@ -449,27 +498,75 @@ select:invalid {
   }
 }
 
+/* ============ MEDIA QUERIES ============ */
+@media (max-width: 768px) {
+  .new-category {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .new-category input,
+  .new-category button {
+    width: 100%;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+
+  .new-category input {
+    padding: 8px 12px;
+  }
+
+  .new-category button {
+    padding: 8px 12px;
+    margin-top: 0;
+  }
+
+  .notes-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    order: 2;
+    margin-top: 1rem;
+  }
+
+  .notes-main {
+    width: 100%;
+    padding: 1rem;
+    order: 1;
+  }
+
+  #notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #add-note-btn {
+    width: 100%;
+    font-size: 1.2rem;
+  }
+}
+
 @media (max-width: 852px) {
-  /* Hide sidebar by default */
   .sidebar {
     top: 0;
     position: fixed;
-    width: 55%; /* Responsive to screen size */
+    width: 55%;
     left: -100%;
     height: 80vh;
     background: var(--color-background-dark);
-    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    box-shadow: 2px 0 10px var(--box-shadow-color);
     transition: left 0.3s ease;
     z-index: 1000;
     padding-top: 60px;
   }
 
-  /* Show sidebar when open */
   .sidebar.open {
     left: 0;
   }
 
-  /* Burger menu styles */
   .burger-menu {
     display: block;
     position: fixed;
@@ -483,38 +580,36 @@ select:invalid {
     height: 50px;
     padding: 12px;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px var(--box-shadow-color);
   }
 
   .burger-menu span {
     display: block;
     width: 24px;
     height: 3px;
-    background: white;
+    background: var(--color-text-light);
     margin: 5px auto;
     transition: all 0.3s ease;
   }
 
-  /* Transform burger into X when open */
   .burger-menu.open span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
+
   .burger-menu.open span:nth-child(2) {
     opacity: 0;
   }
+
   .burger-menu.open span:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
 
-  /* Adjust header for mobile */
   header nav {
     width: 100%;
     padding: 1rem;
     z-index: 900;
   }
 
-
-  /* Push content down */
   .notes-main {
     margin-top: 40px;
     padding: 1rem;

@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
-    <title>Daily To-dos ✍️</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../style/toDo.css">
+    <!-- Page Title -->
+    <title>Daily To-dos ✍️</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../style/toDo.css">
 </head>
+
 <body>
+    <!-- Header with Navigation -->
     <header>
-  <h1>Buddoo</h1>
-  <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
-    <nav>
-      <ul>
-        <li><a href="../html/home.html" class="nav__link">Home</a></li>
-        <li><a href="../html/notes.html" class="nav__link">Notes</a></li>
-        <li><a href="../html/focus.html" class="nav__link">Focus</a></li>
-        <li><a href="../html/events.html" class="nav__link">Events</a></li>
-      </ul>
-    </nav>
+        <h1>Buddoo</h1>
+        <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
+        <nav>
+            <ul>
+                <li><a href="../html/home.html" class="nav__link">Home</a></li>
+                <li><a href="../html/notes.html" class="nav__link">Notes</a></li>
+                <li><a href="../html/focus.html" class="nav__link">Focus</a></li>
+                <li><a href="../html/events.html" class="nav__link">Events</a></li>
+            </ul>
+        </nav>
     </header>
+
+    <!-- Main Content Container -->
     <div class="main-container">
         <!-- Left Column - To-do Lists -->
         <div class="todo-column">
-            <!-- Morning To-do -->
+            <!-- Morning To-do Section -->
             <div class="todo-section" id="morning-todos">
                 <h2>🌞 Morning</h2>
                 <div class="toDoForm">
@@ -36,7 +43,7 @@
                 </div>
             </div>
             
-            <!-- Afternoon To-do -->
+            <!-- Afternoon To-do Section -->
             <div class="todo-section" id="afternoon-todos">
                 <h2>☀️ Afternoon</h2>
                 <div class="toDoForm">
@@ -50,7 +57,7 @@
                 </div>
             </div>
             
-            <!-- Evening To-do -->
+            <!-- Evening To-do Section -->
             <div class="todo-section" id="evening-todos">
                 <h2>🌙 Evening</h2>
                 <div class="toDoForm">
@@ -65,7 +72,7 @@
             </div>
         </div>
         
-        <!-- Right Column - Notes -->
+        <!-- Right Column - Notes Section -->
         <div class="notes-column">
             <div class="notes-header">
                 <img src="../Images/writing.gif" alt="Notes Icon" class="notes-icon">
@@ -75,6 +82,8 @@
             <button id="save-notes-btn" class="save-notes-btn" aria-label="Save notes">Save Notes</button>
         </div>
     </div>
+
+    <!-- JavaScript -->
     <script src="../script/toDo.js"></script>
 </body>
 </html>

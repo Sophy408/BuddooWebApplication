@@ -1,62 +1,97 @@
+"use strict";
+
+/**
+ * TO-DO LIST MANAGER
+ * Handles morning/afternoon/evening tasks with localStorage persistence
+ */
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all todo sections
-    const sections = ['morning', 'afternoon', 'evening'];
-    
-    sections.forEach(section => {
-        const container = document.getElementById(`${section}-todos`);
-        
-        // Get elements
-        const input = container.querySelector('.input-item');
-        const addButton = container.querySelector('.input-button');
-        const listContainer = container.querySelector('.list-container');
-        const completedCounter = container.querySelector('.completed-counter');
-        const uncompletedCounter = container.querySelector('.uncompleted-counter');
-        
-        // Load saved tasks
-        loadTasks(section, listContainer, completedCounter, uncompletedCounter);
-        
-        // Add task event
+    // ======================
+    // CONSTANTS AND ELEMENTS
+    // ======================
+    const SECTIONS = ['morning', 'afternoon', 'evening'];
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('nav ul');
+
+    // ======================
+    // CORE FUNCTIONALITY
+    // ======================
+
+    /**
+     * Initializes all to-do sections
+     */
+    function initializeSections() {
+        SECTIONS.forEach(section => {
+            const container = document.getElementById(`${section}-todos`);
+            if (!container) return;
+
+            // Get section elements
+            const elements = {
+                input: container.querySelector('.input-item'),
+                addButton: container.querySelector('.input-button'),
+                listContainer: container.querySelector('.list-container'),
+                completedCounter: container.querySelector('.completed-counter'),
+                uncompletedCounter: container.querySelector('.uncompleted-counter')
+            };
+
+            // Load saved tasks
+            loadTasks(section, elements.listContainer, elements.completedCounter, elements.uncompletedCounter);
+
+            // Set up event listeners
+            setupSectionEventListeners(section, elements);
+        });
+    }
+
+    /**
+     * Sets up event listeners for a to-do section
+     */
+    function setupSectionEventListeners(section, {input, addButton, listContainer, completedCounter, uncompletedCounter}) {
+        // Add task button click
         addButton.addEventListener('click', () => {
             addTask(section, input, listContainer, completedCounter, uncompletedCounter);
         });
-        
-        // Enter key event
+
+        // Enter key in input
         input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 addTask(section, input, listContainer, completedCounter, uncompletedCounter);
             }
-        }); 
-        
-        // List container events
-        listContainer.addEventListener('click', (e) => {
-            const target = e.target;
-            const listItem = target.closest('li');
-            
-            if (target.classList.contains('delete-btn')) {
-                animateRemove(listItem, () => {
-                    listItem.remove();
-                    saveTasks(section, listContainer);
-                    updateCounters(listContainer, completedCounter, uncompletedCounter);
-                });
-            } 
-            else if (target.classList.contains('edit-btn')) {
-                editTask(listItem, section, listContainer, completedCounter, uncompletedCounter);
-            }
-            else if (target.classList.contains('task-checkbox')) {
+        });
+
+        // List item interactions (delegated)
+        listContainer.addEventListener('click', handleListItemClick.bind(null, section, listContainer, completedCounter, uncompletedCounter));
+    }
+
+    // ======================
+    // TASK MANAGEMENT
+    // ======================
+
+    /**
+     * Handles all list item interactions (delete, edit, checkbox)
+     */
+    function handleListItemClick(section, listContainer, completedCounter, uncompletedCounter, e) {
+        const target = e.target;
+        const listItem = target.closest('li');
+        if (!listItem) return;
+
+        if (target.classList.contains('delete-btn')) {
+            animateRemove(listItem, () => {
+                listItem.remove();
                 saveTasks(section, listContainer);
                 updateCounters(listContainer, completedCounter, uncompletedCounter);
-            }
-        });
-    });
-    
-    // Animation for removing items
-    function animateRemove(element, callback) {
-        element.style.opacity = '0';
-        element.style.transform = 'translateX(100%)';
-        setTimeout(callback, 300);
+            });
+        } 
+        else if (target.classList.contains('edit-btn')) {
+            editTask(listItem, section, listContainer, completedCounter, uncompletedCounter);
+        }
+        else if (target.classList.contains('task-checkbox')) {
+            saveTasks(section, listContainer);
+            updateCounters(listContainer, completedCounter, uncompletedCounter);
+        }
     }
-    
-    // Add new task
+
+    /**
+     * Adds a new task to the list
+     */
     function addTask(section, input, listContainer, completedCounter, uncompletedCounter) {
         const taskText = input.value.trim();
         
@@ -75,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="delete-btn">🗑️</span>
         `;
         
-        // Add animation
+        // Fade-in animation
         li.style.opacity = '0';
         listContainer.appendChild(li);
         
@@ -88,8 +123,23 @@ document.addEventListener('DOMContentLoaded', function() {
         saveTasks(section, listContainer);
         updateCounters(listContainer, completedCounter, uncompletedCounter);
     }
-    
-    // Edit task
+
+    // ======================
+    // HELPER FUNCTIONS
+    // ======================
+
+    /**
+     * Animates task removal
+     */
+    function animateRemove(element, callback) {
+        element.style.opacity = '0';
+        element.style.transform = 'translateX(100%)';
+        setTimeout(callback, 300);
+    }
+
+    /**
+     * Handles task editing
+     */
     function editTask(listItem, section, listContainer, completedCounter, uncompletedCounter) {
         const textSpan = listItem.querySelector('.task-text');
         const newText = prompt('Edit your task:', textSpan.textContent);
@@ -100,8 +150,10 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCounters(listContainer, completedCounter, uncompletedCounter);
         }
     }
-    
-    // Update counters
+
+    /**
+     * Updates completed/uncompleted counters
+     */
     function updateCounters(listContainer, completedCounter, uncompletedCounter) {
         const checkboxes = listContainer.querySelectorAll('.task-checkbox');
         let completed = 0;
@@ -113,8 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
         completedCounter.textContent = completed;
         uncompletedCounter.textContent = checkboxes.length - completed;
     }
-    
-    // Save tasks to localStorage
+
+    // ======================
+    // STORAGE FUNCTIONS
+    // ======================
+
     function saveTasks(section, listContainer) {
         const tasks = [];
         listContainer.querySelectorAll('li').forEach(li => {
@@ -125,8 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         localStorage.setItem(`tasks-${section}`, JSON.stringify(tasks));
     }
-    
-    // Load tasks from localStorage
+
     function loadTasks(section, listContainer, completedCounter, uncompletedCounter) {
         const savedTasks = localStorage.getItem(`tasks-${section}`);
         if (savedTasks) {
@@ -145,13 +199,23 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCounters(listContainer, completedCounter, uncompletedCounter);
         }
     }
-        // === Responsive Burger-Menü Toggle ===
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('nav ul');
 
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-        });
+    // ======================
+    // NAVIGATION
+    // ======================
+
+    function setupMobileNavigation() {
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('show');
+            });
+        }
     }
+
+    // ======================
+    // INITIALIZATION
+    // ======================
+
+    initializeSections();
+    setupMobileNavigation();
 });

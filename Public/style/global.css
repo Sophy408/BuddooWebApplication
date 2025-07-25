@@ -1,0 +1,165 @@
+/* 🌿 Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda&family=Playfair+Display&display=swap');
+
+/* 🌍 Root Variables */
+:root {
+  /* 🎨 Colors */
+  --color-bg-light: #f8f8f8;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-strong: rgba(0, 0, 0, 0.2);
+  --color-accent: #9b59b6;
+  --color-accent-dark: #8e44ad;
+  --color-text: #333;
+  --color-highlight: #f9f871;
+  --color-border: #ccc;
+
+  /* 🖋 Fonts */
+  --font-serif: 'Playfair Display', serif;
+  --font-body: 'Bodoni Moda', serif;
+
+  /* 📐 Spacing & Shape */
+  --radius-sm: 5px;
+  --radius: 8px;
+  --radius-lg: 10px;
+  --padding-sm: 0.5rem;
+  --padding: 1rem;
+  --padding-lg: 2rem;
+
+  /* 🌀 Transition */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-default: 0.3s ease;
+}
+
+/* 🔁 Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+}
+
+body {
+  background-color: var(--color-bg-light);
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ✨ Utility: Shadows & Radius */
+.shadow {
+  box-shadow: 0 4px 10px var(--color-shadow);
+}
+
+.shadow-strong {
+  box-shadow: 0 4px 8px var(--color-shadow-strong);
+}
+
+.rounded {
+  border-radius: var(--radius);
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+/* 📦 Utility: Containers */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--padding-lg);
+}
+
+/* 🎛 Buttons */
+.btn {
+  padding: var(--padding-sm) var(--padding);
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color var(--transition-fast);
+}
+
+.btn:hover {
+  background-color: var(--color-accent-dark);
+}
+
+/* ✏️ Inputs & Textareas */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: var(--padding-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--color-black);
+  outline: none;
+}
+
+/* 🗂 Cards & Lists */
+.card {
+  background-color: var(--color-white);
+  padding: var(--padding);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 8px var(--color-shadow);
+  transition: transform var(--transition-default);
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.list {
+  list-style: none;
+}
+
+.list-item {
+  padding: var(--padding-sm) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 🧱 Layout Tools */
+.flex {
+  display: flex;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* 🍔 Burger Menu (if reused) */
+.burger-menu {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* 📌 Highlight Class */
+.highlighted {
+  background-color: var(--color-highlight);
+}

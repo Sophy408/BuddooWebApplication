@@ -3,82 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <title>Notes 💻</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../style/styles.css" />
     <link rel="stylesheet" href="../style/notes.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- PDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- For PDF downloading -->
   </head>
 
   <body>
-   <div class="page-container">
-    <header>
-      <nav>
-        <ul>
-          <li><a href="../html/home.html">Home</a></li>
-          <li><a href="../html/todos.html">Tasks</a></li>
-          <li><a href="../html/focus.html">Focus</a></li>
-          <li><a href="../html/events.html">Events</a></li>
-        </ul>
-      </nav>
-    </header>
-    <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="page-container">
+      <header>
+        <nav>
+          <ul>
+            <li><a href="../html/home.html">Home</a></li>
+            <li><a href="../html/todos.html">Tasks</a></li>
+            <li><a href="../html/focus.html">Focus</a></li>
+            <li><a href="../html/events.html">Events</a></li>
+          </ul>
+        </nav>
+      </header>
 
-    <div class="notes-wrapper">
-      <!-- 🟣 Sidebar -->
-      <aside class="sidebar">
-        <h1 class="headings">
-            Categories
-        </h1>
-        <ul id="category-list"></ul>
+      <!-- Burger Menu -->
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-        <div class="new-category">
-          <input
-            type="text"
-            id="new-category-input"
-            placeholder="New category for Notes..."
-          />
-          <button id="add-category-btn">Add</button>
-        
-        </div>
-      </aside>
+      <div class="notes-wrapper">
+        <!-- 🟣 Sidebar -->
+        <aside class="sidebar">
+          <h1 class="headings">Categories</h1>
+          <ul id="category-list"></ul>
+          <div class="new-category">
+            <input
+              type="text"
+              id="new-category-input"
+              placeholder="New category for Notes..."
+            />
+            <button id="add-category-btn">Add</button>
+          </div>
+        </aside>
 
-      <!-- 🟢 Main Notes Section -->
-      <main class="notes-main">
-        <h1 class="headings">
-            <img src="\Public\Images\writing.gif" alt="Category Icon" style="width: 150px; vertical-align: middle; margin-right: 10px;">
+        <!-- 🟢 Main Notes Section -->
+        <main class="notes-main">
+          <h1 class="headings">
+            <img
+              src="../Images/writing.gif"
+              alt="Category Icon"
+              style="width: 150px; vertical-align: middle; margin-right: 10px;"
+            />
             Your Notes
-        </h1>
+          </h1>
 
-        <div class="filter-category">
-          <label for="categoryFilter">Filter by Category:</label>
-          <select id="categoryFilter">
-            <option value="all">All Categories</option>
-            <!-- Optionen werden per JavaScript ergänzt -->
-          </select>
+          <div class="filter-category">
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter">
+              <option value="all">All Categories</option>
+              <!-- JavaScript adds more -->
+            </select>
+          </div>
+
+          <div id="notes-grid"></div>
+          <button id="add-note-btn">+ Add Note</button>
+        </main>
       </div>
-
-       <!-- maybe later extra style for pdf
-        <label for="pdf-style-select">PDF Style:</label>
-        <select id="pdf-style-select">
-          <option value="default">Default</option>
-          <option value="lined">Lined Style</option>
-          <option value="fancy">Fancy Style</option>
-        </select>
-        --> 
-
-        <div id="notes-grid"></div>
-
-        <button id="add-note-btn">+ Add Note</button>
-
-      </main>
     </div>
-  </div> 
+
+    <!-- General Scripts -->
     <script src="../script/script.js"></script>
+
+    <!-- Notes functionality (Modular) -->
     <script src="../script/notes.js"></script>
   </body>
 </html>

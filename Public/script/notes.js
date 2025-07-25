@@ -1,3 +1,8 @@
+/**
+ * BUDDOO NOTES MODULE  
+ * Handles creating, saving, editing, and deleting notes  
+ */
+
 "use strict";
 
 // =============================================
@@ -70,13 +75,23 @@ function renderCategories() {
       }
     });
 
-    // Delete button
+    // Delete button category
     const delBtn = document.createElement('button');
     delBtn.innerHTML = '🗑️';
     delBtn.classList.add('delete-category-btn');
     delBtn.title = 'Delete category';
     delBtn.addEventListener('click', () => {
-      deleteCategory(cat);
+      // Check if any notes are assigned to this category
+      const hasAssignedNotes = notes.some(note => note.category === cat);
+
+      if (hasAssignedNotes) {
+        alert(`⚠️ You cannot delete the category "${cat}" because there are still notes assigned to it.`);
+      } else {
+        const confirmDelete = confirm(`Do you really want to delete the category "${cat}"?`);
+        if (confirmDelete) {
+          deleteCategory(cat); // ← only delete if confirmed and no notes are assigned
+        }
+      }
     });
 
     li.appendChild(btn);
@@ -316,13 +331,15 @@ function createActionButtons(note, index, select, textarea) {
     }, 2000);
   });
 
-  // Delete button
+  // Delete button note
   const deleteBtn = document.createElement('button');
   deleteBtn.innerHTML = '🗑️';
   deleteBtn.classList.add('note-action-btn', 'delete-note-btn');
   deleteBtn.title = 'Delete note';
   deleteBtn.addEventListener('click', () => {
-    deleteNote(index);
+      if (confirm("Are you sure you want to delete this note?")) {
+      deleteNote(index); // <- deine Funktion
+    }
   });
 
   // Download button
