@@ -1,38 +1,54 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log in</title>
-  <link rel="stylesheet" href="../style/auth.css">
-</head>
-
-<body>
-  <!-- Main Auth Container -->
-  <div class="auth-container">
-    <!-- Page Title -->
-    <h1>Log in</h1>
+<html lang="en">
+  <head>
+    <!-- Basic Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page Information -->
+    <title>Buddoo🌴</title>
+    <meta name="author" content="Maliha Haque, Enhkjin Erkhembayar, Lea Sophy Göser">
+    <meta name="date" content="27.06.25">
     
-    <!-- Login Form -->
-    <form id="login-form">
-      <!-- Email Input -->
-      <input type="email" 
-             name="email" 
-             placeholder="Email" 
-             required>
-      
-      <!-- Password Input -->
-      <input type="password" 
-             name="password" 
-             placeholder="Passwort" 
-             required>
-      
-      <!-- Submit Button -->
-      <button type="submit">Log in</button>
-      
-      <!-- Registration Link -->
-      <p>No account? <a href="../html/register.html">register</a></p>
-    </form>
-  </div>
-</body>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../style/home.css">
+  </head>
+
+  <body id="hero-section">
+    <!-- Header Section with Hero Content -->
+    <header>
+      <div class="hero-content">
+        <h1>Buddoo</h1>
+        <p>Your calm productivity space</p>
+        <button id="start-btn" aria-label="Start your Journey here">
+          Start your Journey here🌱
+        </button>
+      </div>
+
+      <!-- Main Navigation (Initially Hidden) -->
+      <nav id="hero-nav" class="hidden" aria-label="Main navigation">
+        <button id="nav-tasks" aria-label="Go to Tasks">Tasks</button>
+        <button id="nav-notes" aria-label="Go to Notes">Notes</button>
+        <button id="nav-focus" aria-label="Go to Focus Mode">Focus Mode</button>
+        <button id="nav-events" aria-label="Go to Events">Events</button>
+      </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="app">
+      <!-- 
+        Potential future content:
+        - Welcome message
+        - Motivatory quote
+        Currently empty but maintained for screenreader compatibility
+      -->
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+      <p>&copy; 2025 Buddoo by Maliha, Enhkjin & Sophy</p>
+    </footer>
+
+    <!-- JavaScript File -->
+    <script src="../script/script.js"></script>
+  </body>
 </html>

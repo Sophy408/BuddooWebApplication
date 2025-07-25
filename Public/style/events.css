@@ -2,27 +2,28 @@
 
 :root {
   /* Color Palette */
-  --dark-teal: rgb(30, 51, 60);
-  --pine-green: rgb(47, 62, 59);
-  --calm-teal: rgb(57, 161, 149);
-  --ivy-green: rgb(29, 123, 115);
-  --mist-gray: rgb(135, 153, 155);
+  --dark-teal: #1e333c;
+  --pine-green: #2f3e3b;
+  --calm-teal: #39a195;
+  --ivy-green: #1d7b73;
+  --mist-gray: #87999b;
 
   /* Backgrounds */
   --card-bg: rgba(255, 255, 255, 0.05);
   --input-bg: rgba(108, 152, 139, 0.9);
     
   /* Text Colors */
-  --text: rgb(255, 255, 255);
-  --text-dark: rgb(42, 68, 67);
-  --text-muted: rgb(176, 190, 197);
-  --placeholder: rgb(135, 153, 155);
+  --text: #ffffff;
+  --text-dark: #2a4443;
+  --text-muted: #b0bec5;
+  --placeholder: #87999b;
 
   /* UI Elements */
   --shadow: rgba(0, 0, 0, 0.2);
   --completed: rgba(181, 234, 215, 0.7);
   --border-radius: 12px;
-  font-family: 'Bodoni Moda', cursive;
+  
+  --font-family: 'Bodoni Moda', cursive;
 }
 
 /* ============ BASE STYLES ============ */
@@ -92,36 +93,6 @@ nav ul.show {
   list-style: none;
   display: flex;
   align-items: space-between;
-<<<<<<< HEAD
-  padding: 0.3rem 0;
-  margin: 0;
-  position: relative;
-  font-size: 1.3rem;
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 1.5px;
-  margin: 0;
-  padding: 0.5rem 1.5rem;
-  border-radius: 10px;
-}
-
-/* Navigation styling */
-nav {
-  border-radius: 10px;
-  padding: 0.5rem 1rem;
-  margin-left: auto;
-}
-
-.nav__link {
-  list-style: none;
-  display: flex;
-=======
->>>>>>> sophy
   padding: 0.3rem 0;
   margin: 0;
   position: relative;
@@ -133,18 +104,6 @@ nav {
   transition: color 0.3s ease;
 }
 
-<<<<<<< HEAD
-header nav ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  gap: clamp(1.5rem, 5vw, 5rem);
-  gap: clamp(1.5rem, 5vw, 5rem);
-  padding: 0;
-}
-
-=======
->>>>>>> sophy
 .nav__link::after {
   content: '';
   position: absolute;
@@ -657,14 +616,7 @@ border-left-color: var(--ivy-green);
 }
 
 .calendar .header h2 {
-<<<<<<< HEAD
-  font-size: 2rem;
-  margin: 0;
-  color:var(--text);
-  color:var(--text);
-=======
   font-size: clamp(1.5rem, 3vw, 2rem);
->>>>>>> sophy
 }
 
 .calendar .header button {
@@ -710,12 +662,7 @@ border-left-color: var(--ivy-green);
   font-weight: bold;
 }
 
-<<<<<<< HEAD
-/* scrollbar*/
-/* scrollbar*/
-=======
 /* =================== SCROLLBAR =================== */
->>>>>>> sophy
 .list-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -730,17 +677,10 @@ border-left-color: var(--ivy-green);
   background: rgba(255,255,255,0.5);
 }
 
-<<<<<<< HEAD
-/* Respnosive Design */
-/* Respnosive Design */
-@media (max-width: 768px) {
-  header nav ul {
-=======
 /* =================== MOBILE FORM FIX =================== */
 @media (max-width: 480px) {
   .assigments-Form,
   .appointment-Form {
->>>>>>> sophy
     flex-direction: column;
   }
 

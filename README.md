@@ -1,61 +1,68 @@
-# BuddooWebApplication
+# Buddoo 🌿
 
-Buddoo ist eine ganzheitliche Lern- und Organisations-App für Studierende. Sie kombiniert To-do-Listen, Notizen, Aufgabenmanagement und eine visuelle Darstellung des akademischen Fortschritts in Form eines wachsenden Baumes.
+**Your mindful productivity companion**  
+*A clean, focused space for tasks, notes, and time management*
 
-🌟 Funktionen im Überblick: 📝 Notizenbereich
+---
 
-Einfache Text- oder Rich-Text-Notizen
+## ✨ Core Features
 
-Speicherung lokal (z. B. als .txt)
+### 🗒️ Smart Note-Taking
+- Minimalist markdown-style notes  
+- Category tagging system
+- Saving notes as pdf  
+- Filter function to filter notes by
+- Very user friendly 
 
-Optional: Kategorisierung nach Fächern
+### ✅ Task Management  
+- Daily to-do lists (morning/afternoon/evening)  
+- Progress tracking with completion stats  
+- Deadline reminders  
 
-📚 Aufgabenverwaltung
+### 🎯 Focus Tools  
+- Pomodoro timer with focus/break cycles  
+- Customizable work intervals  
+- Session analytics  
 
-Aufgabenliste mit Titel, Fach, Abgabedatum, Status
+### 📅 Integrated Planning  
+- Visual calendar for deadlines  
+- Drag-and-drop event scheduling  
+- Assignment tracking  
 
-Filter für “offen”, “erledigt”, “überfällig”
+### 🌱 Progress Visualization  
+- Clean achievement metrics  
+- Activity streak counter  
+- Minimalist progress indicators  
+---
 
-Optionale Prioritäten oder Tags
+## 🚀 Why Buddoo?
 
-📅 Akademischer Kalender
+- **Distraction-free** - No bloated features, just what you need  
+- **Fluid workflow** - All tools in one harmonious interface  
+- **Privacy focused** - All data stays on your device  
+- **Mobile-friendly** - Works seamlessly across devices  
+---
 
-Kalenderansicht mit Einträgen für Klausuren, Deadlines, Feiertage
+## 🛠️ Technical Details
 
-Markierungen oder Icons für wichtige Tage
+**Frontend**:  
+- HTML5 
+- Vanilla JavaScript  
+- CSS3 with modern flexbox/grid  
+- Responsive design  
 
-✅ To-do-Liste
+**Data**:  
+- Client-side storage (localStorage)  
+- Zero external dependencies
+- Database (PGAdmin)
 
-Tages- oder Wochenplanung mit Checkliste
+---
 
-Kategorisierung (Studium, Persönlich, Wichtig)
+## 🌈 The Buddoo Philosophy
 
-Optional: Farbcodierung oder Emojis
+We believe productivity tools should:  
+1. **Reduce anxiety** - Not create more  
+2. **Adapt to you** - Not force workflows  
+3. **Celebrate small wins** - Every task matters  
 
-⏳ Klausur-Countdown
-
-Anzeige der verbleibenden Tage bis zur Prüfung
-
-Erinnerungen und Fortschrittsanzeige
-
-🌳 Akademischer Wachstumsbaum
-
-Jeder erledigte Task lässt ein Blatt/Blume wachsen
-
-Kategorien:
-
-🌱 To-dos → Blätter
-
-📚 Aufgaben → Blumen
-
-✏ Notizen → Früchte
-
-🎓 Klausuren → neue Äste
-
-Origin & Meaning:
-
-"Bud" – Refers to the first stage of growth in a plant. It's a symbol of potential, beginnings, and small wins that eventually blossom into something bigger—just like tasks turning into accomplishments.
-
-"To-do" – The everyday productivity staple. It brings structure, goals, and action.
-
-Put them together: Bud + To-do = Buddoo – A cute hybrid that suggests "every task you complete helps something grow." Each completed to-do is a new bud, and the app becomes your personal garden of progress.
+*"Like a growing plant - steady, organic progress"*  

@@ -18,23 +18,26 @@ window.addEventListener("DOMContentLoaded", () => {
 
   /**
    * Start Button Click Handler
-   * Transitions from hero content to navigation buttons
+   * Redirects to register page
    */
   const handleStartClick = () => {
-    // Fade out hero content
-    heroContent.classList.add("fade-out");
+    window.location.href = "../html/register.html";
+  };
 
-    // Immediately show nav (without display:none) and start fade-in
-    heroNav.classList.remove("hidden");
-    requestAnimationFrame(() => {
-      heroNav.classList.add("show");
-    });
-
-    // Complete transition after animation
-    setTimeout(() => {
+  /**
+   * Check login status and show appropriate content
+   */
+  const checkLoginStatus = () => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (isLoggedIn) {
       heroContent.classList.add("hidden");
+      heroNav.classList.remove("hidden");
       heroNav.classList.add("show");
-    }, 800); // Matches CSS transition duration
+    } else {
+      heroContent.classList.remove("hidden");
+      heroNav.classList.add("hidden");
+    }
   };
 
   // Navigation Handlers
@@ -56,6 +59,9 @@ window.addEventListener("DOMContentLoaded", () => {
   Object.entries(navHandlers).forEach(([id, handler]) => {
     document.getElementById(id)?.addEventListener("click", handler);
   });
+
+  // Check login status on page load
+  checkLoginStatus();
 
   // Log author info if available
   const author = document.querySelector('meta[name="author"]')?.getAttribute("content");

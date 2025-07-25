@@ -2,10 +2,10 @@
 
 /* ========== Root Variables ========== */
 :root {
-  --primary: rgb(47, 62, 59);
-  --accent: rgb(57, 161, 149);
-  --bg: rgb(30, 51, 60);
-  --text: rgb(255, 255, 255);
+  --primary: #2f3e3b;
+  --accent: #39a195;
+  --bg: #1e333c;
+  --text: #ffffff;
   --border-radius: 10px;
 }
 

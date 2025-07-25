@@ -14,14 +14,19 @@
   </head>
 
   <body>
-    <div class="page-container">
       <header>
-        <nav>
+        <h1>Buddoo</h1>
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" id="mobile-menu" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav id="main-nav">
           <ul>
-            <li><a href="../html/home.html">Home</a></li>
-            <li><a href="../html/todos.html">Tasks</a></li>
-            <li><a href="../html/focus.html">Focus</a></li>
-            <li><a href="../html/events.html">Events</a></li>
+            <li><a href="../html/index.html" class="nav__link">Home</a></li>
+            <li><a href="../html/todos.html" class="nav__link">Tasks</a></li>
+            <li><a href="../html/focus.html" class="nav__link">Notes</a></li>
+            <li><a href="../html/events.html" class="nav__link">Events</a></li>
           </ul>
         </nav>
       </header>
@@ -71,7 +76,6 @@
           <button id="add-note-btn">+ Add Note</button>
         </main>
       </div>
-    </div>
 
     <!-- General Scripts -->
     <script src="../script/script.js"></script>

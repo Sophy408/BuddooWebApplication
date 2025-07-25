@@ -1,50 +1,66 @@
-/**
- * LOGIN FORM HANDLER
- * Handles user authentication form submission
- */
-
 "use strict";
 
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-    // Prevent default form submission
+/**
+ * LOGIN CONTROLLER
+ * Handles user authentication and redirection
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('login-form');
+  const forgotPassword = document.getElementById('forgot-password');
+
+  // Form submission handler
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // Get form reference
-    const form = e.target;
-
-    // Prepare login data
-    const loginData = {
-        email: form.email.value.trim(),
-        password: form.password.value
+    const formData = {
+      email: loginForm.email.value.trim(),
+      password: loginForm.password.value
     };
 
     try {
-        // Send login request to server
-        const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify(loginData)
-        });
+      // Hier würde der echte API-Call stehen
+      // ===================================
+      const response = await fetch('/api/auth/login', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(formData)
+       });
+      // 
+       const data = await response.json();
+       if (!response.ok) throw new Error(data.message || 'Login failed');
+      // ===================================
+      
+      // Demo: Simulierter erfolgreicher Login
+      console.log('Login attempt with:', formData);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userEmail', formData.email);
+      
+      // Redirect to home with success state
+      const redirectUrl = new URL('../index.html', window.location.href);
+      redirectUrl.searchParams.set('login', 'success');
+      window.location.href = redirectUrl.toString();
 
-        // Process response
-        const responseData = await response.json();
-
-        if (response.ok) {
-            // Successful login
-            alert('Login erfolgreich!');
-            // Redirect to dashboard
-            window.location.href = 'dashboard.html';
-        } else {
-            // Handle login error
-            const errorMessage = responseData.error || 'Fehler beim Login';
-            alert(errorMessage);
-        }
-        
     } catch (error) {
-        // Handle network or unexpected errors
-        console.error('Login error:', error);
-        alert('Ein unerwarteter Fehler ist aufgetreten');
+      showError(error.message || 'Login fehlgeschlagen. Bitte versuche es erneut.');
+      console.error('Login error:', error);
     }
+  });
+
+  // Password reset handler
+  forgotPassword.addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Passwort-Reset-Link würde an deine Email gesendet werden.');
+  });
+
+  // Helper function to display errors
+  function showError(message) {
+    const errorElement = document.createElement('div');
+    errorElement.className = 'auth-error';
+    errorElement.textContent = message;
+    
+    const existingError = document.querySelector('.auth-error');
+    if (existingError) existingError.remove();
+    
+    loginForm.prepend(errorElement);
+  }
 });

@@ -413,6 +413,7 @@ addNoteBtn.addEventListener('click', () => {
   renderNotes();
 });
 
+
 // Burger menu functionality
 const burgerMenu = document.getElementById('burger-menu');
 const sidebar = document.querySelector('.sidebar');
@@ -443,3 +444,35 @@ categoryFilter.addEventListener('change', renderNotes);
 // =============================================
 renderCategories();
 renderNotes();
+
+// === Mobile Navigation Burger Menu ===
+// =============================================
+// MOBILE MENU FUNCTIONALITY
+// =============================================
+document.addEventListener("DOMContentLoaded", () => {
+  const mobileMenuBtn = document.getElementById('mobile-menu');
+  const mainNav = document.getElementById('main-nav');
+
+  if (mobileMenuBtn && mainNav) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      
+      // Toggle between hamburger and close icon
+      const icon = mobileMenuBtn.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking on nav links
+    document.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          mainNav.classList.remove('active');
+          const icon = mobileMenuBtn.querySelector('i');
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+    });
+  }
+});

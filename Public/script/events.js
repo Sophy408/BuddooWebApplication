@@ -3,11 +3,12 @@
  * Handles assignments, appointments, and calendar functionality
  */
 
+
+"use strict";
+
 // ======================
 // DATA MANAGEMENT
 // ======================
-
-"use strict";
 
 // Data structure for storing all events
 const data = {
