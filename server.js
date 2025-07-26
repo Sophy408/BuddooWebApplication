@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const morgan = require('morgan');
-const path = require('fs');
+const path = require('path');
 const fs = require('fs');
 const authRouter = require('./routes/auth');
 
