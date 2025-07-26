@@ -101,6 +101,7 @@ header nav ul {
 .menu-toggle {
   display: none;
   background: none;
+  color: var(--text-light);
   cursor: pointer;
   z-index: 1001;
   border: none;
@@ -216,7 +217,7 @@ button:active {
   }
 
   h2 {
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 550;
   margin-bottom: 1.3rem;
   }
@@ -255,7 +256,7 @@ button:active {
   }
 
   .set_timer {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 
   .timer-buttons {
@@ -277,7 +278,7 @@ button:active {
   }
 
   h2 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: 500;
   margin-bottom: 1rem;
   }
@@ -290,14 +291,7 @@ button:active {
     gap: 1rem;
   }
 
-  button {
-    width: 80px;
-    height: 40px;
-    padding: 0.3rem 1rem;
-    font-size: 1.3rem;
-  }
-
   .set_timer {
-    font-size: 1rem;
+    font-size: 1.2rem;
   } 
 }
