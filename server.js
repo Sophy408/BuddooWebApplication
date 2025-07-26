@@ -49,7 +49,7 @@ app.get('/notes', (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ error: 'Nicht eingeloggt' });
   }
-  
+
   const notes = readNotes();
   const userNotes = notes.filter(note => note.userId === req.session.user.id);
   res.json(userNotes);
@@ -98,13 +98,23 @@ app.delete('/notes/:id', (req, res) => {
   res.json({ message: 'Notiz gelöscht' });
 });
 
-// Static Files (Frontend)
-app.use(express.static(path.join(__dirname, '../Public')));
+// ➕ Statische Dateien bereitstellen
+app.use(express.static(path.join(__dirname, 'Public')));
+
+// ➕ Weiterleitung von '/' zur Login-Seite (index.html)
+app.get('/', (req, res) => {
+  res.redirect('/html/index.html');
+});
 
 // Fehlerbehandlung
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Interner Serverfehler' });
+});
+
+// Letzte 404-Fallback Route
+app.use((req, res) => {
+  res.status(404).send('Seite nicht gefunden');
 });
 
 // Server starten
