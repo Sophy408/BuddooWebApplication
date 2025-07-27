@@ -51,4 +51,4 @@ Data:
 - JSON
 
 [View LaTeX Documentation (PDF)](./BUDDOO.pdf)
-[View UML Diagram](./uml-diagram.png)
+[View UML Diagram](./uml_diagram.png)
