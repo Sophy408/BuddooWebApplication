@@ -49,3 +49,5 @@ Frontend:
 Data:  
 - Client-side storage (localStorage)
 - JSON
+
+[View LaTeX Documentation (PDF)](./BUDDOO.pdf)
