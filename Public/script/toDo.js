@@ -1,10 +1,5 @@
 "use strict";
 
-/**
- * TO-DO LIST MANAGER
- * Handles morning/afternoon/evening tasks with server-based persistence
- */
-
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         const res = await fetch('/api/me', {
