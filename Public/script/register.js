@@ -12,6 +12,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
   };
 
   try {
+    console.log("📤 Daten, die gesendet werden:", userData);
     const response = await fetch('http://localhost:3000/api/register', {
       method: 'POST',
       headers: { 
