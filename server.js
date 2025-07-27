@@ -33,7 +33,7 @@ app.use('/api', authRouter);
 // Helper-Funktionen für Datenzugriff
 function readData() {
   if (!fs.existsSync(DATA_PATH)) {
-    fs.writeFileSync(DATA_PATH, JSON.stringify([]));
+    fs.writeFileSync(DATA_PATH, JSON.stringify({ users: [], userData: [] }, null, 2));
   }
   return JSON.parse(fs.readFileSync(DATA_PATH));
 }
@@ -50,10 +50,12 @@ function requireLogin(req, res, next) {
   next();
 }
 
-// ✅ Alle Benutzerdaten lesen
+// ✅ Benutzerdaten lesen
 app.get('/api/data', requireLogin, (req, res) => {
-  const allData = readData();
-  const userData = allData.find(entry => entry.userId === req.session.user.id);
+  const json = readData();
+  const userDataArray = json.userData || [];
+
+  const userData = userDataArray.find(entry => entry.userId === req.session.user.id);
 
   if (!userData) {
     return res.json({
@@ -70,12 +72,13 @@ app.get('/api/data', requireLogin, (req, res) => {
   });
 });
 
-// ✅ Alle Benutzerdaten speichern
+// ✅ Benutzerdaten speichern
 app.post('/api/data', requireLogin, (req, res) => {
   const { notes = [], todos = {}, events = {} } = req.body;
-  const allData = readData();
+  const json = readData();
+  const userDataArray = json.userData || [];
 
-  const userIndex = allData.findIndex(entry => entry.userId === req.session.user.id);
+  const userIndex = userDataArray.findIndex(entry => entry.userId === req.session.user.id);
   const newEntry = {
     userId: req.session.user.id,
     notes,
@@ -84,12 +87,14 @@ app.post('/api/data', requireLogin, (req, res) => {
   };
 
   if (userIndex === -1) {
-    allData.push(newEntry);
+    userDataArray.push(newEntry);
   } else {
-    allData[userIndex] = newEntry;
+    userDataArray[userIndex] = newEntry;
   }
 
-  writeData(allData);
+  json.userData = userDataArray;
+  writeData(json);
+
   res.json({ message: 'Daten gespeichert' });
 });
 
