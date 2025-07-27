@@ -34,6 +34,16 @@
   overflow: hidden;
 }
 
+/* 👋 Begrüßungsnachricht */
+.welcome-message {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--color-text-light);
+  margin-bottom: 1rem;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
 .hero-content {
   max-width: 1000px;
   margin: 0 auto;

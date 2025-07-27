@@ -62,4 +62,46 @@ window.addEventListener("DOMContentLoaded", () => {
   if (author) {
     console.log("👩‍💻 Autor:", author);
   }
+// ======================
+// LOAD SESSION USER
+// ======================
+fetch('/api/me', {
+  method: 'GET',
+  credentials: 'include'
+})
+.then(response => {
+  if (!response.ok) throw new Error('Nicht eingeloggt');
+  return response.json();
+})
+.then(user => {
+  const welcome = document.getElementById("welcome-message");
+  if (welcome) {
+    welcome.textContent = `👋 Hallo, ${user.username}!`;
+  }
+})
+.catch(() => {
+  // Wenn keine Session vorhanden ist, zurück zur Login-Seite
+  window.location.href = "/html/index.html";
+})
+
+// ======================
+// LOGOUT HANDLER
+// ======================
+document.getElementById("logout-btn")?.addEventListener("click", async () => {
+  try {
+    const res = await fetch('/api/logout', {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    if (res.ok) {
+      window.location.href = "/html/index.html";
+    } else {
+      alert("Logout fehlgeschlagen");
+    }
+  } catch (err) {
+    console.error("Logout-Fehler:", err);
+    alert("Ein Fehler ist beim Logout aufgetreten.");
+  }
+});
 });
