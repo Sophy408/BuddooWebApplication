@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * TO-DO LIST MANAGER
  * Handles morning/afternoon/evening tasks with server-based persistence
@@ -14,9 +12,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (!res.ok) throw new Error();
         const user = await res.json();
         console.log("👤 Eingeloggt als:", user.username);
-        } catch (err) {
-        console.warn("⚠️ error while loading user data:", err);
-        return window.location.href = "/html/index.html"; 
+    } catch (err) {
+        return window.location.href = "/html/index.html";
     }
 
     const SECTIONS = ['morning', 'afternoon', 'evening'];
@@ -30,13 +27,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     async function loadData() {
     try {
         const res = await fetch('/api/data', { credentials: 'include' });
-        if (!res.ok) throw new Error('not logged in');
+        if (!res.ok) throw new Error('Nicht eingeloggt');
         const json = await res.json();
         data.todos = json.todos || { morning: [], afternoon: [], evening: [] };
         data.notes = json.notes || "";
         document.getElementById("note-area").value = data.notes;
     } catch (err) {
-        console.error('error while loading:', err);
+        console.error('Fehler beim Laden:', err);
         window.location.href = '/html/index.html';
     }
 }
@@ -53,9 +50,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 notes: data.notes
             })
         });
-        if (!res.ok) throw new Error('saving failed');
+        if (!res.ok) throw new Error('Speichern fehlgeschlagen');
     } catch (err) {
-        console.error('error while saving:', err);
+        console.error('Fehler beim Speichern:', err);
     }
 }
 
@@ -203,7 +200,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
+
     await loadData();
     initializeSections();
     setupMobileNavigation();
-}); 
+});
