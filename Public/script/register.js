@@ -34,7 +34,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 
     if (response.ok) {
       alert('Registration successful!');
-      window.location.href = '/html/login.html';
+      window.location.href = '/html/index.html';
     } else {
       throw new Error(responseData.error || 'Registration failed');
     }
