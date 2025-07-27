@@ -300,6 +300,13 @@ function setupFormHandlers() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('nav ul');
+  
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+  
   fetch('/api/me', {
     method: 'GET',
     credentials: 'include'
@@ -317,3 +324,4 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = "/html/index.html";
   });
 });
+

@@ -3,7 +3,7 @@
   "userData": [
     {
       "userId": 1753605420294,
-      "notes": "",
+      "notes": [],
       "todos": {
         "morning": [],
         "afternoon": [
@@ -19,7 +19,11 @@
           }
         ]
       },
-      "events": {}
+      "events": {
+        "assignments": [],
+        "appointments": [],
+        "calendarEvents": []
+      }
     }
   ]
 }
