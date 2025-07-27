@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="stylesheet" href="../style/styles.css" />
     <link rel="stylesheet" href="../style/notes.css" />
 
@@ -14,20 +15,32 @@
   </head>
 
   <body>
-    <div class="page-container">
       <header>
-        <nav>
+        <h1>Buddoo</h1> 
+        <!-- Mobile Menu Toggle Nicht geschafft zu implementieren weil problem mit anderem burger menu habe :(
+        <button class="menu-toggle" id="header-toggle" aria-label="Header menu">
+            <span></span><span></span><span></span>
+        </button> -->
+
+        <nav id="main-nav">
           <ul>
+<<<<<<< HEAD
+            <li><a href="../html/home.html" class="nav__link">Home</a></li>
+            <li><a href="../html/todos.html" class="nav__link">Tasks</a></li>
+            <li><a href="../html/focus.html" class="nav__link">Focus</a></li>
+            <li><a href="../html/events.html" class="nav__link">Events</a></li>
+=======
             <li><a href="/html/home.html">Home</a></li>
             <li><a href="/html/todos.html">Tasks</a></li>
             <li><a href="/html/focus.html">Focus</a></li>
             <li><a href="/html/events.html">Events</a></li>
+>>>>>>> 4f147a3db04392e2b03e4406b8f93770e9c9c2d2
           </ul>
         </nav>
       </header>
 
       <!-- Burger Menu -->
-      <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+      <button class="burger-menu" id="burger-menu" aria-label="Sidebar menu">
         <span></span>
         <span></span>
         <span></span>
@@ -71,7 +84,6 @@
           <button id="add-note-btn">+ Add Note</button>
         </main>
       </div>
-    </div>
 
     <!-- General Scripts -->
     <script src="../script/script.js"></script>
