@@ -1,73 +1,51 @@
-# Buddoo 🌿
+Buddoo
 
-**Your calm productivity space**  
-*A clean, focused space for tasks, notes, and time management*
----
-
-## 🚀 Getting Started
-
-### Installation
-1. **Clone the repository**
-2. **Open Terminal in IDE (preferibly VS Code)**
-3. **Type in: "node server.js" and click enter**
-4. **Put your mouse on the http://localhost:3000 and click on follow link**
-5. Now just Login, if you dont have a account register yourself, then login an start your journey ✨
+Installation
+1. Clone the repository
+2. Open Terminal in IDE (preferibly VS Code)
+3. Type in: "node server.js" and click enter
+4. Put your mouse on the http://localhost:3000 and click on follow link
+5. Now just Login, if you dont have a account register yourself, then login.
 
 
-## ✨ Core Features
+Core Features
 
-### 🗒️ Smart Note-Taking
+Smart Note-Taking
 - Minimalist markdown-style notes
 - Customize your notes with bold, italic, font size and the size of the notepad
 - Save with localStorage  
 - Category tagging system and filtering by them  
 - Downloading your notes as a PDF
 
-### ✅ Task Management  
+Task Management  
 - Daily to-do lists (morning/afternoon/evening)  
 - Progress tracking with seeing completed tasks and pending ones
 
-### 🎯 Focus Tools  
+Focus Tools  
 - Pomodoro timer with focus/break cycles  
 - Customizable work intervals  
 
-### 📅 Integrated Planning  
+Integrated Planning  
 - Visual calendar for deadlines 
 - Assignment tracking
 
 
-## 🚀 Why Buddoo?
+Why Buddoo?
 
-- **Distraction-free** - No bloated features, just what you need  
-- **Fluid workflow** - All tools in one harmonious interface  
-- **Privacy focused** - All data stays on your device  
-- **Mobile-friendly** - Works seamlessly across devices  
+- Distraction-free - No bloated features, just what you need  
+- Fluid workflow - All tools in one harmonious interface  
+- Privacy focused - All data stays on your device  
+- Mobile-friendly - Works seamlessly across devices 
 
----
 
-## 🛠️ Technical Details
+Technical Details
 
-**Frontend**:  
+Frontend:  
 - HTML
 - JavaScript  
 - CSS3 with modern flexbox/grid  
 - Responsive design  
 
-**Data**:  
-- Client-side storage (localStorage)  
-- Render
-- Database (PGAdmin)
-- Json
-- Vite
----
-
-## 🌈 The Buddoo Philosophy
-
-We believe productivity tools should:  
-1. **Reduce anxiety** - Not create more  
-2. **Adapt to you** - Not force workflows  
-3. **Celebrate small wins** - Every task matters  
-
-*"Like a growing plant - steady, organic progress"*  
-
-
+Data:  
+- Client-side storage (localStorage)
+- JSON

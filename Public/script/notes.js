@@ -300,5 +300,3 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = "/html/index.html";
   });
 });
-
-//Hallooo
