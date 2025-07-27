@@ -5,23 +5,20 @@
  * Handles morning/afternoon/evening tasks with server-based persistence
  */
 
-fetch('/api/me', {
-  method: 'GET',
-  credentials: 'include'
-})
-.then(res => {
-  if (!res.ok) throw new Error();
-  return res.json();
-})
-.then(user => {
-  console.log("👤 Eingeloggt als:", user.username);
-})
-.catch(() => {
-  window.location.href = "/html/index.html";
-});
-
-
 document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        const res = await fetch('/api/me', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!res.ok) throw new Error();
+        const user = await res.json();
+        console.log("👤 Eingeloggt als:", user.username);
+    } catch (err) {
+        return window.location.href = "/html/index.html";
+    }
+
+    // Jetzt ist sicher, dass der Benutzer eingeloggt ist
     const SECTIONS = ['morning', 'afternoon', 'evening'];
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('nav ul');
@@ -197,7 +194,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
+    // Initialisierung
     await loadData();
     initializeSections();
     setupMobileNavigation();
-});
+}); // ← ← ← HIER wird alles korrekt geschlossen

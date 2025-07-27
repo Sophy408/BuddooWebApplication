@@ -334,16 +334,33 @@ function setupFormHandlers() {
 // ======================
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Zuerst prüfen, ob eingeloggt
+  fetch('/api/me', {
+    method: 'GET',
+    credentials: 'include'
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Nicht eingeloggt');
+    return res.json();
+  })
+  .then(user => {
+    console.log("👤 Eingeloggt als:", user.username);
+
+    // Jetzt darf die App starten:
     loadData();
     renderEntries();
     renderCalendar();
     setupFormHandlers();
     setupCalendarNavigation();
 
-    // Mobile navigation toggle
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('nav');
     navToggle?.addEventListener('click', () => {
-        navMenu?.classList.toggle('show');
+      navMenu?.classList.toggle('show');
     });
+  })
+  .catch(err => {
+    console.warn("⛔ Nicht eingeloggt – Weiterleitung zur Login-Seite");
+    window.location.href = "/html/index.html";
+  });
 });

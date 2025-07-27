@@ -283,4 +283,21 @@ categoryFilter?.addEventListener('change', renderNotes);
 // =============================================
 // INITIALIZE
 // =============================================
-document.addEventListener('DOMContentLoaded', loadNotesData);
+document.addEventListener('DOMContentLoaded', () => {
+  fetch('/api/me', {
+    method: 'GET',
+    credentials: 'include'
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Nicht eingeloggt');
+    return res.json();
+  })
+  .then(user => {
+    console.log("👤 Eingeloggt als:", user.username);
+    loadNotesData(); // Jetzt erst laden
+  })
+  .catch(() => {
+    window.location.href = "/html/index.html";
+  });
+});
+
