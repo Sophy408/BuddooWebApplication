@@ -3,14 +3,9 @@
   "userData": [
     {
       "userId": 1753605420294,
-      "notes": [],
+      "notes": "",
       "todos": {
-        "morning": [
-          {
-            "text": "test",
-            "completed": false
-          }
-        ],
+        "morning": [],
         "afternoon": [
           {
             "text": "test",
