@@ -9,6 +9,24 @@
 
 "use strict";
 
+// checkSession.js (du kannst es sogar auslagern und importieren)
+fetch('/api/me', {
+  method: 'GET',
+  credentials: 'include'
+})
+.then(res => {
+  if (!res.ok) throw new Error();
+  return res.json();
+})
+.then(user => {
+  console.log("👤 Eingeloggt als:", user.username);
+})
+.catch(() => {
+  // Wenn nicht eingeloggt, zur Login-Seite
+  window.location.href = "/html/index.html";
+});
+
+
 // Data structure for storing all events
 const data = {
     assignments: [],

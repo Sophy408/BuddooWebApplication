@@ -39,10 +39,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Navigation Handlers
   const navHandlers = {
-    "nav-tasks": () => (window.location.href = "../html/todos.html"),
-    "nav-notes": () => (window.location.href = "../html/notes.html"),
-    "nav-focus": () => (window.location.href = "../html/focus.html"),
-    "nav-events": () => (window.location.href = "../html/events.html")
+    "nav-tasks": () => (window.location.href = "/html/todos.html"),
+    "nav-notes": () => (window.location.href = "/html/notes.html"),
+    "nav-focus": () => (window.location.href = "/html/focus.html"),
+    "nav-events": () => (window.location.href = "/html/events.html")
   };
 
   // ======================
