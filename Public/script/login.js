@@ -35,7 +35,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
             // Successful login
             alert('Login erfolgreich!');
             // Redirect to dashboard
-            window.location.href = 'dashboard.html';
+            window.location.href = 'home.html';
         } else {
             // Handle login error
             const errorMessage = responseData.error || 'Fehler beim Login';
