@@ -5,9 +5,6 @@
  * Handles assignments, appointments, and calendar functionality
  */
 
-// ======================
-// AUTH CHECK
-// ======================
 fetch('/api/me', {
   method: 'GET',
   credentials: 'include'
@@ -17,15 +14,12 @@ fetch('/api/me', {
   return res.json();
 })
 .then(user => {
-  console.log("👤 Eingeloggt als:", user.username);
+  console.log("👤 Logged in as:", user.username);
 })
 .catch(() => {
   window.location.href = "/html/index.html";
 });
 
-// ======================
-// GLOBAL STATE
-// ======================
 const data = {
   assignments: [],
   appointments: [],
@@ -38,13 +32,10 @@ let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
 
-// ======================
-// LOAD & SAVE DATA
-// ======================
 async function loadData() {
   try {
     const res = await fetch('/api/data', { credentials: 'include' });
-    if (!res.ok) throw new Error('Nicht eingeloggt');
+    if (!res.ok) throw new Error('not logged in');
     const json = await res.json();
 
     data.assignments = json.events?.assignments || [];
@@ -56,7 +47,7 @@ async function loadData() {
     renderEntries();
     renderCalendar();
   } catch (err) {
-    console.error('Fehler beim Laden:', err);
+    console.error('error while loading:', err);
     window.location.href = '/html/index.html';
   }
 }
@@ -80,16 +71,13 @@ async function saveData() {
       body: JSON.stringify(payload)
     });
 
-    if (!res.ok) throw new Error('Speichern fehlgeschlagen');
-    console.log('✅ Daten gespeichert');
+    if (!res.ok) throw new Error('saving failed');
+    console.log('✅ Data saved');
   } catch (err) {
-    console.error('Fehler beim Speichern:', err);
+    console.error('error while saving:', err);
   }
 }
 
-// ======================
-// ENTRY OPERATIONS
-// ======================
 function addEntry(type, title, date) {
   const entry = {
     id: Date.now(),
@@ -144,9 +132,6 @@ function editEntry(type, id, newTitle, newDate) {
   }
 }
 
-// ======================
-// UI RENDERING
-// ======================
 function renderEntries() {
   const assignmentsList = document.getElementById('assignments-list');
   const appointmentsList = document.getElementById('appointments-list');
@@ -188,15 +173,15 @@ function renderEntries() {
     });
 
     li.querySelector('.edit-btn').addEventListener('click', () => {
-      const newTitle = prompt('Titel bearbeiten:', item.title);
-      const newDate = prompt('Datum bearbeiten (YYYY-MM-DD):', item.date);
+      const newTitle = prompt('edit title:', item.title);
+      const newDate = prompt('edit date (YYYY-MM-DD):', item.date);
       if (newTitle && newDate) {
         editEntry(type, item.id, newTitle.trim(), newDate.trim());
       }
     });
 
     li.querySelector('.delete-btn').addEventListener('click', () => {
-      if (confirm('Eintrag wirklich löschen?')) {
+      if (confirm('Do you really wanna delete this?')) {
         li.style.opacity = '0';
         li.style.transform = 'translateX(100%)';
         setTimeout(() => deleteEntry(type, item.id), 300);
@@ -272,9 +257,6 @@ function renderCalendar() {
   }
 }
 
-// ======================
-// INIT & EVENT HANDLER
-// ======================
 function setupCalendarNavigation() {
   document.getElementById('prev')?.addEventListener('click', () => {
     currentMonth--;
