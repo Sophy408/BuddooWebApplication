@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Basic Meta Tags -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Focus Timer</title>
@@ -10,15 +9,12 @@
 </head>
 
 <body>
-  <!-- Header with Navigation -->
   <header>
     <h1>Buddoo</h1>
-    <!-- Mobile Menu Toggle -->
     <button class="menu-toggle" id="mobile-menu" aria-label="Toggle menu">
       <i class="fas fa-bars"></i>
     </button>
     
-    <!-- Main Navigation -->
     <nav id="main-nav">
       <ul>
         <li><a href="/html/home.html" class="nav__link">Home</a></li>
@@ -29,27 +25,20 @@
     </nav>
   </header>
 
-  <!-- Main Content -->
   <main>
-    <!-- Pomodoro Timer Section -->
     <section id="focus-timer" aria-labelledby="timer-heading">
       <h2 id="timer-heading">Pomodoro Timer</h2>
       
-      <!-- Timer Visualization -->
       <div class="timer-container">
-        <!-- Circular Progress Ring -->
         <svg class="progress-ring" width="360" height="360">
           <circle class="progress-ring__circle"/>
         </svg>
         
-        <!-- Timer Display -->
         <div id="timer-text" role="timer" aria-live="polite">25:00</div>
       </div>
-      
-      <!-- Timer Instructions -->
+
       <label for="timer-text" class="set_timer">Tap on the timer to edit</label>
       
-      <!-- Timer Control Buttons -->
       <div class="timer-buttons">
         <button id="start-timer" aria-label="Start timer"><i class="fas fa-play"></i></button>
         <button id="stop-timer" aria-label="Stop timer"><i class="fas fa-pause"></i></button>
@@ -58,7 +47,6 @@
     </section>
   </main>
 
-  <!-- JavaScript File -->
   <script src="../script/focus.js"></script>
 </body>
 </html>
