@@ -14,12 +14,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (!res.ok) throw new Error();
         const user = await res.json();
         console.log("👤 Eingeloggt als:", user.username);
-    } catch (err) {
-    console.warn("⚠️ Fehler beim Laden des Users:", err);
-    window.location.href = "/html/index.html";
-}
+        } catch (err) {
+        console.warn("⚠️ error while loading user data:", err);
+        return window.location.href = "/html/index.html"; 
+    }
 
-    // Jetzt ist sicher, dass der Benutzer eingeloggt ist
     const SECTIONS = ['morning', 'afternoon', 'evening'];
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('nav ul');
@@ -31,17 +30,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     async function loadData() {
     try {
         const res = await fetch('/api/data', { credentials: 'include' });
-        if (!res.ok) throw new Error('Nicht eingeloggt');
+        if (!res.ok) throw new Error('not logged in');
         const json = await res.json();
         data.todos = json.todos || { morning: [], afternoon: [], evening: [] };
         data.notes = json.notes || "";
         document.getElementById("note-area").value = data.notes;
     } catch (err) {
-        console.error('Fehler beim Laden:', err);
+        console.error('error while loading:', err);
         window.location.href = '/html/index.html';
     }
 }
-
 
     async function saveData() {
     data.notes = document.getElementById("note-area").value;
@@ -55,12 +53,11 @@ document.addEventListener('DOMContentLoaded', async function() {
                 notes: data.notes
             })
         });
-        if (!res.ok) throw new Error('Speichern fehlgeschlagen');
+        if (!res.ok) throw new Error('saving failed');
     } catch (err) {
-        console.error('Fehler beim Speichern:', err);
+        console.error('error while saving:', err);
     }
 }
-
 
     function initializeSections() {
         SECTIONS.forEach(section => {
@@ -206,8 +203,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    // Initialisierung
     await loadData();
     initializeSections();
     setupMobileNavigation();
-}); // ← ← ← HIER wird alles korrekt geschlossen
+}); 
