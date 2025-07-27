@@ -89,4 +89,4 @@ window.addEventListener("DOMContentLoaded", () => {
       alert("Ein Fehler ist beim Logout aufgetreten.");
     }
   });
-}); // ← Hier ist die EINZIGE schließende Klammer für DOMContentLoaded!
+}); 

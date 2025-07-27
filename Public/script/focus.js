@@ -1,13 +1,7 @@
-/**
- * POMODORO TIMER CLASS
- * Handles focus/break timer functionality with visual feedback
- */
-
 "use strict";
 
 
 class PomodoroTimer {
-  // Static message arrays
   static FOCUS_END_MESSAGES = [
     "Nice work! Deserve a break, don't you think?",
     "Focus complete! Time to let your neurons stretch.",
@@ -26,10 +20,6 @@ class PomodoroTimer {
     "Unleash the productivity beast!"
   ];
 
-  // ======================
-  // INITIALIZATION
-  // ======================
-
   constructor() {
     this.initElements();
     this.initState();
@@ -38,10 +28,6 @@ class PomodoroTimer {
     this.setupResizeObserver();
     this.updateDisplay();
   }
-
-  // ======================
-  // SETUP METHODS
-  // ======================
 
   initElements() {
     this.circle = document.querySelector('.progress-ring__circle');
@@ -54,7 +40,7 @@ class PomodoroTimer {
   }
 
   initState() {
-    this.timerDuration = 25 * 60; // 25 minutes in seconds
+    this.timerDuration = 25 * 60; 
     this.timeLeft = this.timerDuration;
     this.interval = null;
     this.running = false;
@@ -100,10 +86,6 @@ class PomodoroTimer {
     });
     this.resizeObserver.observe(document.querySelector('.timer-container'));
   }
-
-  // ======================
-  // TIMER CONTROL METHODS
-  // ======================
 
   startTimer() {
     if (this.isRefilling) return;
@@ -172,10 +154,6 @@ class PomodoroTimer {
     }
   }
 
-  // ======================
-  // TIMER CYCLE METHODS
-  // ======================
-
   startFocusCycle(seconds) {
     this.runTimer(seconds, 'var(--color-primary)', 'focus', () => {
       setTimeout(() => {
@@ -241,10 +219,6 @@ class PomodoroTimer {
     }
   }
 
-  // ======================
-  // VISUAL EFFECTS
-  // ======================
-
   updateDisplay() {
     this.timerText.textContent = this.secondsToMMSS(this.timeLeft);
     this.setProgress((this.timeLeft / this.timerDuration) * 100);
@@ -293,10 +267,6 @@ class PomodoroTimer {
     this.animationFrameId = requestAnimationFrame(refillStep);
   }
 
-  // ======================
-  // USER INTERACTION
-  // ======================
-
   handleTimerClick() {
     if (this.running || this.isRefilling) return;
 
@@ -337,10 +307,6 @@ class PomodoroTimer {
     }
   }
 
-  // ======================
-  // UTILITY METHODS
-  // ======================
-
   secondsToMMSS(seconds) {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -361,7 +327,6 @@ class PomodoroTimer {
   }
 }
 
-// Initialize timer when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new PomodoroTimer();
 });

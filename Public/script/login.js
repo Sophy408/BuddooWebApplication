@@ -1,10 +1,5 @@
 "use strict";
 
-/**
- * LOGIN FORM HANDLER
- * Handles user authentication form submission
- */
-
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -21,7 +16,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
             headers: { 
                 'Content-Type': 'application/json' 
             },
-            credentials: 'include', // ← wichtig für Session
+            credentials: 'include', 
             body: JSON.stringify(loginData)
         });
 
