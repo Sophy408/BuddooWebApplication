@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
         if (!res.ok) throw new Error();
         const user = await res.json();
-        console.log("👤 Logged in as:", user.username);
+        console.log("👤 Logged in:", user.username);
     } catch (err) {
         return window.location.href = "/html/index.html";
     }
@@ -34,7 +34,7 @@ const data = {
         const json = await res.json();
         data.todos = json.todos || { morning: [], afternoon: [], evening: [] };
         data.notes = json.notes || "";
-        document.getElementById("note-area").value = data.notes;
+        document.getElementById("notes-textarea").value = data.notes;
     } catch (err) {
         console.error('error while loading:', err);
         window.location.href = '/html/index.html';
@@ -42,7 +42,7 @@ const data = {
 }
 
     async function saveData() {
-    data.notes = document.getElementById("note-area").value;
+    data.notes = document.getElementById("notes-textarea").value;
     try {
         const res = await fetch('/api/data', {
             method: 'POST',
@@ -207,4 +207,6 @@ const data = {
     await loadData();
     initializeSections();
     setupMobileNavigation();
+
+    document.getElementById("save-notes-btn").addEventListener('click', saveData);
 }); 
