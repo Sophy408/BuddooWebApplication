@@ -1,25 +1,17 @@
-/* Base Styles & Variables */
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Mono:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
-    /* Color Palette */
     --dark-teal: rgb(30, 51, 60);
     --pine-green: rgb(47, 62, 59);
     --calm-teal: rgb(57, 161, 149);
     --ivy-green: rgb(29, 123, 115);
     --mist-gray: rgb(135, 153, 155);
-
-    /* Backgrounds */
     --card-bg: rgba(255, 255, 255, 0.05);
     --input-bg: rgba(108, 152, 139, 0.9);
-    
-    /* Text Colors */
     --text: rgb(255, 255, 255);
     --text-dark: rgb(42, 68, 67);
     --text-muted: rgb(176, 190, 197);
     --placeholder: rgb(135, 153, 155);
-    
-    /* UI Elements */
     --shadow: rgba(0, 0, 0, 0.2);
     --completed: rgba(181, 234, 215, 0.7);
     --border-radius: 12px;
@@ -44,7 +36,7 @@ body {
 }
 
 
-/* Header styling */
+/*header*/
 header {
   display: flex;
   justify-content: space-between;
@@ -65,7 +57,7 @@ h1 {
   border-radius: 10px;
 }
 
-/* Navigation styling */
+/*nav*/
 nav {
   border-radius: 10px;
   padding: 0.5rem 1rem;
@@ -126,7 +118,7 @@ nav ul.show {
   transform-origin: bottom left;
 }
 
-/* Main Layout */
+/*main*/
 .main-container {
     padding: 20px;
     display: flex;
@@ -135,7 +127,7 @@ nav ul.show {
     margin: 0 auto;
 }
 
-/* Todo Sections */
+/*todo*/
 .todo-column {
     flex: 2;
     display: flex;
@@ -167,7 +159,6 @@ nav ul.show {
     color: var(--text);
 }
 
-/* Todo Form Elements */
 .toDoForm {
     display: flex;
     gap: 10px;
@@ -214,7 +205,6 @@ nav ul.show {
     transform: scale(1.05);
 }
 
-/* Todo List Items */
 .list-container {
     list-style: none;
     margin-bottom: 15px;
@@ -275,7 +265,7 @@ nav ul.show {
     color: var(--text);
 }
 
-/* Counters */
+/* counters */
 .counter-container {
     font-size: 1.1rem;
     color: var(--text);
@@ -292,7 +282,7 @@ nav ul.show {
     font-weight: bold;
 }
 
-/* Notes Section */
+/*notes*/
 .notes-column {
     flex: 1;
     background-color: var(--card-bg);
@@ -369,7 +359,7 @@ nav ul.show {
     transform: scale(1.02);
 }
 
-/* Animations */
+/*animations*/
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -396,10 +386,8 @@ nav ul.show {
     animation-delay: 0.3s;
 }
 
-/* Responsive Design */
-/* ==== Responsive Anpassungen ==== */
-
-/* Breakpoint: Tablet (<= 1024px) */
+/*responsivnes*/
+/* 1024px*/
 @media (max-width: 1024px) {
   .main-container {
     padding: 15px;
@@ -425,7 +413,6 @@ nav ul.show {
 }
 }
 
-/* Desktop-Navigation standardmäßig sichtbar */
 @media (min-width: 769px) {
   nav ul {
     display: flex !important;
@@ -504,7 +491,7 @@ nav ul.show {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    display: none; /* Standard: versteckt */
+    display: none; 
     background-color: var(--dark-teal);
     padding: 1rem 0;
     gap: 15px;
@@ -533,7 +520,7 @@ nav ul.show {
   }
 }
 
-/* Breakpoint: Smartphones (<= 480px) */
+/*480px*/
 @media (max-width: 480px) {
   h1 {
     font-size: 1.8rem;
