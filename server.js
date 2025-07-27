@@ -1,16 +1,14 @@
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const morgan = require('morgan');
-const path = require('path');
-const fs = require('fs');
 const authRouter = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-// Pfade zu JSON-Dateien
-const notesPath = path.join(__dirname, 'data.json');
+const DATA_PATH = path.join(__dirname, 'data.json');
 
 // Middleware
 app.use(cors({
@@ -22,7 +20,7 @@ app.use(session({
   secret: 'supersecretkey',
   resave: false,
   saveUninitialized: false,
-  cookie: { 
+  cookie: {
     secure: false,
     maxAge: 24 * 60 * 60 * 1000 // 24 Stunden
   }
@@ -32,76 +30,78 @@ app.use(morgan('dev'));
 // Auth-Routen
 app.use('/api', authRouter);
 
-// Notizen-Helper
-function readNotes() {
-  if (!fs.existsSync(notesPath)) {
-    fs.writeFileSync(notesPath, JSON.stringify([]));
+// Helper-Funktionen für Datenzugriff
+function readData() {
+  if (!fs.existsSync(DATA_PATH)) {
+    fs.writeFileSync(DATA_PATH, JSON.stringify({ users: [], userData: [] }, null, 2));
   }
-  return JSON.parse(fs.readFileSync(notesPath));
+  return JSON.parse(fs.readFileSync(DATA_PATH));
 }
 
-function writeNotes(notes) {
-  fs.writeFileSync(notesPath, JSON.stringify(notes, null, 2));
+function writeData(data) {
+  fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
 }
 
-// Notizen-API
-app.get('/notes', (req, res) => {
+// Sessionprüfung
+function requireLogin(req, res, next) {
   if (!req.session.user) {
     return res.status(401).json({ error: 'Nicht eingeloggt' });
   }
+  next();
+}
 
-  const notes = readNotes();
-  const userNotes = notes.filter(note => note.userId === req.session.user.id);
-  res.json(userNotes);
+// ✅ Benutzerdaten lesen
+app.get('/api/data', requireLogin, (req, res) => {
+  const json = readData();
+  const userDataArray = json.userData || [];
+
+  const userData = userDataArray.find(entry => entry.userId === req.session.user.id);
+
+  if (!userData) {
+    return res.json({
+      notes: [],
+      todos: {},
+      events: {}
+    });
+  }
+
+  res.json({
+    notes: userData.notes || [],
+    todos: userData.todos || {},
+    events: userData.events || {}
+  });
 });
 
-app.post('/notes', (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ error: 'Nicht eingeloggt' });
-  }
+// ✅ Benutzerdaten speichern
+app.post('/api/data', requireLogin, (req, res) => {
+  const { notes = [], todos = {}, events = {} } = req.body;
+  const json = readData();
+  const userDataArray = json.userData || [];
 
-  const { title, content } = req.body;
-  if (!title || !content) {
-    return res.status(400).json({ error: 'Titel und Inhalt erforderlich' });
-  }
-
-  const notes = readNotes();
-  const newNote = {
-    id: Date.now(),
+  const userIndex = userDataArray.findIndex(entry => entry.userId === req.session.user.id);
+  const newEntry = {
     userId: req.session.user.id,
-    title,
-    content,
-    createdAt: new Date().toISOString()
+    notes,
+    todos,
+    events
   };
 
-  notes.push(newNote);
-  writeNotes(notes);
-  res.status(201).json(newNote);
-});
-
-app.delete('/notes/:id', (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ error: 'Nicht eingeloggt' });
+  if (userIndex === -1) {
+    userDataArray.push(newEntry);
+  } else {
+    userDataArray[userIndex] = newEntry;
   }
 
-  const notes = readNotes();
-  const noteIndex = notes.findIndex(
-    note => note.id === Number(req.params.id) && note.userId === req.session.user.id
-  );
+  json.userData = userDataArray;
+  writeData(json);
 
-  if (noteIndex === -1) {
-    return res.status(404).json({ error: 'Notiz nicht gefunden' });
-  }
-
-  notes.splice(noteIndex, 1);
-  writeNotes(notes);
-  res.json({ message: 'Notiz gelöscht' });
+  res.json({ message: 'Daten gespeichert' });
 });
 
-// ➕ Statische Dateien bereitstellen
+// Statische Dateien bereitstellen
 app.use(express.static(path.join(__dirname, 'Public')));
 
-// ➕ Weiterleitung von '/' zur Login-Seite (index.html)
+// Weiterleitung von '/' zur Login-Seite
 app.get('/', (req, res) => {
   res.redirect('/html/index.html');
 });
@@ -112,20 +112,19 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Interner Serverfehler' });
 });
 
-// Letzte 404-Fallback Route
+// 404-Fallback
 app.use((req, res) => {
   res.status(404).send('Seite nicht gefunden');
 });
 
 // Server starten
 app.listen(PORT, () => {
-  console.log(`Server läuft auf http://localhost:${PORT}`);
+  console.log(`🚀 Server läuft auf http://localhost:${PORT}`);
   console.log('Verfügbare Endpunkte:');
   console.log('POST   /api/register');
   console.log('POST   /api/login');
   console.log('POST   /api/logout');
   console.log('GET    /api/me');
-  console.log('GET    /notes');
-  console.log('POST   /notes');
-  console.log('DELETE /notes/:id');
+  console.log('GET    /api/data');
+  console.log('POST   /api/data');
 });
