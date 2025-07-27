@@ -76,7 +76,7 @@ fetch('/api/me', {
 .then(user => {
   const welcome = document.getElementById("welcome-message");
   if (welcome) {
-    welcome.textContent = `👋 Hallo, ${user.username}!`;
+    welcome.textContent = `Hallo, ${user.username}!`;
   }
 })
 .catch(() => {

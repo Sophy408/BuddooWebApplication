@@ -85,6 +85,25 @@
   background-color: var(--ivy-green);
 }
 
+#logout-btn {
+  background-color: var(--calm-teal);
+  border: none;
+  padding: 0.6rem 2rem;
+  font-size: 1rem;
+  color: var(--color-text-light);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 5px var(--shadow);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#logout-btn:hover {
+  background-color: var(--ivy-green);
+}
+
+
 /* 🧭 Hero Navigation */
 #hero-nav {
   display: flex;
