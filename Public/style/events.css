@@ -25,7 +25,7 @@
   font-family: 'Bodoni Moda', cursive;
 }
 
-/* ============ BASE STYLES ============ */
+/*base*/
 * {
   margin: 0;
   padding: 0;
@@ -43,7 +43,7 @@ body {
   font-weight: 400;
 }
 
-/* ============ HEADER STYLES ============ */
+/*header*/
 header {
   display: flex;
   justify-content: space-between;
@@ -65,7 +65,7 @@ h1 {
   border-radius: 10px;
 }
 
-/* Navigation styling */
+/*nav*/
 nav {
   border-radius: 10px;
   padding: 0.5rem 1rem;
@@ -125,19 +125,8 @@ nav ul.show {
   transform-origin: bottom left;
 }
 
-.nav__link:hover {
-  color: var(--calm-teal);
-}
-
-.nav__link:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-/* Main Layout */
-/* Main Layout */
+/*main*/
 .main-container {
-  padding: 20px;
   padding: 20px;
   padding: 2rem;
   max-width: 1400px;
@@ -157,17 +146,12 @@ nav ul.show {
   }
 }
 
-/* Todo Sections */
-/* Todo Sections */
+/*todo*/
 .todo-section {
   background-color: var(--card-bg);
   border-radius: var(--border-radius);
   padding: 25px;
-  border-radius: var(--border-radius);
-  padding: 25px;
   box-shadow: 0 4px 15px var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: var(--text-dark);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: var(--text-dark);
   backdrop-filter: blur(5px);
@@ -192,10 +176,7 @@ nav ul.show {
   flex-grow: 1;
   padding: 0.8rem;
   border: 2px solid var(--mist-gray);
-  border: 2px solid var(--mist-gray);
   border-radius: 10px;
-  background-color: var(--mist-gray);
-  color: var(--text-dark);
   background-color: var(--mist-gray);
   color: var(--text-dark);
   font-size: 1.2rem;
@@ -205,13 +186,9 @@ nav ul.show {
   outline: none;
   background-color: var(--mist-gray);
   border-color: var(--dark-teal);
-  background-color: var(--mist-gray);
-  border-color: var(--dark-teal);
 }
 
 .input-item::placeholder {
-  color: var(--pine-green);
-  opacity: 0.8;
   color: var(--pine-green);
   opacity: 0.8;
 }
@@ -220,28 +197,21 @@ nav ul.show {
   padding: 0 1.8rem;
   background-color: var(--calm-teal);
   color: var(--text);
-  background-color: var(--calm-teal);
-  color: var(--text);
   border: none;
-  border-radius: 10px var(--border-radius);
   border-radius: 10px var(--border-radius);
   cursor: pointer;
   font-size: 1.3rem;
   font-weight: bold;
   transition: all 0.3s ease;
   box-shadow: 0 2px 5px var(--shadow);
-  box-shadow: 0 2px 5px var(--shadow);
 }
 
 .input-button:hover {
   background-color: var(--ivy-green);
   transform: scale(1.05);
-  background-color: var(--ivy-green);
-  transform: scale(1.05);
 }
 
-/* List Styles */
-/* List Styles */
+/*list*/
 .list-container {
   padding: 0;
   margin: 1.5rem 0;
@@ -256,14 +226,6 @@ nav ul.show {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  margin-bottom: 8px;
-  background-color: var(--dark-teal);
-  border-radius: 10px var(--border-radius);
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  font-size: 1.3rem;
-  border-left: 4px solid var(--mist-gray);
-  color: var(--text);
   margin-bottom: 8px;
   background-color: var(--dark-teal);
   border-radius: 10px var(--border-radius);
@@ -316,43 +278,7 @@ background-color: var(--calm-teal);
 border-left-color: var(--ivy-green);
 }
 
-.list-container li:active {
-  transform: scale(0.98);
-}
-
-.list-container li.completed {
-  background-color: var(--completed);
-  text-decoration: line-through;
-  color: var(--text-muted);
-  border-left-color: var(--pine-green);
-  position: relative;
-  overflow: hidden;
-}
-
-.list-container li.completed::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--text), transparent);
-  animation: shine 1.5s ease-in-out infinite;
-}
-
-.list-container li::before {
-  content: "✓";
-  margin-right: 10px;
-  color: transparent;
-  font-weight: bold;
-}
-
-.list-container li.completed::before {
-  color: var(--text);
-}
-
-/* Counter Styles */
-/* Counter Styles */
+/*counter*/
 .counter-container {
   font-size: 1.1rem;
   color: var(--text);
@@ -368,18 +294,7 @@ border-left-color: var(--ivy-green);
   color: var(--calm-teal);
   font-weight: bold;
   font-size: 1.1rem;
-  color: var(--text);
   opacity: 0.8;
-}
-
-.completed-counter {
-  color: var(--calm-teal);
-  font-weight: bold;
-}
-
-.uncompleted-counter {
-  color: var(--calm-teal);
-  font-weight: bold;
 }
 
 .overdue {
@@ -388,22 +303,84 @@ border-left-color: var(--ivy-green);
   font-weight: bold;
 }
 
-/* Calender Styles */
-/* Calender Styles */
+/*calendar*/
 .calendar {
-  background-color: var(--card-bg);
   background-color: var(--card-bg);
   padding: 1.5rem;
   border-radius: var(--border-radius);
   box-shadow: 0 4px 15px var(--shadow);
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 15px var(--shadow);
   backdrop-filter: blur(5px);
-  color: var(--text);
   color: var(--text);
   grid-column: span 2;
   margin-top: 2rem;
 }
+
+.calendar .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendar .header h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.calendar .header button {
+  color: white;
+  background-color: var(--calm-teal);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.calendar .header button:hover {
+  transform: translateY(-2px);
+  background-color: var(--ivy-green);
+}
+
+.calendar .weekdays,
+.calendar .days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.calendar .days div {
+  padding: 0.8rem;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s;
+}
+
+.calendar .days div:hover {
+  background-color: var(--calm-teal);
+}
+
+.calendar .days .today {
+  font-weight: bold;
+}
+
+/*scrollbar*/
+.list-container::-webkit-scrollbar {
+  width: 8px;
+}
+.list-container::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+}
+.list-container::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+}
+.list-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.5);
+}
+
 
 @media (max-width: 1024px) {
   .main-container {
@@ -447,358 +424,24 @@ border-left-color: var(--ivy-green);
   }
 }
 
-/* =================== MAIN LAYOUT =================== */
-.main-container {
-  padding: 1.5rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
 
-/* =================== EVENT GRID =================== */
-.event-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-/* =================== TODO SECTION =================== */
-.todo-section {
-  background-color: var(--card-bg);
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  box-shadow: 0 4px 15px var(--shadow);
-  color: var(--text-dark);
-  backdrop-filter: blur(5px);
-}
-
-.todo-section h2 {
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: var(--text);
-}
-
-/* =================== FORM =================== */
-.assigments-Form,
-.appointment-Form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.input-item {
-  flex: 1 1 auto;
-  padding: 0.8rem;
-  border: 2px solid var(--mist-gray);
-  border-radius: 10px;
-  background-color: var(--mist-gray);
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: var(--text-dark);
-}
-
-.input-item::placeholder {
-  color: var(--pine-green);
-  opacity: 0.8;
-}
-
-.input-button {
-  background-color: var(--calm-teal);
-  color: var(--text);
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 10px;
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px var(--shadow);
-}
-
-.input-button:hover {
-  background-color: var(--ivy-green);
-  transform: scale(1.05);
-}
-
-/* =================== LIST =================== */
-.list-container {
-  margin: 1.5rem 0;
-  min-height: 150px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.list-container li {
-  background-color: var(--dark-teal);
-  color: var(--text);
-  border-left: 4px solid var(--mist-gray);
-  padding: 1rem;
-  margin-bottom: 8px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  transition: all 0.3s ease;
-}
-
-.list-container li:hover {
-  background-color: var(--calm-teal);
-  border-left-color: var(--ivy-green);
-}
-
-.list-container li.completed {
-  background-color: var(--completed);
-  color: var(--text-muted);
-  text-decoration: line-through;
-  border-left-color: var(--pine-green);
-  position: relative;
-}
-
-.list-container li.completed::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--text), transparent);
-  animation: shine 1.5s ease-in-out infinite;
-}
-
-.list-container li::before {
-  content: "✓";
-  margin-right: 10px;
-  color: transparent;
-}
-
-.list-container li.completed::before {
-  color: var(--text);
-}
-
-/* =================== COUNTER =================== */
-.counter-container {
-  font-size: 1.1rem;
-  color: var(--text);
-  opacity: 0.8;
-}
-
-.completed-counter,
-.uncompleted-counter {
-  color: var(--calm-teal);
-  font-weight: bold;
-}
-
-.overdue {
-  background-color: rgb(233, 86, 86);
-  color: var(--text);
-  font-weight: bold;
-}
-
-/* =================== CALENDAR =================== */
-.calendar {
-  background-color: var(--card-bg);
-  padding: 1.5rem;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 15px var(--shadow);
-  backdrop-filter: blur(5px);
-  color: var(--text);
-  margin-top: 2rem;
-  grid-column: span 2;
-}
-
-.calendar .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.calendar .header h2 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-}
-
-.calendar .header button {
-  color: white;
-  background-color: var(--calm-teal);
-  background-color: var(--calm-teal);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.calendar .header button:hover {
-  transform: translateY(-2px);
-  background-color: var(--ivy-green);
-  background-color: var(--ivy-green);
-}
-
-.calendar .weekdays,
-.calendar .days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.5rem;
-  text-align: center;
-}
-
-.calendar .days div {
-  padding: 0.8rem;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  transition: background-color 0.3s;
-}
-
-.calendar .days div:hover {
-  background-color: var(--calm-teal);
-  background-color: var(--calm-teal);
-}
-
-.calendar .days .today {
-  font-weight: bold;
-}
-
-/* =================== SCROLLBAR =================== */
-.list-container::-webkit-scrollbar {
-  width: 8px;
-}
-.list-container::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.1);
-}
-.list-container::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-  border-radius: 10px;
-}
-.list-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.5);
-}
-
-/* =================== MOBILE FORM FIX =================== */
-@media (max-width: 1024px) {
-  .main-container {
-    padding: 15px;
-    gap: 20px;
-    flex-direction: column;
-  }
-
-  h1 {
-    font-size: clamp(2rem, 4vw, 2.5rem);
-  }
-
-  .input-item {
-    font-size: 1.1rem;
-  }
-
-  .nav-toggle {
-    display: none;
-    font-size: 2rem;
-    background: none;
-    border: none;
-    color: var(--text);
-    cursor: pointer;
-  }
-
-  nav ul {
-    display: flex;
-    flex-direction: row;
-    width: auto;
-    gap: clamp(1.5rem, 4vw, 5rem);
-  }
-
-  .todo-column,
-  .notes-column {
-    flex: 1;
-    width: 100%;
-  }
-
-  .todo-section,
-  .notes-column {
-    padding: 20px;
-    backdrop-filter: blur(3px);
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: block;
-    font-size: 2rem;
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    background: none;
-    border: none;
-    color: var(--text);
-    z-index: 1001;
-  }
-
-  nav ul {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: var(--dark-teal);
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 0;
-    display: none;
-    z-index: 1000;
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-  }
-
-  nav ul.show {
-    display: flex;
-  }
-
-  .main-container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  header {
-    flex-wrap: wrap;
-    padding: 1rem;
-  }
-
-  .todo-column,
-  .notes-column {
-    padding: 20px;
-  }
-}
-
+/*responsivness*/
 @media (max-width: 480px) {
-  h1 {
-    font-size: 1.8rem;
-    text-align: center;
+  .assigments-Form,
+  .appointment-Form {
+    flex-direction: column;
+  }
+
+  .input-button {
     width: 100%;
-  }
-
-  .nav__link {
-    font-size: 1.1rem;
-  }
-
-  .todo-section,
-  .notes-column {
-    padding: 15px;
-  }
-
-  .input-item,
-  .notes-textarea {
-    font-size: 1rem;
-    padding: 10px;
-  }
-
-  .input-button,
-  .save-notes-btn {
-    font-size: 1rem;
-    padding: 10px 15px;
   }
 
   .list-container li {
     font-size: 1.1rem;
     padding: 12px;
+  }
+
+  .todo-section {
+    padding: 1rem;
   }
 }

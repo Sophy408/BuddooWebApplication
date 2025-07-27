@@ -84,7 +84,6 @@ nav ul {
   border-radius: var(--border-radius);
 }
 
-/* Wenn .show gesetzt: Navigation anzeigen */
 nav ul.show {
   display: flex;
 }
