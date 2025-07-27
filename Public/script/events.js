@@ -17,20 +17,46 @@ const data = {
 };
 
 // Load data from localStorage
-function loadData() {
-    const stored = localStorage.getItem('buddooData');
-    if (stored) {
-        const parsed = JSON.parse(stored);
-        data.assignments = parsed.assignments || [];
-        data.appointments = parsed.appointments || [];
-        data.calendarEvents = parsed.calendarEvents || [];
-    }
+async function loadData() {
+  try {
+    const res = await fetch('/api/data', { credentials: 'include' });
+    if (!res.ok) throw new Error('Nicht eingeloggt');
+    const json = await res.json();
+    
+    data.assignments = json.events || [];
+    data.todos = json.todos || {};
+    data.notes = json.notes || [];
+
+    renderEntries(); // oder renderNotes(), renderTasks() etc.
+  } catch (err) {
+    console.error('Fehler beim Laden:', err);
+    window.location.href = '/html/index.html';
+  }
 }
 
 // Save data to localStorage
-function saveData() {
-    localStorage.setItem('buddooData', JSON.stringify(data));
+async function saveData() {
+  const payload = {
+    events: data.assignments, // oder calendarEvents
+    todos: data.todos,
+    notes: data.notes
+  };
+
+  try {
+    const res = await fetch('/api/data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error('Speichern fehlgeschlagen');
+    console.log('✅ Daten gespeichert');
+  } catch (err) {
+    console.error('Fehler beim Speichern:', err);
+  }
 }
+
 
 // ======================
 // CRUD OPERATIONS
