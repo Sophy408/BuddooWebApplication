@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     async function loadData() {
     try {
         const res = await fetch('/api/data', { credentials: 'include' });
-        if (!res.ok) throw new Error('Nicht eingeloggt');
+        if (!res.ok) throw new Error('not logged in');
         const json = await res.json();
         data.todos = json.todos || { morning: [], afternoon: [], evening: [] };
         data.notes = json.notes || "";
         document.getElementById("note-area").value = data.notes;
     } catch (err) {
-        console.error('Fehler beim Laden:', err);
+        console.error('error while loading:', err);
         window.location.href = '/html/index.html';
     }
 }
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 notes: data.notes
             })
         });
-        if (!res.ok) throw new Error('Speichern fehlgeschlagen');
+        if (!res.ok) throw new Error('saving failed');
     } catch (err) {
         console.error('Fehler beim Speichern:', err);
     }
