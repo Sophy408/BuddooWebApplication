@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Basic Meta Tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Events 📅</title>
-    <!-- CSS Stylesheet Link -->
     <link rel="stylesheet" href="../style/events.css" />
   </head>
-  
   <body>
-    <!-- Header Section with Navigation -->
     <header>
       <h1>Buddoo</h1>
-      <!-- Mobile Navigation Toggle -->
       <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
-      
-      <!-- Main Navigation -->
       <nav>
         <ul>
           <li><a href="/html/home.html" class="nav__link">Home</a></li>
@@ -26,64 +19,41 @@
         </ul>
       </nav>
     </header>
-    
-    <!-- Main Content Area -->
     <main>
       <div class="main-container">
         <div class="event-section">
-          
-          <!-- Assignments Section -->
           <div class="todo-section" id="assigments-todo">
             <h2>Assignments💻</h2>
-            
-            <!-- Assignment Form -->
             <form id="assignment-form" class="assigments-Form">
               <input type="text" id="assignment-title" class="input-item" placeholder="Assignment..." required>
               <input type="date" id="assignment-date" class="input-item" required>
               <button class="input-button" type="submit">Add</button>
             </form>
-            
-            <!-- Assignments List -->
             <ul id="assignments-list" class="list-container"></ul>
-            
-            <!-- Assignments Counter -->
             <div class="counter-container"> 
               Completed: <span class="completed-counter">0</span> | 
               Pending: <span class="uncompleted-counter">0</span>
             </div>
           </div>
-          
-          <!-- Appointments Section -->
           <div class="todo-section" id="appointment-todos">
             <h2>Appointments📄</h2>
-            
-            <!-- Appointment Form -->
             <form id="appointment-form" class="appointment-Form">
               <input type="text" id="appointment-title" class="input-item" placeholder="Appointment..." required>
               <input type="date" id="appointment-date" class="input-item" required>
               <button class="input-button" type="submit">Add</button>
             </form>
-            
-            <!-- Appointments List -->
             <ul id="appointments-list" class="list-container"></ul>
-            
-            <!-- Appointments Counter -->
             <div class="counter-container">
               Completed: <span class="completed-counter">0</span> | 
               Pending: <span class="uncompleted-counter">0</span>
             </div>
           </div>
-          
-          <!-- Calendar Section -->
           <div class="calendar">
-            <!-- Calendar Header with Navigation -->
             <div class="header">
               <button id="prev">←</button>
               <h2 id="month-year">Monat Jahr</h2>
               <button id="next">→</button>
             </div>
-            
-            <!-- Weekday Labels -->
             <div class="weekdays">
               <div>Mo</div>
               <div>Di</div>
@@ -93,15 +63,11 @@
               <div>Sa</div>
               <div>So</div>
             </div>
-            
-            <!-- Calendar Days Grid -->
             <div class="days" id="days"></div>
           </div>
         </div>
       </div>
     </main>
-    
-    <!-- JavaScript File -->
     <script src="../script/events.js"></script>
   </body>
 </html>
