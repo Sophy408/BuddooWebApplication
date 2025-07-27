@@ -1,5 +1,5 @@
 "use strict";
-
+//test
 /**
  * BUDDOO LANDING PAGE SCRIPT
  * Handles hero section transitions and navigation

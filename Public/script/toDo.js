@@ -5,7 +5,6 @@
  * Handles morning/afternoon/evening tasks with server-based persistence
  */
 
-// checkSession.js (du kannst es sogar auslagern und importieren)
 fetch('/api/me', {
   method: 'GET',
   credentials: 'include'
@@ -16,14 +15,11 @@ fetch('/api/me', {
 })
 .then(user => {
   console.log("👤 Eingeloggt als:", user.username);
-  // Optional: Benutzername anzeigen
-  const welcome = document.getElementById("welcome-message");
-  if (welcome) welcome.textContent = `👋 Hallo, ${user.username}!`;
 })
 .catch(() => {
-  // Wenn nicht eingeloggt, zur Login-Seite
   window.location.href = "/html/index.html";
 });
+
 
 document.addEventListener('DOMContentLoaded', async function() {
     const SECTIONS = ['morning', 'afternoon', 'evening'];

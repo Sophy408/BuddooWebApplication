@@ -5,6 +5,21 @@
 
 "use strict";
 
+fetch('/api/me', {
+  method: 'GET',
+  credentials: 'include'
+})
+.then(res => {
+  if (!res.ok) throw new Error();
+  return res.json();
+})
+.then(user => {
+  console.log("👤 Eingeloggt als:", user.username);
+})
+.catch(() => {
+  window.location.href = "/html/index.html";
+});
+
 
 class PomodoroTimer {
   // Static message arrays
