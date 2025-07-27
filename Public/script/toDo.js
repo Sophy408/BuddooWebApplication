@@ -15,40 +15,52 @@ document.addEventListener('DOMContentLoaded', async function() {
         const user = await res.json();
         console.log("👤 Eingeloggt als:", user.username);
     } catch (err) {
-        return window.location.href = "/html/index.html";
-    }
+    console.warn("⚠️ Fehler beim Laden des Users:", err);
+    window.location.href = "/html/index.html";
+}
 
     // Jetzt ist sicher, dass der Benutzer eingeloggt ist
     const SECTIONS = ['morning', 'afternoon', 'evening'];
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('nav ul');
-    const data = { todos: { morning: [], afternoon: [], evening: [] } };
+    const data = { 
+    todos: { morning: [], afternoon: [], evening: [] },
+    notes: ""  
+};
 
     async function loadData() {
-        try {
-            const res = await fetch('/api/data', { credentials: 'include' });
-            if (!res.ok) throw new Error('Nicht eingeloggt');
-            const json = await res.json();
-            data.todos = json.todos || { morning: [], afternoon: [], evening: [] };
-        } catch (err) {
-            console.error('Fehler beim Laden:', err);
-            window.location.href = '/html/index.html';
-        }
+    try {
+        const res = await fetch('/api/data', { credentials: 'include' });
+        if (!res.ok) throw new Error('Nicht eingeloggt');
+        const json = await res.json();
+        data.todos = json.todos || { morning: [], afternoon: [], evening: [] };
+        data.notes = json.notes || "";
+        document.getElementById("note-area").value = data.notes;
+    } catch (err) {
+        console.error('Fehler beim Laden:', err);
+        window.location.href = '/html/index.html';
     }
+}
+
 
     async function saveData() {
-        try {
-            const res = await fetch('/api/data', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({ todos: data.todos })
-            });
-            if (!res.ok) throw new Error('Speichern fehlgeschlagen');
-        } catch (err) {
-            console.error('Fehler beim Speichern:', err);
-        }
+    data.notes = document.getElementById("note-area").value;
+    try {
+        const res = await fetch('/api/data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ 
+                todos: data.todos,
+                notes: data.notes
+            })
+        });
+        if (!res.ok) throw new Error('Speichern fehlgeschlagen');
+    } catch (err) {
+        console.error('Fehler beim Speichern:', err);
     }
+}
+
 
     function initializeSections() {
         SECTIONS.forEach(section => {

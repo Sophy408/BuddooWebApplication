@@ -24,7 +24,7 @@ fetch('/api/me', {
 });
 
 // ======================
-// DATA STRUCTURE
+// GLOBAL STATE
 // ======================
 const data = {
   assignments: [],
@@ -33,6 +33,10 @@ const data = {
   todos: {},
   notes: []
 };
+
+let currentDate = new Date();
+let currentMonth = currentDate.getMonth();
+let currentYear = currentDate.getFullYear();
 
 // ======================
 // LOAD & SAVE DATA
@@ -223,9 +227,9 @@ function renderCalendar() {
   const monthYear = document.getElementById('month-year');
   if (!daysContainer || !monthYear) return;
 
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
+  const year = currentYear;
+  const month = currentMonth;
+  const today = new Date();
 
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
@@ -246,9 +250,9 @@ function renderCalendar() {
     dayElement.innerHTML = `<span>${day}</span>`;
 
     if (
-      day === now.getDate() &&
-      month === now.getMonth() &&
-      year === now.getFullYear()
+      day === today.getDate() &&
+      month === today.getMonth() &&
+      year === today.getFullYear()
     ) {
       dayElement.classList.add('today');
     }
@@ -257,7 +261,7 @@ function renderCalendar() {
     events.forEach(ev => {
       const evDiv = document.createElement('div');
       evDiv.className = 'event';
-      if (!ev.completed && ev.date < new Date().toISOString().split('T')[0]) {
+      if (!ev.completed && ev.date < today.toISOString().split('T')[0]) {
         evDiv.classList.add('overdue');
       }
       evDiv.textContent = ev.title;
@@ -271,7 +275,6 @@ function renderCalendar() {
 // ======================
 // INIT & EVENT HANDLER
 // ======================
-
 function setupCalendarNavigation() {
   document.getElementById('prev')?.addEventListener('click', () => {
     currentMonth--;
