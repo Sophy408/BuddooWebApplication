@@ -3,7 +3,15 @@
   "userData": [
     {
       "userId": 1753605420294,
-      "notes": [],
+      "notes": [
+        {
+          "category": "",
+          "text": "",
+          "fontSize": "14px",
+          "isBold": false,
+          "isItalic": false
+        }
+      ],
       "todos": {
         "morning": [],
         "afternoon": [
