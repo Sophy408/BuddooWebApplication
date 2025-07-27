@@ -1,49 +1,46 @@
-"use strict"
-/**
- * REGISTRATION FORM HANDLER
- * Handles new user registration form submission
- */
 document.getElementById('register-form').addEventListener('submit', async (e) => {
-    // Prevent default form submission
-    e.preventDefault();
+  e.preventDefault();
+  
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+
+  const userData = {
+    username: form.username.value.trim(),
+    email: form.email.value.trim(),
+    password: form.password.value
+  };
+
+  try {
+    const response = await fetch('http://localhost:3000/api/auth/register', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(userData)
+    });
+
+    const contentType = response.headers.get('content-type');
+    let responseData;
     
-    // Get form reference
-    const form = e.target;
-
-    // Prepare registration data with trimmed values
-    const userData = {
-        username: form.username.value.trim(),
-        email: form.email.value.trim(),
-        password: form.password.value
-    };
-
-    try {
-        // Send registration request to server
-        const response = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify(userData)
-        });
-
-        // Process response
-        const responseData = await response.json();
-
-        if (response.ok) {
-            // Successful registration
-            alert('Registrierung erfolgreich!');
-            // Redirect to login page
-            window.location.href = 'index.html';
-        } else {
-            // Handle registration error
-            const errorMessage = responseData.error || 'Fehler bei der Registrierung';
-            alert(errorMessage);
-        }
-        
-    } catch (error) {
-        // Handle network or unexpected errors
-        console.error('Registration error:', error);
-        alert('Ein unerwarteter Fehler ist aufgetreten');
+    if (contentType.includes('application/json')) {
+      responseData = await response.json();
+    } else {
+      const text = await response.text();
+      throw new Error(`Expected JSON, got ${contentType}: ${text}`);
     }
+
+    if (response.ok) {
+      alert('Registration successful!');
+      window.location.href = '/html/login.html';
+    } else {
+      throw new Error(responseData.error || 'Registration failed');
+    }
+  } catch (error) {
+    console.error('Registration error:', error);
+    alert(`Error: ${error.message}`);
+  } finally {
+    submitBtn.disabled = false;
+  }
 });
