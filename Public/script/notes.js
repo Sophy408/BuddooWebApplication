@@ -1,39 +1,48 @@
+/**
+ * BUDDOO NOTES MODULE  
+ * Handles creating, saving, editing, and deleting notes  
+ */
+
 "use strict";
 
 // =============================================
-// SERVER DATA MANAGEMENT (FETCH API)
+// DATA MANAGEMENT
 // =============================================
-fetch('/api/me', {
-  method: 'GET',
-  credentials: 'include'
-})
-.then(res => {
-  if (!res.ok) throw new Error();
-  return res.json();
-})
-.then(user => {
-  console.log("👤 Eingeloggt als:", user.username);
-})
-.catch(() => {
-  window.location.href = "/html/index.html";
-});
 
-
-let notes = [];
+// CHANGE Load data from localStorage or initialize with defaults
 let categories = [];
+let notes = [];
 
 async function loadNotesData() {
   try {
     const res = await fetch('/api/data', { credentials: 'include' });
     if (!res.ok) throw new Error('Nicht eingeloggt');
     const json = await res.json();
+
     notes = json.notes || [];
 
-    // Kategorien aus den Notizen ableiten
-    const allCats = new Set();
-    notes.forEach(n => n.category && allCats.add(n.category));
-    categories = [...allCats];
-    if (categories.length === 0) categories = ['Personal'];
+    // Falls keine Notizen vorhanden, fügt Default-Note hinzu
+    if (notes.length === 0) {
+      notes.push({
+        category: '', // leer, damit "Choose Category" angezeigt wird
+        text: '',
+        fontSize: '14px',
+        isBold: false,
+        isItalic: false
+      });
+    }
+
+    // Kategorien aus Notizen ableiten
+    const catSet = new Set();
+    notes.forEach(n => n.category && catSet.add(n.category));
+    categories = [...catSet];
+
+    if (categories.length === 0) {
+      categories.push('Click here to create your first Category🍃');
+    }
+
+    // Speichere gleich zurück, falls Defaults erzeugt wurden
+    await saveNotesData();
 
     renderCategories();
     renderNotes();
@@ -43,21 +52,6 @@ async function loadNotesData() {
   }
 }
 
-async function saveNotesData() {
-  try {
-    const res = await fetch('/api/data', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ notes })
-    });
-
-    if (!res.ok) throw new Error('Speichern fehlgeschlagen');
-    console.log('✅ Notizen gespeichert');
-  } catch (err) {
-    console.error('Fehler beim Speichern der Notizen:', err);
-  }
-}
 
 // =============================================
 // DOM ELEMENTS
@@ -67,24 +61,29 @@ const categoryInput = document.getElementById('new-category-input');
 const addCategoryBtn = document.getElementById('add-category-btn');
 const notesGrid = document.getElementById('notes-grid');
 const addNoteBtn = document.getElementById('add-note-btn');
+const linedToggle = document.getElementById('lined-toggle');
 const categoryFilter = document.getElementById('categoryFilter');
 
 // =============================================
 // CATEGORY FUNCTIONS
 // =============================================
+
 function renderCategories() {
   categoryList.innerHTML = '';
-
+  
   categories.forEach(cat => {
     const li = document.createElement('li');
     li.classList.add('category-item');
 
+    // Category button
     const btn = document.createElement('button');
     btn.classList.add('category-btn');
     btn.textContent = cat;
+    
+    // Edit category on click
     btn.addEventListener('click', () => {
       const newName = prompt("Edit category name:", cat);
-      if (newName && newName.trim() !== "" && !categories.includes(newName.trim())) {
+      if (newName && newName.trim() !== '' && !categories.includes(newName.trim())) {
         const index = categories.indexOf(cat);
         categories[index] = newName.trim();
         notes.forEach(n => {
@@ -96,18 +95,22 @@ function renderCategories() {
       }
     });
 
+    // Delete button category
     const delBtn = document.createElement('button');
     delBtn.innerHTML = '🗑️';
     delBtn.classList.add('delete-category-btn');
     delBtn.title = 'Delete category';
     delBtn.addEventListener('click', () => {
-      const hasAssigned = notes.some(n => n.category === cat);
-      if (hasAssigned) {
+      // Check if any notes are assigned to this category
+      const hasAssignedNotes = notes.some(note => note.category === cat);
+
+      if (hasAssignedNotes) {
         alert(`⚠️ You cannot delete the category "${cat}" because there are still notes assigned to it.`);
       } else {
-        categories = categories.filter(c => c !== cat);
-        renderCategories();
-        saveNotesData();
+        const confirmDelete = confirm(`Do you really want to delete the category "${cat}"?`);
+        if (confirmDelete) {
+          deleteCategory(cat); // ← only delete if confirmed and no notes are assigned
+        }
       }
     });
 
@@ -119,98 +122,163 @@ function renderCategories() {
   updateCategoryFilterOptions();
 }
 
+
 function updateCategoryFilterOptions() {
-  const selected = categoryFilter.value;
+  const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
   categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+
   categories.forEach(cat => {
     const option = document.createElement('option');
     option.value = cat;
     option.textContent = cat;
     categoryFilter.appendChild(option);
   });
-  categoryFilter.value = selected;
+  categoryFilter.value = selectedCategory;
+}
+
+/**
+ * Delete a category and update related notes
+ */
+function deleteCategory(categoryToDelete) {
+  categories = categories.filter(cat => cat !== categoryToDelete);
+  notes = notes.map(note => {
+    if (note.category === categoryToDelete) {
+      return { ...note, category: 'Uncategorized' };
+    }
+    return note;
+  });
+  saveNotesData();
+  renderCategories();
+  renderNotes();
 }
 
 // =============================================
 // NOTE FUNCTIONS
 // =============================================
+
+/**
+ * Save a note to localStorage
+ */
 function saveNote(index, newCategory, newText, fontSize, isBold, isItalic) {
-  notes[index] = { category: newCategory, text: newText, fontSize, isBold, isItalic };
+  notes[index] = { 
+    category: newCategory, 
+    text: newText, 
+    fontSize: fontSize, 
+    isBold: isBold, 
+    isItalic: isItalic
+  };
   saveNotesData();
 }
 
-function deleteNote(index) {
-  notes.splice(index, 1);
+/**
+ * Delete a note
+ */
+function deleteNote(indexToDelete) {
+  notes.splice(indexToDelete, 1);
   saveNotesData();
   renderNotes();
 }
 
+/**
+ * Render all notes to the DOM
+ */
 function renderNotes() {
   notesGrid.innerHTML = '';
-  const selected = categoryFilter.value;
+  const selectedCategory = categoryFilter.value;
 
   notes.forEach((note, index) => {
-    if (selected !== 'all' && note.category !== selected) return;
-    notesGrid.appendChild(createNoteCard(note, index));
+    // Skip if filtered and doesn't match
+    if (selectedCategory !== 'all' && note.category !== selectedCategory) return;
+    
+    const noteCard = createNoteCard(note, index);
+    notesGrid.appendChild(noteCard);
   });
 }
 
+/**
+ * Create a note card element
+ */
 function createNoteCard(note, index) {
-  const card = document.createElement('div');
-  card.classList.add('note-card');
+  const noteCard = document.createElement('div');
+  noteCard.classList.add('note-card');
 
   const select = createCategorySelect(note);
   const toolbar = createFormatToolbar(note);
   const textarea = createNoteTextarea(note);
-  const buttons = createActionButtons(note, index, select, textarea);
+  const btnContainer = createActionButtons(note, index, select, textarea);
 
-  card.appendChild(toolbar);
-  card.appendChild(select);
-  card.appendChild(textarea);
-  card.appendChild(buttons);
-
-  return card;
+  noteCard.appendChild(toolbar);
+  noteCard.appendChild(select);
+  noteCard.appendChild(textarea);
+  noteCard.appendChild(btnContainer);
+  
+  return noteCard;
 }
 
+/**
+ * Create category select dropdown
+ */
 function createCategorySelect(note) {
   const select = document.createElement('select');
+
+if (!localStorage.getItem('visitedNotesPage') && !note.category) {
+  const placeholderOption = document.createElement('option');
+  placeholderOption.textContent = '🌱 Start by selecting a category';
+  placeholderOption.value = '';
+  placeholderOption.disabled = true;
+  placeholderOption.selected = true;
+  select.appendChild(placeholderOption);
+}
+
+  // Add category options
   categories.forEach(cat => {
     const option = document.createElement('option');
     option.value = cat;
     option.textContent = cat;
     select.appendChild(option);
   });
-  select.value = note.category || '';
+
+  // Set selected value if exists
+  if (note.category) {
+    select.value = note.category;
+  }
+
   return select;
 }
 
+/**
+ * Create formatting toolbar
+ */
 function createFormatToolbar(note) {
   const toolbar = document.createElement('div');
   toolbar.classList.add('note-toolbar');
 
+  // Bold button
   const boldBtn = document.createElement('button');
   boldBtn.textContent = 'B';
   boldBtn.addEventListener('click', (e) => {
-    const ta = e.target.closest('.note-card').querySelector('textarea');
-    ta.style.fontWeight = ta.style.fontWeight === 'bold' ? 'normal' : 'bold';
+    const textarea = e.target.closest('.note-card').querySelector('textarea');
+    textarea.style.fontWeight = textarea.style.fontWeight === 'bold' ? 'normal' : 'bold';
   });
 
+  // Italic button
   const italicBtn = document.createElement('button');
   italicBtn.textContent = 'I';
   italicBtn.addEventListener('click', (e) => {
-    const ta = e.target.closest('.note-card').querySelector('textarea');
-    ta.style.fontStyle = ta.style.fontStyle === 'italic' ? 'normal' : 'italic';
+    const textarea = e.target.closest('.note-card').querySelector('textarea');
+    textarea.style.fontStyle = textarea.style.fontStyle === 'italic' ? 'normal' : 'italic';
   });
 
+  // Font size selector
   const fontSizeSelect = document.createElement('select');
   ['12px', '14px', '16px', '18px', '20px'].forEach(size => {
-    const opt = document.createElement('option');
-    opt.value = size;
-    opt.textContent = size;
-    fontSizeSelect.appendChild(opt);
+    const option = document.createElement('option');
+    option.value = size;
+    option.textContent = size;
+    fontSizeSelect.appendChild(option);
   });
-  fontSizeSelect.value = note.fontSize || '14px';
-  fontSizeSelect.addEventListener('change', e => {
+
+  fontSizeSelect.addEventListener('change', (e) => {
     e.target.closest('.note-card').querySelector('textarea').style.fontSize = e.target.value;
   });
 
@@ -220,70 +288,154 @@ function createFormatToolbar(note) {
   return toolbar;
 }
 
+/**
+ * Create note textarea
+ */
 function createNoteTextarea(note) {
-  const ta = document.createElement('textarea');
-  ta.value = note.text;
-  ta.style.fontSize = note.fontSize || '14px';
-  ta.style.fontWeight = note.isBold ? 'bold' : 'normal';
-  ta.style.fontStyle = note.isItalic ? 'italic' : 'normal';
-  return ta;
+  const textarea = document.createElement('textarea');
+  textarea.value = note.text;
+  textarea.style.backgroundImage = 'repeating-linear-gradient(white, white 24px, #ddd 25px)';
+  textarea.style.fontSize = note.fontSize || '14px';
+  textarea.style.fontWeight = note.isBold ? 'bold' : 'normal';
+  textarea.style.fontStyle = note.isItalic ? 'italic' : 'normal';
+  return textarea;
 }
 
+/**
+ * Create action buttons for a note
+ */
 function createActionButtons(note, index, select, textarea) {
-  const container = document.createElement('div');
-  container.classList.add('note-btn-container');
+  const btnContainer = document.createElement('div');
+  btnContainer.classList.add('note-btn-container');
 
-  const saveBtn = document.createElement('button');
-  saveBtn.textContent = 'Save';
-  saveBtn.addEventListener('click', () => {
-    const cat = select.value;
-    const txt = textarea.value;
-    const fontSize = textarea.style.fontSize;
-    const isBold = textarea.style.fontWeight === 'bold';
-    const isItalic = textarea.style.fontStyle === 'italic';
-    saveNote(index, cat, txt, fontSize, isBold, isItalic);
+// Save button
+const saveBtn = document.createElement('button');
+saveBtn.textContent = 'Save';
+saveBtn.classList.add('note-action-btn', 'save-note-btn');
+saveBtn.addEventListener('click', () => {
+  const selectedCat = select.value;
+  const newText = textarea.value;
+  const fontSize = textarea.style.fontSize || '14px';
+  const isBold = textarea.style.fontWeight === 'bold';
+  const isItalic = textarea.style.fontStyle === 'italic';
+
+  // Prevent saving if no category selected
+  if (!selectedCat) {
+    alert('Please select a category for this note.');
+    return;
+  }
+    // Validate if filtered category matches
+    const currentFilter = categoryFilter.value;
+    if (currentFilter !== 'all' && selectedCat !== currentFilter) {
+      alert(`Please select the filtered category: ${currentFilter}`);
+      return;
+    }
+
+    saveNote(index, selectedCat, newText, fontSize, isBold, isItalic);
+
+    // Show save feedback
+    saveBtn.classList.add('saved');
     saveBtn.textContent = '✅ Saved';
-    setTimeout(() => (saveBtn.textContent = 'Save'), 1500);
+
+    setTimeout(() => {
+      saveBtn.classList.remove('saved');
+      saveBtn.textContent = 'Save';
+    }, 2000);
   });
 
-  const delBtn = document.createElement('button');
-  delBtn.textContent = '🗑️';
-  delBtn.addEventListener('click', () => {
-    if (confirm('Delete this note?')) deleteNote(index);
+  // Delete button note
+  const deleteBtn = document.createElement('button');
+  deleteBtn.innerHTML = '🗑️';
+  deleteBtn.classList.add('note-action-btn', 'delete-note-btn');
+  deleteBtn.title = 'Delete note';
+  deleteBtn.addEventListener('click', () => {
+      if (confirm("Are you sure you want to delete this note?")) {
+      deleteNote(index); // <- deine Funktion
+    }
   });
 
-  container.appendChild(saveBtn);
-  container.appendChild(delBtn);
-  return container;
+  // Download button
+  const downloadBtn = document.createElement('button');
+  downloadBtn.innerHTML = '⬇️';
+  downloadBtn.classList.add('note-action-btn', 'download-note-btn');
+  downloadBtn.title = 'Download PDF';
+  downloadBtn.addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const noteData = notes[index];
+    const fontSize = parseInt(noteData.fontSize) || 14;
+    doc.setFontSize(fontSize);
+
+    let fontStyle = 'normal';
+    if (noteData.isBold && noteData.isItalic) fontStyle = 'bolditalic';
+    else if (noteData.isBold) fontStyle = 'bold';
+    else if (noteData.isItalic) fontStyle = 'italic';
+
+    doc.setFont(undefined, fontStyle);
+    doc.text(`Category: ${noteData.category}\n\n${noteData.text}`, 10, 10);
+    doc.save(`${noteData.category || 'Note'}_${index + 1}.pdf`);
+  });
+
+  btnContainer.appendChild(saveBtn);
+  btnContainer.appendChild(deleteBtn);
+  btnContainer.appendChild(downloadBtn);
+  return btnContainer;
 }
 
 // =============================================
 // EVENT LISTENERS
 // =============================================
 
-addCategoryBtn?.addEventListener('click', () => {
+// Add category button
+addCategoryBtn.addEventListener('click', () => {
   const newCat = categoryInput.value.trim();
   if (newCat && !categories.includes(newCat)) {
     categories.push(newCat);
+    localStorage.setItem('categories', JSON.stringify(categories));
     categoryInput.value = '';
     renderCategories();
-    saveNotesData();
+    renderNotes();
+    categoryFilter.value = 'all';
   }
 });
 
-addNoteBtn?.addEventListener('click', () => {
-  const cat = categoryFilter.value;
-  notes.push({ category: cat !== 'all' ? cat : '', text: '', fontSize: '14px', isBold: false, isItalic: false });
+// Add category on Enter key
+categoryInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    addCategoryBtn.click();
+  }
+});
+
+addNoteBtn.addEventListener('click', () => {
+  const selectedCategory = categoryFilter.value;
+
+  const newNote = {
+    category: selectedCategory !== 'all' ? selectedCategory : '',
+    text: '',
+    fontSize: '14px',
+    isBold: false,
+    isItalic: false
+  };
+
+  notes.push(newNote);
   saveNotesData();
+
+  // Mark as visited so placeholder doesn't show again
+  if (!localStorage.getItem('visitedNotesPage')) {
+    localStorage.setItem('visitedNotesPage', 'true');
+  }
+
   renderNotes();
 });
 
-categoryFilter?.addEventListener('change', renderNotes);
 
-// =============================================
-// INITIALIZE
-// =============================================
+// Filter notes by category
+categoryFilter.addEventListener('change', renderNotes);
+
 document.addEventListener('DOMContentLoaded', () => {
+  // === LOGIN + NOTES LADEN ===
   fetch('/api/me', {
     method: 'GET',
     credentials: 'include'
@@ -294,10 +446,34 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   .then(user => {
     console.log("👤 Eingeloggt als:", user.username);
-    loadNotesData(); // Jetzt erst laden
+    return loadNotesData(); // Notizen und Kategorien vom Server laden
   })
   .catch(() => {
     window.location.href = "/html/index.html";
   });
+
+  // === SIDEBAR-BURGER-MENU ===
+  const burgerMenu = document.getElementById('burger-menu');
+  const sidebar = document.querySelector('.sidebar');
+
+  if (burgerMenu && sidebar) {
+    burgerMenu.addEventListener('click', () => {
+      burgerMenu.classList.toggle('open');
+      sidebar.classList.toggle('open');
+    });
+
+    // Sidebar automatisch schließen, wenn man außerhalb klickt (nur auf Mobile)
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        const isInsideSidebar = sidebar.contains(e.target);
+        const isBurgerClick = burgerMenu.contains(e.target);
+
+        if (!isInsideSidebar && !isBurgerClick && sidebar.classList.contains('open')) {
+          sidebar.classList.remove('open');
+          burgerMenu.classList.remove('open');
+        }
+      }
+    });
+  }
 });
 
