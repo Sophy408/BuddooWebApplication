@@ -5,7 +5,7 @@
  * Handles morning/afternoon/evening tasks with server-based persistence
  */
 
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', async function() {
     try {
         const res = await fetch('/api/me', {
             method: 'GET',
@@ -15,45 +15,38 @@ document.addEventListener('DOMContentLoaded', async function () {
         const user = await res.json();
         console.log("👤 Eingeloggt als:", user.username);
     } catch (err) {
-        console.warn("⚠️ error while loading user data:", err);
-        window.location.href = "/html/index.html";
-        return;
+        return window.location.href = "/html/index.html";
     }
 
+    // Jetzt ist sicher, dass der Benutzer eingeloggt ist
     const SECTIONS = ['morning', 'afternoon', 'evening'];
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('nav ul');
-    const data = {
-        todos: { morning: [], afternoon: [], evening: [] },
-        notes: ""
-    };
+    const data = { todos: { morning: [], afternoon: [], evening: [] } };
 
     async function loadData() {
         try {
             const res = await fetch('/api/data', { credentials: 'include' });
-            if (!res.ok) throw new Error('Not logged in');
+            if (!res.ok) throw new Error('Nicht eingeloggt');
             const json = await res.json();
             data.todos = json.todos || { morning: [], afternoon: [], evening: [] };
-            data.notes = json.notes || "";
-            document.getElementById("note-area").value = data.notes;
         } catch (err) {
-            console.error('❌ Fehler beim Laden:', err);
+            console.error('Fehler beim Laden:', err);
             window.location.href = '/html/index.html';
         }
     }
 
     async function saveData() {
-        data.notes = document.getElementById("note-area").value;
         try {
             const res = await fetch('/api/data', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify(data)
+                body: JSON.stringify({ todos: data.todos })
             });
-            if (!res.ok) throw new Error('saving failed');
+            if (!res.ok) throw new Error('Speichern fehlgeschlagen');
         } catch (err) {
-            console.error('❌ error while saving:', err);
+            console.error('Fehler beim Speichern:', err);
         }
     }
 
@@ -75,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
 
-    function setupSectionEventListeners(section, { input, addButton, listContainer, completedCounter, uncompletedCounter }) {
+    function setupSectionEventListeners(section, {input, addButton, listContainer, completedCounter, uncompletedCounter}) {
         addButton.addEventListener('click', () => {
             addTask(section, input, listContainer, completedCounter, uncompletedCounter);
         });
@@ -111,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     function addTask(section, input, listContainer, completedCounter, uncompletedCounter) {
         const taskText = input.value.trim();
         if (!taskText) {
-            alert("📝 Please enter a task.");
+            alert('Don`t fool around, enter a task!');
             return;
         }
 
@@ -155,16 +148,22 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     function updateCounters(listContainer, completedCounter, uncompletedCounter) {
         const checkboxes = listContainer.querySelectorAll('.task-checkbox');
-        const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+        let completed = 0;
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) completed++;
+        });
         completedCounter.textContent = completed;
         uncompletedCounter.textContent = checkboxes.length - completed;
     }
 
     function saveTasksFromDOM(section, listContainer) {
-        const tasks = Array.from(listContainer.querySelectorAll('li')).map(li => ({
-            text: li.querySelector('.task-text').textContent,
-            completed: li.querySelector('.task-checkbox').checked
-        }));
+        const tasks = [];
+        listContainer.querySelectorAll('li').forEach(li => {
+            tasks.push({
+                text: li.querySelector('.task-text').textContent,
+                completed: li.querySelector('.task-checkbox').checked
+            });
+        });
         data.todos[section] = tasks;
         saveData();
     }
@@ -195,7 +194,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
+    // Initialisierung
     await loadData();
     initializeSections();
     setupMobileNavigation();
-});
+}); // ← ← ← HIER wird alles korrekt geschlossen
