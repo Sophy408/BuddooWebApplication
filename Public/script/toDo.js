@@ -12,9 +12,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (!res.ok) throw new Error();
         const user = await res.json();
         console.log("👤 Eingeloggt als:", user.username);
-    } catch (err) {
-        return window.location.href = "/html/index.html";
     }
+    catch (err) {
+    console.warn("⚠️ Fehler beim Laden des Benutzers:", err);
+    window.location.href = "/html/index.html";
+    return;
+}
+
 
     const SECTIONS = ['morning', 'afternoon', 'evening'];
     const navToggle = document.querySelector('.nav-toggle');
